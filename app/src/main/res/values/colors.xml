@@ -12,4 +12,16 @@
     <color name="icons">#FFFFFF</color>
 
     <color name="ff_divider">#B6B6B6</color>
+
+    <!-- Common Colors -->
+    <color name="ff_white">#FFFFFF</color>
+    <color name="ff_white_semi_transparent">#AFFFFFFF</color>
+    <color name="ff_black">#000000</color>
+    <color name="ff_transparent">#00000000</color>
+
+    <color name="ff_text_shadow">#8f000000</color>
+
+    <!-- Splash -->
+    <color name="ff.splash.app_name">#FFFFFF</color>
+    <color name="ff.splash.app_slogan">#CFD8DC</color>
 </resources>

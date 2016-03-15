@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">fir.flight</string>
+    <string name="ff_splash_slogan">An android version Test Flight\nbased on the service of fir.im with love.</string>
 </resources>

@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
  * Time: 8:12 PM
  * Desc: BaseActivity
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

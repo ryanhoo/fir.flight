@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
+    <TextView
+        android:id="@+id/text_view_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="120dp"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/ff.splash.app_name"
+        android:letterSpacing="0.05"
+        android:shadowColor="@color/ff_text_shadow"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
+        android:text="@string/app_name"
+        tools:targetApi="lollipop"/>
+
+    <TextView
+        android:id="@+id/text_view_slogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_app_name"
+        android:layout_centerHorizontal="true"
+        android:lineSpacingMultiplier="1.1"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="12sp"
+        android:textColor="@color/ff.splash.app_slogan"
+        android:text="@string/ff_splash_slogan"
+        />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        >
+
+        <ImageView
+            android:id="@+id/image_view_kid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/splash_logo"
+            android:contentDescription="@string/app_name"
+            />
+
+        <ImageView
+            android:id="@+id/image_view_propeller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/propeller"
+            android:contentDescription="@string/app_name"
+            tools:ignore="RtlHardcoded"/>
+    </FrameLayout>
+</RelativeLayout>

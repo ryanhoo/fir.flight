@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,4 +11,13 @@
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
     </style>
 
+    <style name="FFTheme" parent="AppTheme"/>
+
+    <style name="FFTheme.Splash">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <!-- API Level 19+ -->
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+    </style>
 </resources>

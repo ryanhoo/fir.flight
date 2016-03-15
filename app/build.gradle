@@ -5,12 +5,21 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "io.github.ryanhoo.firflight"
+        applicationId "io.github.ryanhoo.firFlight"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
     }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -25,6 +34,8 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'com.android.support:design:23.2.0'
+
+    compile 'com.jakewharton:butterknife:7.0.1'
 
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.google.code.gson:gson:2.6.2'
