@@ -22,7 +22,7 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="4"
-        android:text="@string/app_name"
+        android:text="@string/ff.app.name"
         tools:targetApi="lollipop"/>
 
     <TextView
@@ -33,10 +33,10 @@
         android:layout_centerHorizontal="true"
         android:lineSpacingMultiplier="1.1"
         android:gravity="center"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:textSize="12sp"
         android:textColor="@color/ff.splash.app_slogan"
-        android:text="@string/ff_splash_slogan"
+        android:text="@string/ff.splash.slogan"
         />
 
     <FrameLayout
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/splash_logo"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@string/ff.app.name"
             />
 
         <ImageView
@@ -62,7 +62,16 @@
             android:layout_marginLeft="50dp"
             android:layout_marginTop="2dp"
             android:src="@drawable/propeller"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@string/ff.app.name"
             tools:ignore="RtlHardcoded"/>
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_fragment_container"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        />
+
 </RelativeLayout>

@@ -24,7 +24,7 @@ public class UserSession {
     public static UserSession getInstance() {
         if (sInstance == null) {
             synchronized (UserSession.class) {
-                if (sInstance != null)
+                if (sInstance == null)
                     sInstance = new UserSession();
             }
         }
@@ -43,6 +43,20 @@ public class UserSession {
 
     public void setToken(Token token) {
         this.mToken = token;
+    }
+
+    public void setAccessToken(String accessToken) {
+        if (mToken == null) {
+            mToken = new Token();
+        }
+        mToken.setAccessToken(accessToken);
+    }
+
+    public void setApiToken(String apiToken) {
+        if (mToken == null) {
+            mToken = new Token();
+        }
+        mToken.setApiToken(apiToken);
     }
 
     public User getUser() {

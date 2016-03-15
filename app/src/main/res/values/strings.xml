@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">fir.flight</string>
-    <string name="ff_splash_slogan">An android version Test Flight\nbased on the service of fir.im with love.</string>
+    <string name="ff.app.name">fir.flight</string>
+    <string name="ff.splash.slogan">An android version Test Flight\nbased on the service of fir.im with love.</string>
+
+    <!-- Sign In -->
+    <string name="ff.signin.button">Sign In</string>
+    <string name="ff.signin.email.hint">Email</string>
+    <string name="ff.signin.password.hint">Password</string>
+
 </resources>

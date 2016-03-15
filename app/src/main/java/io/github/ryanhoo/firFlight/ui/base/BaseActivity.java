@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.ui;
+package io.github.ryanhoo.firFlight.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -11,6 +11,9 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.data.UserSession;
+import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
+import io.github.ryanhoo.firFlight.ui.signin.SignInFragment;
 
 /**
  * Created with Android Studio.
@@ -38,10 +41,22 @@ public class SplashScreenActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         // Update User Token
+        if (UserSession.getInstance().isSignedIn()) {
+            // Main Activity
+        } else {
+            // Sign In
+            showSignIn();
+        }
 
         // Animate UI in
         animateTextViews();
         animatePropeller();
+    }
+
+    private void showSignIn() {
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.layout_fragment_container, SignInFragment.newInstance(), "SignInFragment")
+                .commit();
     }
 
     private void animateTextViews() {

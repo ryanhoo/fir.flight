@@ -16,8 +16,23 @@
     <style name="FFTheme.Splash">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+
+        <item name="colorAccent">@color/colorAccentHolo</item>
+        <item name="android:textColorPrimary">@color/textColorPrimaryHolo</item>
+        <item name="android:textColorSecondary">@color/textColorSecondaryHolo</item>
+
         <!-- API Level 19+ -->
-        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+    </style>
+
+    <style name="FFTextAppearance"/>
+
+    <style name="FFTextAppearance.Splash">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/ff.splash.text</item>
+        <item name="android:textColorHint">@color/ff.splash.text_hint</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:singleLine">true</item>
     </style>
 </resources>
