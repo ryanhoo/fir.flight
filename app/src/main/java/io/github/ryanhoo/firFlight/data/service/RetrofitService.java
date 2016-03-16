@@ -1,6 +1,7 @@
 package io.github.ryanhoo.firFlight.data.service;
 
 import io.github.ryanhoo.firFlight.data.model.Token;
+import io.github.ryanhoo.firFlight.data.model.User;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -23,4 +24,6 @@ public interface RetrofitService {
     Call<Token> apiToken(@Query("access_token") String accessToken);
 
     // User
+    @GET("/user")
+    Call<User> user(@Query("access_token") String accessToken);
 }
