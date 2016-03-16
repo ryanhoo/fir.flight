@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v7.view.ViewPropertyAnimatorCompatSet;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -55,6 +56,7 @@ public class SplashScreenActivity extends BaseActivity {
             layoutFragmentContainer.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                     startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
                     finish();
                 }
