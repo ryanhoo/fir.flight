@@ -30,7 +30,7 @@ public class NetworkUnitTest {
 
     @Test
     public void login() {
-        System.out.println("login");
+        System.out.println("signIn");
         Call<Token> call = mRetrofitService.login("", "");
         call.enqueue(new Callback<Token>() {
             @Override
@@ -41,7 +41,7 @@ public class NetworkUnitTest {
 
             @Override
             public void onFailure(Call<Token> call, Throwable throwable) {
-                Log.e(TAG, "login#onFailure: " + call, throwable);
+                Log.e(TAG, "signIn#onFailure: " + call, throwable);
             }
         });
     }
