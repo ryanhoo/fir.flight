@@ -6,7 +6,9 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v7.view.ViewPropertyAnimatorCompatSet;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +27,7 @@ import io.github.ryanhoo.firFlight.ui.signin.SignInFragment;
 public class SplashScreenActivity extends BaseActivity {
 
     final long ANIMATION_DURATION = 1000;
+    final long SHOW_SIGN_IN_DELAY = 1000;
 
     @Bind(R.id.text_view_app_name)
     TextView textViewAppName;
@@ -33,6 +36,9 @@ public class SplashScreenActivity extends BaseActivity {
 
     @Bind(R.id.image_view_propeller)
     ImageView imageViewPropeller;
+
+    @Bind(R.id.layout_fragment_container)
+    FrameLayout layoutFragmentContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,12 +51,27 @@ public class SplashScreenActivity extends BaseActivity {
             // Main Activity
         } else {
             // Sign In
-            showSignIn();
+            layoutFragmentContainer.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    showSignIn();
+                }
+            }, SHOW_SIGN_IN_DELAY);
         }
+
+        resetSloganMarginTop(!UserSession.getInstance().isSignedIn());
 
         // Animate UI in
         animateTextViews();
         animatePropeller();
+    }
+
+    // Make room for sign in fragment if necessary
+    private void resetSloganMarginTop(boolean needToMakeRoomForSignIn) {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) textViewAppName.getLayoutParams();
+        params.topMargin = needToMakeRoomForSignIn
+                ? getResources().getDimensionPixelSize(R.dimen.ff_splash_slogan_top_with_sign_in)
+                : getResources().getDimensionPixelSize(R.dimen.ff_splash_slogan_top);
     }
 
     private void showSignIn() {

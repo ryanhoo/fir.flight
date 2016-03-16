@@ -28,10 +28,11 @@
         />
 
     <Button
-        android:id="@+id/button_signin"
+        android:id="@+id/button_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:textSize="14sp"
         android:textColor="#727272"
         android:text="@string/ff.signin.button"

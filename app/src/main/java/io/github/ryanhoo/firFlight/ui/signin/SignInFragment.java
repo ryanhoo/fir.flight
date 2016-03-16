@@ -1,10 +1,15 @@
 package io.github.ryanhoo.firFlight.ui.signin;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,10 +34,15 @@ import retrofit2.Response;
  */
 public class SignInFragment extends BaseFragment {
 
+    final long ANIMATION_DURATION = 1000;
+    final long SHOW_KEYBOARD_DELAY = 500;
+
     @Bind(R.id.edit_text_email)
     EditText editTextEmail;
     @Bind(R.id.edit_text_password)
     EditText editTextPassword;
+    @Bind(R.id.button_sign_in)
+    Button buttonSignIn;
 
     RetrofitService mRetrofitService;
 
@@ -56,11 +66,15 @@ public class SignInFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        performAnimationIn(editTextEmail);
+        performAnimationIn(editTextPassword);
+        performAnimationIn(buttonSignIn);
+        showSoftKeyboard(SHOW_KEYBOARD_DELAY);
     }
 
-    @OnClick({R.id.button_signin})
+    @OnClick({R.id.button_sign_in})
     public void onClick(View view) {
-        if (view.getId() == R.id.button_signin) {
+        if (view.getId() == R.id.button_sign_in) {
             String email = "tps@whitedew.me";
             String password = "";
             if (editTextEmail.length() > 0 && editTextPassword.length() > 0) {
@@ -79,5 +93,29 @@ public class SignInFragment extends BaseFragment {
                 }
             });
         }
+    }
+
+    private void performAnimationIn(View view) {
+        final int TRANSLATE_Y = 100;
+        view.setAlpha(0f);
+        view.setTranslationY(TRANSLATE_Y);
+        ViewCompat.animate(view)
+                .alpha(1f)
+                .setDuration(ANIMATION_DURATION)
+                .translationYBy(-TRANSLATE_Y)
+                .setInterpolator(new OvershootInterpolator(1.1f))
+                .start();
+
+    }
+
+    private void showSoftKeyboard(long delayMillis) {
+        editTextEmail.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                editTextEmail.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(editTextEmail, InputMethodManager.SHOW_IMPLICIT);
+            }
+        }, delayMillis);
     }
 }
