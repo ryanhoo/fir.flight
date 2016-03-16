@@ -19,8 +19,15 @@ import com.google.gson.annotations.SerializedName;
 */
 public class NetworkError implements Parcelable {
 
+    public static final int ERROR_CODE_UNKNOWN = -1;
+
     public NetworkError() {
         // Empty Constructor
+    }
+
+    public NetworkError(int code, String message) {
+        this.errorCode = code;
+        this.errorMessage = message;
     }
 
     public NetworkError(Parcel in) {

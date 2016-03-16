@@ -16,7 +16,7 @@ public interface RetrofitService {
     // Token
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("user")
     Call<Token> login(@Field("email") String email, @Field("password") String password);
 
     @GET("/user/api_token")
