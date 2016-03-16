@@ -2,7 +2,6 @@ package io.github.ryanhoo.firFlight.ui.signin;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -30,8 +28,6 @@ import retrofit2.Response;
  * Desc: SignInFragment
  */
 public class SignInFragment extends BaseFragment {
-
-    private static final String TAG = "SignInFragment";
 
     @Bind(R.id.edit_text_email)
     EditText editTextEmail;
@@ -71,41 +67,17 @@ public class SignInFragment extends BaseFragment {
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
             }
-            requestSignIn(email, password);
+            UserSession.getInstance().signIn(email, password, new RetrofitCallback<Token>() {
+                @Override
+                public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
+
+                }
+
+                @Override
+                public void onFailure(Call<Token> call, NetworkError error) {
+
+                }
+            });
         }
-    }
-
-    private void requestSignIn(String email, String password) {
-        Call<Token> call = mRetrofitService.login(email, password);
-        call.enqueue(new RetrofitCallback<Token>() {
-            @Override
-            public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-                Log.d(TAG, "apiToken#onResponse: accessToken is " + token.getAccessToken());
-                UserSession.getInstance().setAccessToken(token.getAccessToken());
-                requestApiToken(token.getAccessToken());
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, NetworkError error) {
-                Log.e(TAG, "login#onFailure: " + error.getErrorMessage());
-            }
-        });
-    }
-
-    private void requestApiToken(String accessToken) {
-        Call<Token> call = mRetrofitService.apiToken(accessToken);
-        call.enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                Token token = response.body();
-                Log.d(TAG, "apiToken#onResponse: apiToken is " + token.getApiToken());
-                UserSession.getInstance().setApiToken(token.getApiToken());
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable throwable) {
-                Log.e(TAG, "apiToken#onFailure: " + call, throwable);
-            }
-        });
     }
 }
