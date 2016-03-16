@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
  * Desc: Token
  */
 /*
-// 1. /login
+// 1. /signIn
 {
   "api_token": "0d1b816b9f69103cd11ef2b3dfd1ca37"
 }
