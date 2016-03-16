@@ -1,6 +1,7 @@
 package io.github.ryanhoo.firFlight.ui.signin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
@@ -11,6 +12,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,6 +24,7 @@ import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.main.MainActivity;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -84,12 +87,13 @@ public class SignInFragment extends BaseFragment {
             UserSession.getInstance().signIn(email, password, new RetrofitCallback<Token>() {
                 @Override
                 public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    getActivity().finish();
                 }
 
                 @Override
                 public void onFailure(Call<Token> call, NetworkError error) {
-
+                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -1,5 +1,6 @@
 package io.github.ryanhoo.firFlight.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
@@ -15,6 +16,7 @@ import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
+import io.github.ryanhoo.firFlight.ui.main.MainActivity;
 import io.github.ryanhoo.firFlight.ui.signin.SignInFragment;
 
 /**
@@ -28,6 +30,7 @@ public class SplashScreenActivity extends BaseActivity {
 
     final long ANIMATION_DURATION = 1000;
     final long SHOW_SIGN_IN_DELAY = 1000;
+    final long SIGNED_IN_DELAY = 2000;
 
     @Bind(R.id.text_view_app_name)
     TextView textViewAppName;
@@ -49,6 +52,13 @@ public class SplashScreenActivity extends BaseActivity {
         // Update User Token
         if (UserSession.getInstance().isSignedIn()) {
             // Main Activity
+            layoutFragmentContainer.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, SIGNED_IN_DELAY);
         } else {
             // Sign In
             layoutFragmentContainer.postDelayed(new Runnable() {

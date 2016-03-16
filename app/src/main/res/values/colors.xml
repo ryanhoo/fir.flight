@@ -25,6 +25,10 @@
 
     <color name="ff_text_shadow">#8f000000</color>
 
+    <color name="ff_text_title">#666666</color>
+    <color name="ff_text_text">#727272</color>
+    <color name="ff_text_tips">#42000000</color>
+
     <!-- Splash -->
     <color name="ff.splash.app_name">#FFFFFF</color>
     <color name="ff.splash.app_slogan">#CFD8DC</color>
