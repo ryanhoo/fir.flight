@@ -24,7 +24,7 @@
                 android:layout_height="@dimen/ff.app.icon.size"
                 android:layout_marginRight="@dimen/ff.margin.normal"
                 android:layout_marginEnd="@dimen/ff.margin.normal"
-                tools:background="@color/colorAccentHolo"
+                tools:background="@color/ff.apps.icon.placeholder"
                 android:contentDescription="@string/ff.app.name"/>
 
             <TextView

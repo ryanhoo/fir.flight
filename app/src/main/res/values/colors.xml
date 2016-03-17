@@ -36,4 +36,7 @@
     <color name="ff.splash.app_slogan">#CFD8DC</color>
     <color name="ff.splash.text_hint">#AACFD8DC</color>
     <color name="ff.splash.text">#CFD8DC</color>
+
+    <!-- Apps -->
+    <color name="ff.apps.icon.placeholder">#7ACFD8DC</color>
 </resources>

@@ -40,7 +40,10 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         App app = getItem(position);
-        Glide.with(mContext).load(app.getIconUrl()).into(holder.imageView);
+        Glide.with(mContext)
+                .load(app.getIconUrl())
+                .placeholder(R.color.ff_apps_icon_placeholder)
+                .into(holder.imageView);
         holder.textViewName.setText(app.getName());
         holder.textViewVersion.setText(String.format("%s(%s)",
                 app.getMasterRelease().getVersion(),
