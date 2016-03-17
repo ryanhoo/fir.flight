@@ -61,6 +61,9 @@ public class App implements Parcelable {
     @SerializedName("bundle_id")
     private String bundleId;
 
+    @SerializedName("short")
+    private String shortUrl;
+
     @SerializedName("custom_market_url")
     private String customMarketUrl;
 
@@ -121,6 +124,14 @@ public class App implements Parcelable {
         this.customMarketUrl = customMarketUrl;
     }
 
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    public void setShortUrl(String shortUrl) {
+        this.shortUrl = shortUrl;
+    }
+
     public long getCreatedAt() {
         return createdAt;
     }
@@ -157,6 +168,7 @@ public class App implements Parcelable {
         dest.writeString(this.type);
         dest.writeString(this.name);
         dest.writeString(this.bundleId);
+        dest.writeString(this.shortUrl);
         dest.writeString(this.customMarketUrl);
         dest.writeLong(this.createdAt);
         dest.writeString(this.iconUrl);
@@ -169,13 +181,14 @@ public class App implements Parcelable {
         this.type = in.readString();
         this.name = in.readString();
         this.bundleId = in.readString();
+        this.shortUrl = in.readString();
         this.customMarketUrl = in.readString();
         this.createdAt = in.readLong();
         this.iconUrl = in.readString();
         this.masterRelease = in.readParcelable(Release.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<App> CREATOR = new Parcelable.Creator<App>() {
+    public static final Creator<App> CREATOR = new Creator<App>() {
         public App createFromParcel(Parcel source) {
             return new App(source);
         }
