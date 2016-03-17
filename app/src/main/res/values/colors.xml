@@ -15,9 +15,11 @@
     <color name="primary_light">#CFD8DC</color>
     <color name="icons">#FFFFFF</color>
 
+    <!-- Common Colors -->
+    <color name="ff.background">#F9F9F9</color>
+
     <color name="ff.divider">#B6B6B6</color>
 
-    <!-- Common Colors -->
     <color name="ff.white">#FFFFFF</color>
     <color name="ff.white.semi_transparent">#AFFFFFFF</color>
     <color name="ff.black">#000000</color>

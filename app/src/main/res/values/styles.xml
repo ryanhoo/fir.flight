@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
+        <item name="android:windowBackground">@color/ff.background</item>
+
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
     </style>
@@ -20,6 +22,8 @@
         <item name="colorAccent">@color/colorAccentHolo</item>
         <item name="android:textColorPrimary">@color/textColorPrimaryHolo</item>
         <item name="android:textColorSecondary">@color/textColorSecondaryHolo</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
 
         <!-- API Level 19+ -->
         <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
