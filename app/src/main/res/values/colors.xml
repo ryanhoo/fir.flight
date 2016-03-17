@@ -15,19 +15,19 @@
     <color name="primary_light">#CFD8DC</color>
     <color name="icons">#FFFFFF</color>
 
-    <color name="ff_divider">#B6B6B6</color>
+    <color name="ff.divider">#B6B6B6</color>
 
     <!-- Common Colors -->
-    <color name="ff_white">#FFFFFF</color>
-    <color name="ff_white_semi_transparent">#AFFFFFFF</color>
-    <color name="ff_black">#000000</color>
-    <color name="ff_transparent">#00000000</color>
+    <color name="ff.white">#FFFFFF</color>
+    <color name="ff.white.semi_transparent">#AFFFFFFF</color>
+    <color name="ff.black">#000000</color>
+    <color name="ff.transparent">#00000000</color>
 
-    <color name="ff_text_shadow">#8f000000</color>
+    <color name="ff.text_shadow">#8f000000</color>
 
-    <color name="ff_text_title">#666666</color>
-    <color name="ff_text_text">#727272</color>
-    <color name="ff_text_tips">#42000000</color>
+    <color name="ff.textColor.title">#666666</color>
+    <color name="ff.textColor.text">#727272</color>
+    <color name="ff.textColor.tips">#42000000</color>
 
     <!-- Splash -->
     <color name="ff.splash.app_name">#FFFFFF</color>

@@ -19,7 +19,7 @@
         android:textStyle="bold"
         android:textColor="@color/ff.splash.app_name"
         android:letterSpacing="0.05"
-        android:shadowColor="@color/ff_text_shadow"
+        android:shadowColor="@color/ff.text_shadow"
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="4"
@@ -34,12 +34,11 @@
         android:layout_centerHorizontal="true"
         android:lineSpacingMultiplier="1.1"
         android:gravity="center"
-        android:layout_margin="10dp"
-        android:textSize="12sp"
+        android:layout_margin="@dimen/ff.margin.normal"
+        android:textSize="@dimen/ff.textSize.tips"
         android:textColor="@color/ff.splash.app_slogan"
         android:text="@string/ff.splash.slogan"
         />
-
 
     <FrameLayout
         android:id="@+id/layout_fragment_container"

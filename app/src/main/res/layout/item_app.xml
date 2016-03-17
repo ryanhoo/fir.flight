@@ -9,23 +9,23 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/ff.margin.small"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:layout_margin="@dimen/ff.margin.normal"
             >
 
             <ImageView
                 android:id="@+id/image_view_icon"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginEnd="12dp"
+                android:layout_width="@dimen/ff.app.icon.size"
+                android:layout_height="@dimen/ff.app.icon.size"
+                android:layout_marginRight="@dimen/ff.margin.normal"
+                android:layout_marginEnd="@dimen/ff.margin.normal"
                 tools:background="@color/colorAccentHolo"
-                />
+                android:contentDescription="@string/ff.app.name"/>
 
             <TextView
                 android:id="@+id/text_view_name"
@@ -33,8 +33,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/image_view_icon"
                 android:layout_toEndOf="@id/image_view_icon"
-                android:textSize="16sp"
-                android:textColor="@color/ff_text_title"
+                android:textSize="@dimen/ff.textSize.title"
+                android:textColor="@color/ff.textColor.title"
                 tools:text="fir.flight"
                 />
 
@@ -42,12 +42,12 @@
                 android:id="@+id/text_view_version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/text_view_name"
-                android:layout_toEndOf="@id/text_view_name"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:textSize="16sp"
-                android:textColor="@color/ff_text_tips"
+                android:layout_marginTop="@dimen/ff.padding.small"
+                android:layout_below="@id/text_view_name"
+                android:layout_toRightOf="@id/image_view_icon"
+                android:layout_toEndOf="@id/image_view_icon"
+                android:textSize="@dimen/ff.textSize.tips"
+                android:textColor="@color/ff.textColor.tips"
                 tools:text="v2.1.1(160231)"
                 />
 
@@ -55,12 +55,12 @@
                 android:id="@+id/text_view_bundle_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/text_view_name"
+                android:layout_marginTop="@dimen/ff.padding.small"
+                android:layout_below="@+id/text_view_version"
                 android:layout_toRightOf="@id/image_view_icon"
                 android:layout_toEndOf="@id/image_view_icon"
-                android:textSize="14sp"
-                android:textColor="@color/ff_text_tips"
+                android:textSize="@dimen/ff.textSize.tips"
+                android:textColor="@color/ff.textColor.tips"
                 tools:text="io.github.ryanhoo.firFlight"
                 />
 
@@ -68,12 +68,15 @@
                 android:id="@+id/text_view_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/ff.padding.small"
+                android:lineSpacingMultiplier="1.1"
                 android:layout_below="@+id/text_view_bundle_id"
                 android:layout_toRightOf="@id/image_view_icon"
                 android:layout_toEndOf="@id/image_view_icon"
-                android:textSize="14sp"
-                android:textColor="@color/ff_text_text"
+                android:textSize="@dimen/ff.textSize.text"
+                android:textColor="@color/ff.textColor.text"
+                android:visibility="gone"
+                tools:visibility="visible"
                 tools:text="@string/ff.splash.slogan"
                 />
         </RelativeLayout>
