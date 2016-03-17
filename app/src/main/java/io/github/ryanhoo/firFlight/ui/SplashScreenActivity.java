@@ -31,7 +31,7 @@ public class SplashScreenActivity extends BaseActivity {
 
     final long ANIMATION_DURATION = 1000;
     final long SHOW_SIGN_IN_DELAY = 1000;
-    final long SIGNED_IN_DELAY = 2000;
+    final long SIGNED_IN_DELAY = 2500;
 
     @Bind(R.id.text_view_app_name)
     TextView textViewAppName;
