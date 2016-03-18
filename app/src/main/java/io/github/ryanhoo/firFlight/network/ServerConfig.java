@@ -9,5 +9,8 @@ package io.github.ryanhoo.firFlight.network;
  */
 public interface ServerConfig {
 
-    String HOST = "http://api.fir.im";
+    String API_HOST = "http://api.fir.im";
+
+    String FIR_HOST = "http://fir.im";
+
 }

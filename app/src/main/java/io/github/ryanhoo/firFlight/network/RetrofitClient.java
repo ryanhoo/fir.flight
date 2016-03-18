@@ -14,7 +14,7 @@ public class RetrofitClient {
 
     public static Retrofit defaultInstance() {
         return new Retrofit.Builder()
-                .baseUrl(ServerConfig.HOST)
+                .baseUrl(ServerConfig.API_HOST)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
