@@ -1,5 +1,6 @@
 package io.github.ryanhoo.firFlight.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +19,8 @@ import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
+import io.github.ryanhoo.firFlight.ui.base.OnItemClickListener;
+import io.github.ryanhoo.firFlight.ui.common.WebViewActivity;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -30,7 +33,8 @@ import java.util.List;
  * Time: 1:36 AM
  * Desc: MainActivity
  */
-public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends BaseActivity
+        implements SwipeRefreshLayout.OnRefreshListener, OnItemClickListener<App> {
 
     private static final String TAG = "MainActivity";
 
@@ -56,6 +60,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
         swipeRefreshLayout.setOnRefreshListener(this);
         mAdapter = new AppAdapter(this, null);
+        mAdapter.setOnItemClickListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
 
@@ -84,5 +89,14 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(App item, int position) {
+        startActivity(
+                new Intent(this, WebViewActivity.class)
+                        .putExtra(WebViewActivity.EXTRA_TITLE, item.getName())
+                        .putExtra(WebViewActivity.EXTRA_URL, item.getAppUrl())
+        );
     }
 }

@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.ui.base.OnItemClickListener;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
     private Context mContext;
     private List<App> mApps;
+
+    private OnItemClickListener<App> mOnItemClickListener;
 
     public AppAdapter(Context context, List<App> apps) {
         mContext = context;
@@ -70,7 +73,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemClickListener(OnItemClickListener<App> listener) {
+        mOnItemClickListener = listener;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.image_view_icon)
         ImageView imageView;
@@ -86,6 +93,15 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mOnItemClickListener != null) {
+                int position = getAdapterPosition();
+                mOnItemClickListener.onItemClick(getItem(position), position);
+            }
         }
     }
 }

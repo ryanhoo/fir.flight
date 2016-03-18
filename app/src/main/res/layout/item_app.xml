@@ -15,7 +15,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/ff.margin.normal"
+            android:padding="@dimen/ff.margin.normal"
+            android:background="?attr/selectableItemBackground"
             >
 
             <ImageView
