@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.ui.main;
+package io.github.ryanhoo.firFlight.ui.app;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
