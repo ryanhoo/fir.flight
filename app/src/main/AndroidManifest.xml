@@ -27,6 +27,10 @@
             android:name=".ui.main.MainActivity"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name=".ui.common.WebViewActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>
