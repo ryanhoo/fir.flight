@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import butterknife.Bind;
@@ -40,10 +42,8 @@ public class WebViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
-        ActionBar actionBar = supportActionBar(toolbar);
-        if (actionBar != null) {
-            actionBar.setTitle(mTitle);
-        }
+
+        setActionBarTitle();
         setUpWebView(webView);
 
         webView.loadUrl(mUrl);
@@ -55,5 +55,24 @@ public class WebViewActivity extends BaseActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+
+        // Chrome
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                if (!TextUtils.isEmpty(title)) {
+                    mTitle = title;
+                    setActionBarTitle();
+                }
+            }
+        });
+    }
+
+    private void setActionBarTitle() {
+        ActionBar actionBar = supportActionBar(toolbar);
+        if (actionBar != null) {
+            actionBar.setTitle(mTitle);
+        }
     }
 }
