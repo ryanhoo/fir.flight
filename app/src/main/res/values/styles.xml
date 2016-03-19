@@ -26,8 +26,11 @@
         <item name="android:windowBackground">@color/colorPrimary</item>
 
         <!-- API Level 19+ -->
-        <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+    </style>
+
+    <style name="FFTheme.Main">
+        <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
     </style>
 
     <style name="FFTextAppearance"/>

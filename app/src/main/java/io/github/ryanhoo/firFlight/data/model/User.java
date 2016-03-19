@@ -30,7 +30,7 @@ public class User implements Parcelable {
         // Empty Constructor
     }
 
-    public User(Parcel in) {
+    protected User(Parcel in) {
         readFromParcel(in);
     }
 
@@ -42,6 +42,9 @@ public class User implements Parcelable {
 
     @SerializedName("name")
     private String name;
+
+    @SerializedName("email")
+    private String email;
 
     @SerializedName("gravatar")
     private String gravatar;
@@ -77,6 +80,14 @@ public class User implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getGravatar() {
@@ -121,6 +132,7 @@ public class User implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.uuid);
         dest.writeString(this.name);
+        dest.writeString(this.email);
         dest.writeString(this.gravatar);
         dest.writeByte(confirmed ? (byte) 1 : (byte) 0);
         dest.writeByte(developer ? (byte) 1 : (byte) 0);
@@ -131,17 +143,20 @@ public class User implements Parcelable {
         this.id = in.readString();
         this.uuid = in.readString();
         this.name = in.readString();
+        this.email = in.readString();
         this.gravatar = in.readString();
         this.confirmed = in.readByte() != 0;
         this.developer = in.readByte() != 0;
         this.createdAt = in.readLong();
     }
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
         public User createFromParcel(Parcel source) {
             return new User(source);
         }
 
+        @Override
         public User[] newArray(int size) {
             return new User[size];
         }

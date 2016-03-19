@@ -22,4 +22,9 @@
 
     <dimen name="ff.splash.slogan.top">120dp</dimen>
     <dimen name="ff.splash.slogan.top.with_sign_in">24dp</dimen>
+
+    <!-- Main -->
+    <dimen name="ff.main.drawer.header.icon.size">60dp</dimen>
+    <dimen name="ff.main.drawer.header.name">18sp</dimen>
+    <dimen name="ff.main.drawer.header.email">14sp</dimen>
 </resources>

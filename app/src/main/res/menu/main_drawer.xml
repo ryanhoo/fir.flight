@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/fragment_apps"
+            android:title="@string/ff.main.drawer.section.title.apps"
+            android:icon="@drawable/ic_drawer_item_apps"
+            />
+        <item
+            android:id="@+id/fragment_account"
+            android:title="@string/ff.main.drawer.section.title.account"
+            android:icon="@drawable/ic_drawer_item_account"
+            />
+        <item
+            android:id="@+id/fragment_about"
+            android:title="@string/ff.main.drawer.section.title.about"
+            android:icon="@drawable/ic_drawer_item_about"
+            />
+    </group>
+</menu>

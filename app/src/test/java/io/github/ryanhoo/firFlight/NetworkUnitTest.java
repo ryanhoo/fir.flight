@@ -29,9 +29,9 @@ public class NetworkUnitTest {
     }
 
     @Test
-    public void login() {
+    public void signIn() {
         System.out.println("signIn");
-        Call<Token> call = mRetrofitService.login("", "");
+        Call<Token> call = mRetrofitService.signIn("", "");
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {

@@ -37,6 +37,10 @@
     <color name="ff.splash.text_hint">#AACFD8DC</color>
     <color name="ff.splash.text">#CFD8DC</color>
 
+    <!-- Main -->
+    <color name="ff.main.drawer.header.name">#FFFFFF</color>
+    <color name="ff.main.drawer.header.email">#CFD8DC</color>
+
     <!-- Apps -->
     <color name="ff.apps.icon.placeholder">#7ACFD8DC</color>
 </resources>

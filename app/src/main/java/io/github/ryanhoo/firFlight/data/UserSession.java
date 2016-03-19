@@ -69,7 +69,7 @@ public class UserSession {
         requestSignIn(email, password, callback);
     }
 
-    public void logout() {
+    public void signOut() {
         mToken = null;
         mUser = null;
         sContext.getSharedPreferences(PREFS_SESSION, Context.MODE_PRIVATE)
@@ -81,7 +81,7 @@ public class UserSession {
 
     // SignIn Step 1: Request access token
     private void requestSignIn(final String email, final String password, final RetrofitCallback<Token> callback) {
-        Call<Token> call = mRetrofitService.login(email, password);
+        Call<Token> call = mRetrofitService.signIn(email, password);
         call.enqueue(new RetrofitCallback<Token>() {
             @Override
             public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
@@ -127,7 +127,7 @@ public class UserSession {
 
     public void updateUser(final RetrofitCallback<User> callback) {
         if (!isSignedIn()) {
-            logout();
+            signOut();
             return;
         }
         Call<User> call = mRetrofitService.user(mToken.getAccessToken());
