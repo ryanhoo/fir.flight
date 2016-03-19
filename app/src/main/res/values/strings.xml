@@ -11,8 +11,10 @@
     <string name="ff.main.drawer.open">Open navigation drawer</string>
     <string name="ff.main.drawer.close">Close navigation drawer</string>
 
-    <string name="ff.main.drawer.section.title.about">About</string>
-    <string name="ff.main.drawer.section.title.account">Account</string>
     <string name="ff.main.drawer.section.title.apps">My Apps</string>
+    <string name="ff.main.drawer.section.title.account">Account</string>
+    <string name="ff.main.drawer.section.title.settings">Settings</string>
+    <string name="ff.main.drawer.section.title.about">About</string>
+    <string name="ff.main.drawer.section.title.sign_out">Sign out</string>
 
 </resources>

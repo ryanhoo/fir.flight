@@ -3,19 +3,29 @@
     >
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/fragment_apps"
+            android:id="@+id/item_apps"
             android:title="@string/ff.main.drawer.section.title.apps"
             android:icon="@drawable/ic_drawer_item_apps"
             />
         <item
-            android:id="@+id/fragment_account"
+            android:id="@+id/item_account"
             android:title="@string/ff.main.drawer.section.title.account"
             android:icon="@drawable/ic_drawer_item_account"
             />
         <item
-            android:id="@+id/fragment_about"
+            android:id="@+id/item_settings"
+            android:title="@string/ff.main.drawer.section.title.settings"
+            android:icon="@drawable/ic_drawer_item_settings"
+            />
+        <item
+            android:id="@+id/item_about"
             android:title="@string/ff.main.drawer.section.title.about"
             android:icon="@drawable/ic_drawer_item_about"
+            />
+        <item
+            android:id="@+id/item_sign_out"
+            android:title="@string/ff.main.drawer.section.title.sign_out"
+            android:icon="@drawable/ic_drawer_item_sign_out"
             />
     </group>
 </menu>
