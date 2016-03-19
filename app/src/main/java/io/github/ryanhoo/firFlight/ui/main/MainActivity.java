@@ -1,15 +1,19 @@
 package io.github.ryanhoo.firFlight.ui.main;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,6 +33,7 @@ import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.app.AppListFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
+import io.github.ryanhoo.firFlight.ui.message.MessageListFragment;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -43,6 +48,11 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
 
+    private interface Tab {
+        String APPS = "apps";
+        String MESSAGES = "messages";
+    }
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
@@ -50,8 +60,9 @@ public class MainActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     @Bind(R.id.navigation_view)
     NavigationView navigationView;
-
     ActionBarDrawerToggle drawerToggle;
+
+    String mCurrentFragmentTab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,9 +75,7 @@ public class MainActivity extends BaseActivity {
         setUpDrawerToggle();
         setUpDrawerContent();
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_fragment_container, new AppListFragment(), "apps")
-                .commit();
+        switchScene(null, Tab.APPS);
     }
 
     @Override
@@ -115,7 +124,89 @@ public class MainActivity extends BaseActivity {
     }
 
     private void onDrawerItemChecked(MenuItem item) {
+        if (item.getItemId() == R.id.item_sign_out) {
+            confirmSignOut();
+            return;
+        }
+        for (int i = 0; i < navigationView.getMenu().size(); i++) {
+            MenuItem menuItem = navigationView.getMenu().getItem(i);
+            if (menuItem.getItemId() == item.getItemId()) {
+                menuItem.setChecked(true);
+            } else {
+                menuItem.setChecked(false);
+            }
+        }
 
+        drawerLayout.closeDrawers();
+
+        String toTab = null;
+        switch (item.getItemId()) {
+            case R.id.item_apps:
+                toTab = Tab.APPS;
+                break;
+            case R.id.item_account:
+                break;
+            case R.id.item_messages:
+                toTab = Tab.MESSAGES;
+                break;
+            case R.id.item_settings:
+                break;
+            case R.id.item_about:
+                break;
+        }
+        if (toTab != null && !toTab.equals(mCurrentFragmentTab)) {
+            switchScene(mCurrentFragmentTab, toTab);
+        }
+    }
+
+    private void switchScene(String fromTab, String toTab) {
+        Fragment from = getSupportFragmentManager().findFragmentByTag(fromTab);
+        Fragment to = getSupportFragmentManager().findFragmentByTag(toTab);
+        boolean addToStack = false;
+        if (to == null) {
+            switch (toTab) {
+                case Tab.APPS:
+                    to = new AppListFragment();
+                    addToStack = true;
+                    break;
+                case Tab.MESSAGES:
+                    to = new MessageListFragment();
+                    addToStack = true;
+                    break;
+            }
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        try {
+            if (from != null) {
+                transaction.hide(from);
+            }
+            if (to != null) {
+                if (addToStack) {
+                    Log.d(TAG, "switchScene: create new tab " + toTab);
+                    transaction.add(R.id.layout_fragment_container, to, toTab);
+                } else {
+                    transaction.show(to);
+                }
+                mCurrentFragmentTab = toTab;
+            }
+        } finally {
+            transaction.commit();
+        }
+    }
+
+    private void confirmSignOut() {
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.ff_dialog_sign_out_title))
+                .setMessage(getString(R.string.ff_dialog_sign_out_message))
+                .setNegativeButton(getString(R.string.ff_dialog_cancel), null)
+                .setPositiveButton(getString(R.string.ff_dialog_confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        UserSession.getInstance().signOut();
+                        MainActivity.this.finish();
+                    }
+                })
+                .show();
     }
 
     private void onLoadUserInfo(User user) {

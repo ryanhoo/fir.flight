@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     >
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
         <item
             android:id="@+id/item_apps"
             android:title="@string/ff.main.drawer.section.title.apps"
             android:icon="@drawable/ic_drawer_item_apps"
+            android:checked="true"
             />
         <item
             android:id="@+id/item_account"
             android:title="@string/ff.main.drawer.section.title.account"
             android:icon="@drawable/ic_drawer_item_account"
+            />
+        <item
+            android:id="@+id/item_messages"
+            android:title="@string/ff.main.drawer.section.title.messages"
+            android:icon="@drawable/ic_drawer_item_message"
             />
         <item
             android:id="@+id/item_settings"
@@ -22,6 +28,8 @@
             android:title="@string/ff.main.drawer.section.title.about"
             android:icon="@drawable/ic_drawer_item_about"
             />
+    </group>
+    <group android:checkableBehavior="none">
         <item
             android:id="@+id/item_sign_out"
             android:title="@string/ff.main.drawer.section.title.sign_out"
