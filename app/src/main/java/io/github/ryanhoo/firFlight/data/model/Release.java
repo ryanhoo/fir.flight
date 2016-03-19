@@ -37,6 +37,9 @@ public class Release implements Parcelable {
     @SerializedName("build")
     private String build;
 
+    @SerializedName("changelog")
+    private String changelog;
+
     @SerializedName("release_type")
     private String releaseType;
 
@@ -63,6 +66,14 @@ public class Release implements Parcelable {
 
     public void setBuild(String build) {
         this.build = build;
+    }
+
+    public String getChangelog() {
+        return changelog;
+    }
+
+    public void setChangelog(String changelog) {
+        this.changelog = changelog;
     }
 
     public String getReleaseType() {
@@ -106,6 +117,7 @@ public class Release implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.version);
         dest.writeString(this.build);
+        dest.writeString(this.changelog);
         dest.writeString(this.releaseType);
         dest.writeString(this.distributionName);
         dest.writeString(this.supportedPlatform);
@@ -115,6 +127,7 @@ public class Release implements Parcelable {
     private void readFromParcel(Parcel in) {
         this.version = in.readString();
         this.build = in.readString();
+        this.changelog = in.readString();
         this.releaseType = in.readString();
         this.distributionName = in.readString();
         this.supportedPlatform = in.readString();
