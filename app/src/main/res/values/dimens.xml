@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="ff.divider.height">0.1dp</dimen>
+    <dimen name="ff.divider.width">0.1dp</dimen>
+
     <dimen name="ff.margin.small">8dp</dimen>
     <dimen name="ff.margin.normal">12dp</dimen>
     <dimen name="ff.margin.large">16dp</dimen>

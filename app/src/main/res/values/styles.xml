@@ -33,6 +33,12 @@
         <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
     </style>
 
+    <style name="FFDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ff.divider.height</item>
+        <item name="android:background">@color/ff.divider</item>
+    </style>
+
     <style name="FFTextAppearance"/>
 
     <style name="FFTextAppearance.Splash">
