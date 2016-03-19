@@ -43,6 +43,7 @@ import retrofit2.Response;
  * Date: 3/17/16
  * Time: 1:36 AM
  * Desc: MainActivity
+ * - https://guides.codepath.com/android/Fragment-Navigation-Drawer#setup-drawer-resources
  */
 public class MainActivity extends BaseActivity {
 
