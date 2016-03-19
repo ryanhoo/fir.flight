@@ -1,8 +1,10 @@
 package io.github.ryanhoo.firFlight.data.service;
 
 import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
+import io.github.ryanhoo.firFlight.network.MultiPageResponse;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -33,4 +35,20 @@ public interface RetrofitService {
     // Apps
     @GET("/apps")
     Call<List<App>> apps(@Query("access_token") String accessToken);
+
+    // Notifications
+
+    String NOTIFICATON_TYPE_SYS = "sys";
+    String NOTIFICATION_TYPE_RELEASE = "release"; // TODO Multi pages when there are too many notifications
+
+    @GET("/notifications")
+    Call<MultiPageResponse<Message>> notifications(
+            @Query("access_token") String accessToken,
+            @Query("type") String type
+    );
+
+    @GET("/notifications?type=sys")
+    Call<MultiPageResponse<Message>> systemNotifications(
+            @Query("access_token") String accessToken
+    );
 }
