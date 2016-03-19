@@ -13,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.Message;
+import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.util.HtmlUtils;
 
@@ -46,12 +47,14 @@ public class MessageAdapter extends BaseAdapter<Message, MessageAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Message message = getItem(position);
-        // TODO Message Content Deserializer
-        String content = message.getContent().get("title").toString();
-        holder.textViewMessage.setText(getPureMessageContent(content));
-        List<String> urls = HtmlUtils.getUrlsFromHtml(content);
-        if (urls.size() > 0) {
-            message.getContent().put("link", urls.get(0));
+        if (message.getContent() instanceof SystemMessageContent) {
+            SystemMessageContent messageContent = (SystemMessageContent) message.getContent();
+            String content = messageContent.getTitle();
+            List<String> urls = HtmlUtils.getUrlsFromHtml(content);
+            if (urls.size() > 0) {
+                messageContent.setLink(urls.get(0));
+            }
+            holder.textViewMessage.setText(getPureMessageContent(content));
         }
         holder.textViewTime.setText(mDateFormatter.format(message.getCreatedAt()));
     }

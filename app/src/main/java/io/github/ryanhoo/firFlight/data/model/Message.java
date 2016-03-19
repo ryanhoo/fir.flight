@@ -3,7 +3,6 @@ package io.github.ryanhoo.firFlight.data.model;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  * Created with Android Studio.
@@ -63,7 +62,7 @@ public class Message {
     private boolean read;
 
     @SerializedName("content")
-    private HashMap<String, Object> content;
+    private IMessageContent content;
 
     @SerializedName("template")
     private String template;
@@ -95,11 +94,11 @@ public class Message {
         this.read = read;
     }
 
-    public HashMap<String, Object> getContent() {
+    public IMessageContent getContent() {
         return content;
     }
 
-    public void setContent(HashMap<String, Object> content) {
+    public void setContent(IMessageContent content) {
         this.content = content;
     }
 

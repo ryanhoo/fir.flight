@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Message;
+import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
 import io.github.ryanhoo.firFlight.network.MultiPageResponse;
 import io.github.ryanhoo.firFlight.network.NetworkError;
@@ -77,8 +79,10 @@ public class MessageListFragment extends BaseFragment
 
     @Override
     public void onItemClick(Message message, int position) {
-        if (message.getContent().containsKey("link")) {
-            String link = (String) message.getContent().get("link");
+        if (message.getContent() instanceof SystemMessageContent) {
+            SystemMessageContent messageContent = (SystemMessageContent) message.getContent();
+            String link = messageContent.getLink();
+            if (TextUtils.isEmpty(link)) return;
             startActivity(
                     new Intent(getActivity(), WebViewActivity.class)
                             .putExtra(WebViewActivity.EXTRA_URL, link)
