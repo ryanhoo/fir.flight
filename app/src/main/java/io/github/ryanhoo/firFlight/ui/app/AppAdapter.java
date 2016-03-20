@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
-import io.github.ryanhoo.firFlight.ui.base.OnItemClickListener;
+import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 
 import java.util.List;
 
@@ -24,16 +24,10 @@ import java.util.List;
  * Time: 2:11 AM
  * Desc: AppAdapter
  */
-public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
-
-    private Context mContext;
-    private List<App> mApps;
-
-    private OnItemClickListener<App> mOnItemClickListener;
+public class AppAdapter extends BaseAdapter<App, AppAdapter.ViewHolder> {
 
     public AppAdapter(Context context, List<App> apps) {
-        mContext = context;
-        mApps = apps;
+        super(context, apps);
     }
 
     @Override
@@ -62,27 +56,6 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         );
     }
 
-    @Override
-    public int getItemCount() {
-        if (mApps == null)
-            return 0;
-        return mApps.size();
-    }
-
-    public App getItem(int position) {
-        if (mApps == null || position >= mApps.size()) return null;
-        return mApps.get(position);
-    }
-
-    public void setData(List<App> apps) {
-        mApps = apps;
-        notifyDataSetChanged();
-    }
-
-    public void setOnItemClickListener(OnItemClickListener<App> listener) {
-        mOnItemClickListener = listener;
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Bind(R.id.image_view_icon)
@@ -107,14 +80,13 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
 
         @Override
         public void onClick(View view) {
-            if (mOnItemClickListener == null) return;
             int position = getAdapterPosition();
             if (view instanceof Button) {
                 if (appInfo != null && appInfo.isUpToDate) {
                     mContext.startActivity(appInfo.launchIntent);
                 }
             } else {
-                mOnItemClickListener.onItemClick(getItem(position), position);
+                onItemClick(getItem(position), position);
             }
         }
     }
