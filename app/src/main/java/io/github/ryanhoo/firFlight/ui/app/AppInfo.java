@@ -51,6 +51,8 @@ public class AppInfo {
                     launchIntent = packageManager.getLaunchIntentForPackage(packageName);
                 }
             }
+        } catch (PackageManager.NameNotFoundException ignore) {
+            // It means app is not installed, no need to throw or log out errors
         } catch (Exception e) {
             Log.w(TAG, String.format("isAppUpToDate %s: [%s, %s]", app.getName(), packageName, build), e);
         }
