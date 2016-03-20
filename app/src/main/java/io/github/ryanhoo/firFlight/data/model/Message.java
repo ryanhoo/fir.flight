@@ -1,5 +1,7 @@
 package io.github.ryanhoo.firFlight.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -40,7 +42,7 @@ import java.util.Date;
   "created_at": 1455859798.276
 }
 */
-public class Message {
+public class Message implements Parcelable {
 
     /**
      * Message type:
@@ -50,6 +52,14 @@ public class Message {
     public interface Type {
         String SYSTEM = "sys";
         String NEW_RELEASE = "release";
+    }
+
+    public Message() {
+        // Empty Constructor
+    }
+
+    protected Message(Parcel in) {
+        readFromParcel(in);
     }
 
     @SerializedName("id")
@@ -117,4 +127,41 @@ public class Message {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.type);
+        dest.writeByte(read ? (byte) 1 : (byte) 0);
+        dest.writeParcelable(this.content, flags);
+        dest.writeString(this.template);
+        dest.writeLong(createdAt != null ? createdAt.getTime() : -1);
+    }
+
+    private void readFromParcel(Parcel in) {
+        this.id = in.readString();
+        this.type = in.readString();
+        this.read = in.readByte() != 0;
+        this.content = in.readParcelable(IMessageContent.class.getClassLoader());
+        this.template = in.readString();
+        long tmpCreatedAt = in.readLong();
+        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
+    }
+
+    public static final Parcelable.Creator<Message> CREATOR = new Parcelable.Creator<Message>() {
+        @Override
+        public Message createFromParcel(Parcel source) {
+            return new Message(source);
+        }
+
+        @Override
+        public Message[] newArray(int size) {
+            return new Message[size];
+        }
+    };
 }
