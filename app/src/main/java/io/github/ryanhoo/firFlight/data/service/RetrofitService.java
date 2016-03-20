@@ -1,9 +1,6 @@
 package io.github.ryanhoo.firFlight.data.service;
 
-import io.github.ryanhoo.firFlight.data.model.App;
-import io.github.ryanhoo.firFlight.data.model.Message;
-import io.github.ryanhoo.firFlight.data.model.Token;
-import io.github.ryanhoo.firFlight.data.model.User;
+import io.github.ryanhoo.firFlight.data.model.*;
 import io.github.ryanhoo.firFlight.network.MultiPageResponse;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -35,6 +32,9 @@ public interface RetrofitService {
     // Apps
     @GET("/apps")
     Call<List<App>> apps(@Query("access_token") String accessToken);
+
+    @GET("/apps/latest/{appId}")
+    Call<AppInstallInfo> appInstallInfo(@Path("appId") String appId, @Query("api_token") String apiToken);
 
     // Notifications
 

@@ -27,6 +27,7 @@ public class AppInfo {
     public App app;
 
     public AppInfo(Context context, App app) {
+        this.app = app;
         Release onlineRelease = app.getMasterRelease();
         String packageName = app.getBundleId();
         String build = onlineRelease.getBuild();
