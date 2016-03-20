@@ -22,6 +22,9 @@ public class AppInfo {
     public boolean isInstalled;
     public boolean isUpToDate;
 
+    public String localVersionName;
+    public int localVersionCode;
+
     public Intent launchIntent;
 
     public App app;
@@ -40,15 +43,16 @@ public class AppInfo {
             } else {
                 isInstalled = true;
                 int onlineVersionCode = Integer.parseInt(build);
-                int versionCode = packageInfo.versionCode;
-                isUpToDate = versionCode >= onlineVersionCode;
+                localVersionName = packageInfo.versionName;
+                localVersionCode = packageInfo.versionCode;
+                isUpToDate = localVersionCode >= onlineVersionCode;
                 if (isUpToDate) {
                     // http://stackoverflow.com/a/3422824/2290191
                     launchIntent = packageManager.getLaunchIntentForPackage(packageName);
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, String.format("isAppUpToDate %s: [%s, %s]", app.getName(), packageName, build), e);
+            Log.w(TAG, String.format("isAppUpToDate %s: [%s, %s]", app.getName(), packageName, build), e);
         }
     }
 }
