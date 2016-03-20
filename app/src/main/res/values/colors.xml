@@ -21,6 +21,7 @@
     <color name="ff.divider">#7AB6B6B6</color>
 
     <color name="ff.white">#FFFFFF</color>
+    <color name="ff.white.pressed">#7AFFFFFF</color>
     <color name="ff.white.semi_transparent">#AFFFFFFF</color>
     <color name="ff.black">#000000</color>
     <color name="ff.transparent">#00000000</color>
@@ -30,6 +31,9 @@
     <color name="ff.textColor.title">#666666</color>
     <color name="ff.textColor.text">#727272</color>
     <color name="ff.textColor.tips">#42000000</color>
+
+    <color name="ff.textColor.button">#666666</color>
+    <color name="ff.textColor.button.pressed">#8A666666</color>
 
     <!-- Splash -->
     <color name="ff.splash.app_name">#FFFFFF</color>

@@ -18,6 +18,13 @@
     <string name="ff.main.drawer.section.title.about">About</string>
     <string name="ff.main.drawer.section.title.sign_out">Sign out</string>
     <string name="ff.dialog.sign_out.title">Sign out</string>
+
+    <!-- Apps -->
+    <string name="ff.apps.update">Update</string>
+    <string name="ff.apps.open">Open</string>
+    <string name="ff.apps.install">Install</string>
+
+    <!-- Dialog -->
     <string name="ff.dialog.sign_out.message">Do you really want to sign out?</string>
     <string name="ff.dialog.cancel">Cancel</string>
     <string name="ff.dialog.confirm">Confirm</string>

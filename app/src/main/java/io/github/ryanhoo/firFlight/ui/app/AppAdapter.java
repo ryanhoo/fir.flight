@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -53,7 +54,12 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
                 app.getMasterRelease().getBuild()
         ));
         holder.textViewBundleId.setText(app.getBundleId());
-        // holder.textViewDescription.setText(new Gson().toJson(app));
+
+        holder.appInfo = new AppInfo(mContext, app);
+        holder.buttonAction.setText(!holder.appInfo.isInstalled
+                ? R.string.ff_apps_install
+                : holder.appInfo.isUpToDate ? R.string.ff_apps_open : R.string.ff_apps_update
+        );
     }
 
     @Override
@@ -87,19 +93,27 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ViewHolder> {
         TextView textViewVersion;
         @Bind(R.id.text_view_bundle_id)
         TextView textViewBundleId;
-        @Bind(R.id.text_view_description)
-        TextView textViewDescription;
+        @Bind(R.id.button_action)
+        Button buttonAction;
+
+        AppInfo appInfo;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+            buttonAction.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mOnItemClickListener != null) {
-                int position = getAdapterPosition();
+            if (mOnItemClickListener == null) return;
+            int position = getAdapterPosition();
+            if (view instanceof Button) {
+                if (appInfo != null && appInfo.isUpToDate) {
+                    mContext.startActivity(appInfo.launchIntent);
+                }
+            } else {
                 mOnItemClickListener.onItemClick(getItem(position), position);
             }
         }

@@ -19,7 +19,7 @@
     <dimen name="ff.textSize.title">16sp</dimen>
     <dimen name="ff.textSize.text">14sp</dimen>
     <dimen name="ff.textSize.tips">12sp</dimen>
-    <dimen name="ff.textSize.button">14sp</dimen>
+    <dimen name="ff.textSize.button">11sp</dimen>
 
     <dimen name="ff.app.icon.size">56dp</dimen>
 
