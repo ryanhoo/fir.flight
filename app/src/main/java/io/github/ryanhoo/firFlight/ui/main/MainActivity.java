@@ -31,9 +31,9 @@ import io.github.ryanhoo.firFlight.data.service.RetrofitService;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
-import io.github.ryanhoo.firFlight.ui.app.AppListFragment;
+import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
-import io.github.ryanhoo.firFlight.ui.message.MessageListFragment;
+import io.github.ryanhoo.firFlight.ui.message.MessagesFragment;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -167,11 +167,11 @@ public class MainActivity extends BaseActivity {
         if (to == null) {
             switch (toTab) {
                 case Tab.APPS:
-                    to = new AppListFragment();
+                    to = new AppsFragment();
                     addToStack = true;
                     break;
                 case Tab.MESSAGES:
-                    to = new MessageListFragment();
+                    to = new MessagesFragment();
                     addToStack = true;
                     break;
             }

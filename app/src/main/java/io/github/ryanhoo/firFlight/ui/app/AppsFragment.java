@@ -35,7 +35,7 @@ import java.util.List;
  * Time: 12:29 AM
  * Desc: AppListFragment
  */
-public class AppListFragment extends BaseFragment
+public class AppsFragment extends BaseFragment
         implements SwipeRefreshLayout.OnRefreshListener, OnItemClickListener<App> {
 
     private static final String TAG = "AppListFragment";
