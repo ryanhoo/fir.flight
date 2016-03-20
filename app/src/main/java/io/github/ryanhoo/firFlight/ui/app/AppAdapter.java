@@ -125,7 +125,7 @@ public class AppAdapter extends BaseAdapter<App, AppAdapter.ViewHolder> {
                     if (appInfo.isUpToDate) {
                         mContext.startActivity(appInfo.launchIntent);
                     } else {
-                        requestInstallUrl(appInfo.app, position);
+                        requestInstallUrl(this, appInfo.app, position);
                     }
                 }
             } else {
@@ -134,7 +134,8 @@ public class AppAdapter extends BaseAdapter<App, AppAdapter.ViewHolder> {
         }
     }
 
-    private void requestInstallUrl(final App app, final int position) {
+    private void requestInstallUrl(final ViewHolder holder, final App app, final int position) {
+        holder.buttonAction.setEnabled(false);
         Call<AppInstallInfo> call = RetrofitClient.defaultInstance().create(RetrofitService.class)
                 .appInstallInfo(app.getId(), UserSession.getInstance().getToken().getApiToken());
         call.enqueue(new RetrofitCallback<AppInstallInfo>() {
@@ -146,6 +147,7 @@ public class AppAdapter extends BaseAdapter<App, AppAdapter.ViewHolder> {
             @Override
             public void onFailure(Call<AppInstallInfo> call, NetworkError error) {
                 Toast.makeText(mContext, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                holder.buttonAction.setEnabled(true);
             }
         });
     }

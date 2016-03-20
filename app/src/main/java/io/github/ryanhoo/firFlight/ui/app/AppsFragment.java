@@ -1,6 +1,9 @@
 package io.github.ryanhoo.firFlight.ui.app;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -68,12 +71,31 @@ public class AppsFragment extends BaseFragment
         recyclerView.setAdapter(mAdapter);
 
         onRefresh();
+
+        // Listen for app install/update/remove broadcasts
+        registerBroadcast();
+    }
+
+    @Override
+    public void onDestroy() {
+        // Done with listening app install/update/remove broadcasts
+        unregisterBroadcast();
+        super.onDestroy();
     }
 
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         requestApps();
+    }
+
+    @Override
+    public void onItemClick(App item, int position) {
+        startActivity(
+                new Intent(getActivity(), WebViewActivity.class)
+                        .putExtra(WebViewActivity.EXTRA_TITLE, item.getName())
+                        .putExtra(WebViewActivity.EXTRA_URL, item.getAppUrl())
+        );
     }
 
     private void requestApps() {
@@ -94,12 +116,28 @@ public class AppsFragment extends BaseFragment
         });
     }
 
-    @Override
-    public void onItemClick(App item, int position) {
-        startActivity(
-                new Intent(getActivity(), WebViewActivity.class)
-                        .putExtra(WebViewActivity.EXTRA_TITLE, item.getName())
-                        .putExtra(WebViewActivity.EXTRA_URL, item.getAppUrl())
-        );
+    // Broadcasts
+
+    private void registerBroadcast() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+        intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+        intentFilter.addDataScheme("package");
+        getActivity().registerReceiver(receiver, intentFilter);
     }
+
+    private void unregisterBroadcast() {
+        getActivity().unregisterReceiver(receiver);
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "onReceive: " + intent.getAction());
+            if (mAdapter != null) {
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 }

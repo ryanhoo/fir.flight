@@ -35,6 +35,16 @@
             android:screenOrientation="portrait"
             />
 
+        <receiver android:name=".receiver.SystemPackageReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <!--<action android:name="android.intent.action.PACKAGE_CHANGED"/>-->
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="io.github.ryanhoo.firFlight.GlideConfiguration"
             android:value="GlideModule"/>
