@@ -101,12 +101,45 @@ public class UserSession {
     }
 
     // SignIn Step 2: Request api token
+
     private void requestApiToken(final String accessToken, final RetrofitCallback<Token> callback) {
         Call<Token> call = mRetrofitService.apiToken(accessToken);
         call.enqueue(new RetrofitCallback<Token>() {
             @Override
             public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-                Log.d(TAG, "apiToken#onSuccess: apiToken is " + token.getApiToken());
+                // If you've never generate a token in the web page, you won't get any api token
+                if (token.getApiToken() == null) {
+                    requestRefreshApiToken(accessToken, callback);
+                } else {
+                    Log.d(TAG, "apiToken#onSuccess: apiToken is " + token.getApiToken());
+                    setApiToken(token.getApiToken());
+                    storeSession();
+                    // TODO Send global notification
+                    if (callback != null) {
+                        callback.onSuccess(call, httpResponse, token);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Token> call, NetworkError error) {
+                Log.e(TAG, "apiToken#onFailure: " + error.getErrorMessage());
+                if (callback != null) {
+                    callback.onFailure(call, error);
+                }
+            }
+        });
+    }
+
+    // SignIn Step 3: Refresh api token only if necessary, even though refreshing api token in every signIn action
+    // would make everything easier and make the code looks better
+
+    private void requestRefreshApiToken(final String accessToken, final RetrofitCallback<Token> callback) {
+        Call<Token> call = mRetrofitService.refreshApiToken(accessToken);
+        call.enqueue(new RetrofitCallback<Token>() {
+            @Override
+            public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
+                Log.d(TAG, "requestRefreshApiToken#onSuccess: apiToken is " + token.getApiToken());
                 setApiToken(token.getApiToken());
                 storeSession();
                 // TODO Send global notification
@@ -117,7 +150,7 @@ public class UserSession {
 
             @Override
             public void onFailure(Call<Token> call, NetworkError error) {
-                Log.e(TAG, "apiToken#onFailure: " + error.getErrorMessage());
+                Log.e(TAG, "requestRefreshApiToken#onFailure: " + error.getErrorMessage());
                 if (callback != null) {
                     callback.onFailure(call, error);
                 }
