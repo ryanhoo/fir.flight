@@ -24,7 +24,7 @@ import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.base.OnItemClickListener;
-import io.github.ryanhoo.firFlight.ui.common.WebViewActivity;
+import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
 import retrofit2.Call;
 import retrofit2.Response;
 

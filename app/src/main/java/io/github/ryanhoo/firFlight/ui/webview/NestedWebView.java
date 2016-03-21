@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.ryanhoo.firFlight.ui.common;
+package io.github.ryanhoo.firFlight.ui.webview;
 
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;

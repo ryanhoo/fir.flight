@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.ui.common;
+package io.github.ryanhoo.firFlight.ui.webview;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
