@@ -12,6 +12,15 @@ android {
         versionName "1.0.0"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("keystore.jks")
+            keyAlias "release-keystore"
+            storePassword ''
+            keyPassword ''
+        }
+    }
+
     lintOptions {
         disable 'InvalidPackage'
     }
@@ -24,6 +33,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
@@ -57,4 +67,21 @@ dependencies {
 
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+}
+
+// Keystore password input
+
+// https://www.timroes.de/2014/01/19/using-password-prompts-with-gradle-build-files/
+gradle.taskGraph.whenReady { taskGraph ->
+    if (taskGraph.hasTask(':app:assembleRelease')) {
+        if (System.console()) {
+            def keystorePassword = System.console().readPassword('\nPlease enter key password: ')
+            keystorePassword = new String(keystorePassword)
+            android.signingConfigs.release.storePassword = keystorePassword
+            android.signingConfigs.release.keyPassword = keystorePassword
+        } else {
+            throw new RuntimeException('System.console() is null \n' +
+                    'Please run with --no-daemon and be prepared to input key store password!')
+        }
+    }
 }
