@@ -50,11 +50,25 @@ public interface RetrofitService {
     @GET("/notifications")
     Call<MultiPageResponse<Message>> notifications(
             @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken,
-            @Query("type") String type
+            @Query("type") String type,
+            @Query("page") int page
     );
 
     @GET("/notifications?type=sys")
     Call<MultiPageResponse<Message>> systemNotifications(
             @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken
+    );
+
+    @POST("/notifications/{notificationId}")
+    Call<Message> markNotificationAsRead(
+            @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken,
+            @Path("notificationId") String notificationId,
+            @Query("is_read") boolean isRead
+    );
+
+    @DELETE("/notifications/{notificationId}")
+    Call<Message> deleteNotification(
+            @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken,
+            @Path("notificationId") String notificationId
     );
 }
