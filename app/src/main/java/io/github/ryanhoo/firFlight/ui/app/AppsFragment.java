@@ -23,8 +23,8 @@ import io.github.ryanhoo.firFlight.data.service.RetrofitService;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
+import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
-import io.github.ryanhoo.firFlight.ui.base.OnItemClickListener;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
 import retrofit2.Call;
@@ -40,7 +40,7 @@ import java.util.List;
  * Desc: AppListFragment
  */
 public class AppsFragment extends BaseFragment
-        implements SwipeRefreshLayout.OnRefreshListener, OnItemClickListener<App> {
+        implements SwipeRefreshLayout.OnRefreshListener, BaseAdapter.OnItemClickListener<App> {
 
     private static final String TAG = "AppListFragment";
 

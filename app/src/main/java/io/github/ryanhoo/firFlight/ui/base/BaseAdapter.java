@@ -53,4 +53,10 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
     public void setOnItemClickListener(OnItemClickListener<T> listener) {
         mOnItemClickListener = listener;
     }
+
+    public interface OnItemClickListener<T> {
+
+        void onItemClick(T item, int position);
+    }
+
 }
