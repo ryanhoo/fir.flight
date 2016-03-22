@@ -24,6 +24,7 @@ import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.base.OnItemClickListener;
+import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -39,8 +40,6 @@ import java.util.List;
  */
 public class MessagesFragment extends BaseFragment
         implements SwipeRefreshLayout.OnRefreshListener, OnItemClickListener<Message> {
-
-    private static final String TAG = "MessageListFragment";
 
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -68,7 +67,12 @@ public class MessagesFragment extends BaseFragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mAdapter);
 
-        onRefresh();
+        SwipeRefreshHelper.refresh(swipeRefreshLayout, new Runnable() {
+            @Override
+            public void run() {
+                onRefresh();
+            }
+        });
     }
 
     @Override

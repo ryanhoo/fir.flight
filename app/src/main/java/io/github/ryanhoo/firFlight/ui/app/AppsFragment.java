@@ -25,6 +25,7 @@ import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.base.OnItemClickListener;
+import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -70,7 +71,12 @@ public class AppsFragment extends BaseFragment
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(mAdapter);
 
-        onRefresh();
+        SwipeRefreshHelper.refresh(swipeRefreshLayout, new Runnable() {
+            @Override
+            public void run() {
+                onRefresh();
+            }
+        });
 
         // Listen for app install/update/remove broadcasts
         registerBroadcast();
