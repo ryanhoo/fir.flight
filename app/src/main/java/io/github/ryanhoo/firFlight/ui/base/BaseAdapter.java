@@ -34,6 +34,10 @@ public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends
         return LayoutInflater.from(mContext);
     }
 
+    protected OnItemClickListener getOnItemClickListener() {
+        return mOnItemClickListener;
+    }
+
     @Override
     public int getItemCount() {
         if (mData == null) return 0;
