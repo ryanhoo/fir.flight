@@ -36,6 +36,7 @@ public interface RetrofitService {
     Call<User> user(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
 
     // Apps
+
     @GET("/apps")
     Call<List<App>> apps(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
 
@@ -45,7 +46,7 @@ public interface RetrofitService {
     // Notifications
 
     String NOTIFICATON_TYPE_SYS = "sys";
-    String NOTIFICATION_TYPE_RELEASE = "release"; // TODO Multi pages when there are too many notifications
+    String NOTIFICATION_TYPE_RELEASE = "release";
 
     @GET("/notifications")
     Call<MultiPageResponse<Message>> notifications(
