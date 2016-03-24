@@ -36,6 +36,9 @@
     <color name="ff.textColor.button.pressed">#8A666666</color>
     <color name="ff.textColor.button.disabled">#8A666666</color>
 
+    <color name="ff.textColor.button.primaryTheme">#607D8B</color>
+    <color name="ff.textColor.button.primaryTheme.pressed">#7A607D8B</color>
+
     <!-- Splash -->
     <color name="ff.splash.app_name">#FFFFFF</color>
     <color name="ff.splash.app_slogan">#CFD8DC</color>

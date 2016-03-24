@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_centerInParent="true"
+        >
+
+        <ImageView
+            android:id="@+id/image_view_app_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/ff.app.name"/>
+
+        <TextView
+            android:id="@+id/text_view_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ff.padding.small"
+            android:textSize="20sp"
+            android:textColor="@color/ff.textColor.title"
+            android:text="@string/ff.app.name"
+            />
+
+        <TextView
+            android:id="@+id/text_view_app_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ff.padding.small"
+            android:textSize="@dimen/ff.textSize.tips"
+            android:textColor="@color/ff.textColor.tips"
+            tools:text="1.1.2-D(12)"
+            />
+
+        <TextView
+            android:id="@+id/text_view_app_slogan"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ff.margin.large"
+            android:layout_marginRight="@dimen/ff.margin.large"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="54dp"
+            android:gravity="center"
+            android:autoLink="web"
+            android:textSize="@dimen/ff.textSize.text"
+            android:textColor="@color/ff.textColor.text"
+            android:text="@string/ff.splash.slogan.about"
+            />
+
+        <View style="@style/FFDivider"/>
+
+        <Button
+            android:id="@+id/button_fir"
+            style="@style/FFButton.About"
+            android:textAllCaps="false"
+            android:text="@string/ff.about.button.fir"
+            />
+
+        <View style="@style/FFDivider"/>
+
+        <Button
+            android:id="@+id/button_acknowledgements"
+            style="@style/FFButton.About"
+            android:text="@string/ff.about.button.acknowledgements"
+            />
+
+        <View style="@style/FFDivider"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_author"
+        style="@style/FFButton.About"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:padding="@dimen/ff.padding.large"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:typeface="monospace"
+        android:textColor="@color/ff.textColor.tips"
+        android:textSize="10sp"
+        android:text="@string/ff.about.button.author"
+        android:background="@color/ff.transparent"
+        tools:ignore="SmallSp"/>
+
+</RelativeLayout>

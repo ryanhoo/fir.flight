@@ -31,6 +31,7 @@ import io.github.ryanhoo.firFlight.data.service.RetrofitService;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
+import io.github.ryanhoo.firFlight.ui.about.AboutFragment;
 import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.message.MessagesFragment;
@@ -52,6 +53,7 @@ public class MainActivity extends BaseActivity {
     private interface Tab {
         String APPS = "apps";
         String MESSAGES = "messages";
+        String ABOUT = "about";
     }
 
     @Bind(R.id.toolbar)
@@ -153,6 +155,7 @@ public class MainActivity extends BaseActivity {
             case R.id.item_settings:
                 break;
             case R.id.item_about:
+                toTab = Tab.ABOUT;
                 break;
         }
         if (toTab != null && !toTab.equals(mCurrentFragmentTab)) {
@@ -172,6 +175,10 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Tab.MESSAGES:
                     to = new MessagesFragment();
+                    addToStack = true;
+                    break;
+                case Tab.ABOUT:
+                    to = new AboutFragment();
                     addToStack = true;
                     break;
             }
