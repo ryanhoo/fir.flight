@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
@@ -56,7 +57,16 @@ public class WebViewActivity extends BaseActivity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
 
-        // Chrome
+        // WebView Client
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+
+        // Chrome Client
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onReceivedTitle(WebView view, String title) {
