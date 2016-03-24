@@ -24,6 +24,9 @@
     <string name="ff.apps.open">Open</string>
     <string name="ff.apps.install">Install</string>
 
+    <!-- Notification -->
+    <string name="ff.notification.app.new_version.message" formatted="false">New version %s(%s)</string>
+
     <!-- Dialog -->
     <string name="ff.dialog.sign_out.message">Do you really want to sign out?</string>
     <string name="ff.dialog.cancel">Cancel</string>

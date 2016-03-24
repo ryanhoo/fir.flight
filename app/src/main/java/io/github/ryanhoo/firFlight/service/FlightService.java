@@ -72,7 +72,7 @@ public class FlightService extends IntentService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String title = app.getName();
-        String content = String.format("New version %s(%s)",
+        String content = getString(R.string.ff_notification_app_new_version_message,
                 app.getMasterRelease().getVersion(), app.getMasterRelease().getBuild());
         Log.d(TAG, String.format("%s \t %s", title, content));
         Notification notification = new Notification.Builder(this)
