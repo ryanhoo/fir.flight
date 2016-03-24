@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
@@ -29,8 +31,10 @@ public class WebViewActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.webView)
+    @Bind(R.id.web_view)
     WebView webView;
+    @Bind(R.id.progress_bar)
+    ProgressBar progressBar;
 
     String mTitle;
     String mUrl;
@@ -44,10 +48,23 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
 
+        ActionBar actionBar = supportActionBar(toolbar);
+        if (actionBar != null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_close);
+        }
         setActionBarTitle();
         setUpWebView(webView);
 
         webView.loadUrl(mUrl);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -76,11 +93,18 @@ public class WebViewActivity extends BaseActivity {
                     setActionBarTitle();
                 }
             }
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                progressBar.setProgress(newProgress);
+                progressBar.setVisibility(newProgress >= 100 ? View.GONE : View.VISIBLE);
+            }
         });
     }
 
     private void setActionBarTitle() {
-        ActionBar actionBar = supportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(mTitle);
         }
