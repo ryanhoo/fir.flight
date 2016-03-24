@@ -28,7 +28,7 @@
     <!-- About -->
     <string name="ff.about.button.fir">fir.im</string>
     <string name="ff.about.button.acknowledgements">Acknowledgements</string>
-    <string name="ff.about.button.author">©Ryan Hoo 2016</string>
+    <string name="ff.about.button.author">© 2016 Ryan Hoo</string>
 
     <!-- Notification -->
     <string name="ff.notification.app.new_version.message" formatted="false">New version %s(%s)</string>
