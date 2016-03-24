@@ -1,7 +1,6 @@
 package io.github.ryanhoo.firFlight.ui.about;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -16,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
-import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
+import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 
 /**
  * Created with Android Studio.
@@ -63,22 +62,13 @@ public class AboutFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_fir:
-                startActivity(
-                        new Intent(getActivity(), WebViewActivity.class)
-                                .putExtra(WebViewActivity.EXTRA_URL, URL_FIR_IM)
-                );
+                WebViewHelper.openUrl(getActivity(), URL_FIR_IM);
                 break;
             case R.id.button_acknowledgements:
-                startActivity(
-                        new Intent(getActivity(), WebViewActivity.class)
-                                .putExtra(WebViewActivity.EXTRA_URL, URL_ACKNOWLEDGEMENTS)
-                );
+                WebViewHelper.openUrl(getActivity(), URL_ACKNOWLEDGEMENTS);
                 break;
             case R.id.button_author:
-                startActivity(
-                        new Intent(getActivity(), WebViewActivity.class)
-                                .putExtra(WebViewActivity.EXTRA_URL, URL_AUTHOR)
-                );
+                WebViewHelper.openUrl(getActivity(), URL_AUTHOR);
                 break;
         }
     }

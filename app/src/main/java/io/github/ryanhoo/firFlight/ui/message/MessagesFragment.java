@@ -1,6 +1,5 @@
 package io.github.ryanhoo.firFlight.ui.message;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,7 +24,7 @@ import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
-import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
+import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -85,12 +84,10 @@ public class MessagesFragment extends BaseFragment
     public void onItemClick(Message message, int position) {
         if (message.getContent() instanceof SystemMessageContent) {
             SystemMessageContent messageContent = (SystemMessageContent) message.getContent();
-            String link = messageContent.getLink();
+            final String link = messageContent.getLink();
             if (TextUtils.isEmpty(link)) return;
-            startActivity(
-                    new Intent(getActivity(), WebViewActivity.class)
-                            .putExtra(WebViewActivity.EXTRA_URL, link)
-            );
+
+            WebViewHelper.openUrl(getActivity(), link);
         }
     }
 
