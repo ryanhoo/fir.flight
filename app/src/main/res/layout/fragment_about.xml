@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/ff.padding.larger"
         android:layout_centerInParent="true"
         >
 
@@ -26,10 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ff.padding.small"
+            android:letterSpacing="0.05"
             android:textSize="20sp"
             android:textColor="@color/ff.textColor.title"
             android:text="@string/ff.app.name"
-            />
+            tools:targetApi="lollipop"/>
 
         <TextView
             android:id="@+id/text_view_app_version"
@@ -38,7 +40,7 @@
             android:layout_marginTop="@dimen/ff.padding.small"
             android:textSize="@dimen/ff.textSize.tips"
             android:textColor="@color/ff.textColor.tips"
-            tools:text="1.1.2-D(12)"
+            tools:text="1.2.0(16032501)"
             />
 
         <TextView
@@ -47,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/ff.margin.large"
             android:layout_marginRight="@dimen/ff.margin.large"
+            android:lineSpacingMultiplier="1.1"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="54dp"
             android:gravity="center"
@@ -61,7 +64,6 @@
         <Button
             android:id="@+id/button_fir"
             style="@style/FFButton.About"
-            android:textAllCaps="false"
             android:text="@string/ff.about.button.fir"
             />
 
