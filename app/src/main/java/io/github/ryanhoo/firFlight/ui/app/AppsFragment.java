@@ -32,8 +32,8 @@ import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
 import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
-import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
+import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -113,12 +113,8 @@ public class AppsFragment extends BaseFragment
     }
 
     @Override
-    public void onItemClick(App app, int position) {
-        startActivity(
-                new Intent(getActivity(), WebViewActivity.class)
-                        .putExtra(WebViewActivity.EXTRA_TITLE, app.getName())
-                        .putExtra(WebViewActivity.EXTRA_URL, app.getAppUrl())
-        );
+    public void onItemClick(final App app, int position) {
+        WebViewHelper.openUrl(getActivity(), app.getName(), app.getAppUrl());
     }
 
     @Override
