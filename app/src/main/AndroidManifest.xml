@@ -6,6 +6,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <!-- BugHD -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <!-- For update receiver -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -64,6 +69,11 @@
         <meta-data
             android:name="io.github.ryanhoo.firFlight.GlideConfiguration"
             android:value="GlideModule"/>
+
+        <meta-data
+            android:value="80257c1022a7c853ec8f1e2537d2b571"
+            android:name="BUG_HD_SDK_GENERAL_KEY"/>
+
     </application>
 
 </manifest>

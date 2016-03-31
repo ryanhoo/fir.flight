@@ -1,6 +1,7 @@
 package io.github.ryanhoo.firFlight;
 
 import android.app.Application;
+import im.fir.sdk.FIR;
 import io.github.ryanhoo.firFlight.data.UserSession;
 
 /**
@@ -15,6 +16,10 @@ public class FlightApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // BugHD
+        FIR.init(this);
+
+        // User Session
         UserSession.init(this);
     }
 }
