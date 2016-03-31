@@ -74,6 +74,9 @@
             android:value="80257c1022a7c853ec8f1e2537d2b571"
             android:name="BUG_HD_SDK_GENERAL_KEY"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="a044e88fbe26d5bb3256954e3721393d4ef7b89e" />
     </application>
 
 </manifest>
