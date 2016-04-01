@@ -59,9 +59,10 @@ android {
         develop
 
         fir
-        WanDouJia
-        YingYongBao
-        GooglePlay
+
+        // WanDouJia
+        // YingYongBao
+        // GooglePlay
     }
 
     productFlavors.all { flavor ->
