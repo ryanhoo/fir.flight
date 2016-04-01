@@ -34,6 +34,7 @@ import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.ui.about.AboutFragment;
 import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
+import io.github.ryanhoo.firFlight.ui.helper.GlobalLayoutHelper;
 import io.github.ryanhoo.firFlight.ui.message.MessagesFragment;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -74,11 +75,12 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         supportActionBar(toolbar);
 
-        requestUser();
         setUpDrawerToggle();
         setUpDrawerContent();
 
         switchScene(null, Tab.APPS);
+
+        requestUser();
     }
 
     @Override
@@ -137,6 +139,7 @@ public class MainActivity extends BaseActivity {
 
     private void onDrawerItemChecked(MenuItem item) {
         if (item.getItemId() == R.id.item_sign_out) {
+            drawerLayout.closeDrawers();
             confirmSignOut();
             return;
         }
@@ -235,27 +238,32 @@ public class MainActivity extends BaseActivity {
                 .show();
     }
 
-    private void onLoadUserInfo(User user) {
-        final ImageView imageViewIcon = ButterKnife.findById(drawerLayout, R.id.image_view_icon);
-        final TextView textViewName = ButterKnife.findById(drawerLayout, R.id.text_view_name);
-        final TextView textViewEmail = ButterKnife.findById(drawerLayout, R.id.text_view_email);
+    private void onLoadUserInfo(final User user) {
+        new GlobalLayoutHelper().attachView(drawerLayout, new Runnable() {
+            @Override
+            public void run() {
+                final ImageView imageViewIcon = ButterKnife.findById(drawerLayout, R.id.image_view_icon);
+                final TextView textViewName = ButterKnife.findById(drawerLayout, R.id.text_view_name);
+                final TextView textViewEmail = ButterKnife.findById(drawerLayout, R.id.text_view_email);
 
-        textViewName.setText(user.getName());
-        textViewEmail.setText(user.getEmail());
-        Glide.with(this)
-                .load(user.getGravatar())
-                .asBitmap()
-                .placeholder(R.color.ff_apps_icon_placeholder)
-                .centerCrop()
-                .into(new BitmapImageViewTarget(imageViewIcon) {
-                    @Override
-                    protected void setResource(Bitmap resource) {
-                        RoundedBitmapDrawable circularBitmapDrawable =
-                                RoundedBitmapDrawableFactory.create(getResources(), resource);
-                        circularBitmapDrawable.setCircular(true);
-                        imageViewIcon.setImageDrawable(circularBitmapDrawable);
-                    }
-                });
+                textViewName.setText(user.getName());
+                textViewEmail.setText(user.getEmail());
+                Glide.with(MainActivity.this)
+                        .load(user.getGravatar())
+                        .asBitmap()
+                        .placeholder(R.color.ff_apps_icon_placeholder)
+                        .centerCrop()
+                        .into(new BitmapImageViewTarget(imageViewIcon) {
+                            @Override
+                            protected void setResource(Bitmap resource) {
+                                RoundedBitmapDrawable circularBitmapDrawable =
+                                        RoundedBitmapDrawableFactory.create(getResources(), resource);
+                                circularBitmapDrawable.setCircular(true);
+                                imageViewIcon.setImageDrawable(circularBitmapDrawable);
+                            }
+                        });
+            }
+        });
     }
 
     // Request
