@@ -54,6 +54,19 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    productFlavors {
+        develop
+
+        fir
+        WanDouJia
+        YingYongBao
+        GooglePlay
+    }
+
+    productFlavors.all { flavor ->
+        manifestPlaceholders.put('flightFlavorName', flavor.name)
+    }
 }
 
 dependencies {
