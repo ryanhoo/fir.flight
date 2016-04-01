@@ -29,10 +29,8 @@ import com.crashlytics.android.answers.CustomEvent;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.User;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
-import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.about.AboutFragment;
 import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
@@ -263,9 +261,11 @@ public class MainActivity extends BaseActivity {
     // Request
 
     private void requestUser() {
-        RetrofitService retrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
-        Call<User> call = retrofitService.user(UserSession.getInstance().getToken().getAccessToken());
-        call.enqueue(new RetrofitCallback<User>() {
+        User user = UserSession.getInstance().getUser();
+        if (user != null) {
+            onLoadUserInfo(user);
+        }
+        UserSession.getInstance().updateUser(new RetrofitCallback<User>() {
             @Override
             public void onSuccess(Call<User> call, Response httpResponse, User user) {
                 Log.d(TAG, String.format("User: %s\n%s\n%s", user.getName(), user.getEmail(), user.getGravatar()));
