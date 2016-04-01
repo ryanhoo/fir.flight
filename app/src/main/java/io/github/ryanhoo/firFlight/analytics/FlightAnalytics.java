@@ -5,9 +5,9 @@ import android.content.Context;
 import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.BuildConfig;
 import im.fir.sdk.FIR;
 import io.fabric.sdk.android.Fabric;
+import io.github.ryanhoo.firFlight.BuildConfig;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.User;
 
