@@ -21,7 +21,6 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
-import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
@@ -129,7 +128,7 @@ public class AppsFragment extends BaseFragment
     }
 
     private void requestApps() {
-        Call<List<App>> call = mRetrofitService.apps(UserSession.getInstance().getToken().getAccessToken());
+        Call<List<App>> call = mRetrofitService.apps();
         call.enqueue(new RetrofitCallback<List<App>>() {
             @Override
             public void onSuccess(Call<List<App>> call, Response httpResponse, List<App> apps) {
@@ -151,7 +150,7 @@ public class AppsFragment extends BaseFragment
     private void requestInstallUrl(final AppAdapter.ViewHolder holder, final App app, final int position) {
         holder.buttonAction.setEnabled(false);
         Call<AppInstallInfo> call = RetrofitClient.defaultInstance().create(RetrofitService.class)
-                .appInstallInfo(app.getId(), UserSession.getInstance().getToken().getApiToken());
+                .appInstallInfo(app.getId());
         call.enqueue(new RetrofitCallback<AppInstallInfo>() {
             @Override
             public void onSuccess(Call<AppInstallInfo> call, Response httpResponse, AppInstallInfo appInstallInfo) {

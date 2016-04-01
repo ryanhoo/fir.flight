@@ -16,9 +16,6 @@ import java.util.List;
  */
 public interface RetrofitService {
 
-    String QUERY_KEY_ACCESS_TOKEN = "access_token";
-    String QUERY_KEY_API_TOKEN = "api_token";
-
     // Token
 
     @FormUrlEncoded
@@ -26,22 +23,22 @@ public interface RetrofitService {
     Call<Token> signIn(@Field("email") String email, @Field("password") String password);
 
     @GET("/user/api_token")
-    Call<Token> apiToken(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
+    Call<Token> apiToken();
 
     @POST("/user/api_token")
-    Call<Token> refreshApiToken(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
+    Call<Token> refreshApiToken();
 
     // User
     @GET("/user")
-    Call<User> user(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
+    Call<User> user();
 
     // Apps
 
     @GET("/apps")
-    Call<List<App>> apps(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
+    Call<List<App>> apps();
 
-    @GET("/apps/latest/{appId}")
-    Call<AppInstallInfo> appInstallInfo(@Path("appId") String appId, @Query(QUERY_KEY_API_TOKEN) String apiToken);
+    @GET("/apps/latest/{appId}?requireApiToken=true")
+    Call<AppInstallInfo> appInstallInfo(@Path("appId") String appId);
 
     // Notifications
 
@@ -49,27 +46,14 @@ public interface RetrofitService {
     String NOTIFICATION_TYPE_RELEASE = "release";
 
     @GET("/notifications")
-    Call<MultiPageResponse<Message>> notifications(
-            @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken,
-            @Query("type") String type,
-            @Query("page") int page
-    );
+    Call<MultiPageResponse<Message>> notifications(@Query("type") String type, @Query("page") int page);
 
     @GET("/notifications?type=sys")
-    Call<MultiPageResponse<Message>> systemNotifications(
-            @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken
-    );
+    Call<MultiPageResponse<Message>> systemNotifications();
 
     @POST("/notifications/{notificationId}")
-    Call<Message> markNotificationAsRead(
-            @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken,
-            @Path("notificationId") String notificationId,
-            @Query("is_read") boolean isRead
-    );
+    Call<Message> markNotificationAsRead(@Path("notificationId") String notificationId, @Query("is_read") boolean isRead);
 
     @DELETE("/notifications/{notificationId}")
-    Call<Message> deleteNotification(
-            @Query(QUERY_KEY_ACCESS_TOKEN) String accessToken,
-            @Path("notificationId") String notificationId
-    );
+    Call<Message> deleteNotification(@Path("notificationId") String notificationId);
 }

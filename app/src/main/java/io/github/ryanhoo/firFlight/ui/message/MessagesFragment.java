@@ -13,7 +13,6 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
-import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
@@ -92,8 +91,7 @@ public class MessagesFragment extends BaseFragment
     }
 
     private void requestSystemNotifications() {
-        final String token = UserSession.getInstance().getToken().getAccessToken();
-        Call<MultiPageResponse<Message>> call = mRetrofitService.systemNotifications(token);
+        Call<MultiPageResponse<Message>> call = mRetrofitService.systemNotifications();
         call.enqueue(new RetrofitCallback<MultiPageResponse<Message>>() {
             @Override
             public void onSuccess(Call<MultiPageResponse<Message>> call, Response httpResponse, MultiPageResponse<Message> messageMultiPageResponse) {

@@ -94,7 +94,7 @@ public class UserSession {
             public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
                 Log.d(TAG, "apiToken#onSuccess: accessToken is " + token.getAccessToken());
                 setAccessToken(token.getAccessToken());
-                requestApiToken(token.getAccessToken(), callback);
+                requestApiToken(callback);
                 // requestRefreshApiToken(token.getAccessToken(), callback);
             }
 
@@ -110,14 +110,14 @@ public class UserSession {
 
     // SignIn Step 2: Request api token
 
-    private void requestApiToken(final String accessToken, final RetrofitCallback<Token> callback) {
-        Call<Token> call = mRetrofitService.apiToken(accessToken);
+    private void requestApiToken(final RetrofitCallback<Token> callback) {
+        Call<Token> call = mRetrofitService.apiToken();
         call.enqueue(new RetrofitCallback<Token>() {
             @Override
             public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
                 // If you've never generate a token in the web page, you won't get any api token
                 if (token.getApiToken() == null) {
-                    requestRefreshApiToken(accessToken, callback);
+                    requestRefreshApiToken(callback);
                 } else {
                     Log.d(TAG, "apiToken#onSuccess: apiToken is " + token.getApiToken());
                     setApiToken(token.getApiToken());
@@ -142,8 +142,8 @@ public class UserSession {
     // SignIn Step 3: Refresh api token only if necessary, even though refreshing api token in every signIn action
     // would make everything easier and make the code looks better
 
-    private void requestRefreshApiToken(final String accessToken, final RetrofitCallback<Token> callback) {
-        Call<Token> call = mRetrofitService.refreshApiToken(accessToken);
+    private void requestRefreshApiToken(final RetrofitCallback<Token> callback) {
+        Call<Token> call = mRetrofitService.refreshApiToken();
         call.enqueue(new RetrofitCallback<Token>() {
             @Override
             public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
@@ -171,7 +171,7 @@ public class UserSession {
             signOut();
             return;
         }
-        Call<User> call = mRetrofitService.user(mToken.getAccessToken());
+        Call<User> call = mRetrofitService.user();
         call.enqueue(new RetrofitCallback<User>() {
             @Override
             public void onSuccess(Call<User> call, Response httpResponse, User user) {

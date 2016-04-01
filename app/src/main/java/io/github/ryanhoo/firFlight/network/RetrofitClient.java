@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import io.github.ryanhoo.firFlight.data.model.IMessageContent;
 import io.github.ryanhoo.firFlight.network.gson.DateDeserializer;
 import io.github.ryanhoo.firFlight.network.gson.MessageContentDeserializer;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,8 +22,15 @@ public class RetrofitClient {
 
     public static Retrofit defaultInstance() {
         return new Retrofit.Builder()
+                .client(defaultOkHttpClient())
                 .baseUrl(ServerConfig.API_HOST)
                 .addConverterFactory(GsonConverterFactory.create(defaultGson()))
+                .build();
+    }
+
+    public static OkHttpClient defaultOkHttpClient() {
+        return new OkHttpClient.Builder()
+                .addNetworkInterceptor(new SessionInterceptor())
                 .build();
     }
 

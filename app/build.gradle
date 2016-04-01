@@ -102,8 +102,8 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.6.2'
 
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:retrofit:2.0.1'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
 
     // BugHD http://bughd.com/doc/android
     compile 'im.fir:fir-sdk:latest.integration@aar'

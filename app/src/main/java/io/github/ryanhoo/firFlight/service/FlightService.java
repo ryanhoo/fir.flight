@@ -51,7 +51,7 @@ public class FlightService extends IntentService {
         if (!UserSession.getInstance().isSignedIn()) return;
 
         RetrofitService retrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
-        Call<List<App>> call = retrofitService.apps(UserSession.getInstance().getToken().getAccessToken());
+        Call<List<App>> call = retrofitService.apps();
         try {
             Response<List<App>> response = call.execute();
             List<App> apps = response.body();
