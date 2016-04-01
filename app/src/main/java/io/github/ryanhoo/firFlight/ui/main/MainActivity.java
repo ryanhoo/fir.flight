@@ -24,9 +24,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
+import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.network.NetworkError;
@@ -225,10 +225,10 @@ public class MainActivity extends BaseActivity {
                         // SignOut Event
                         final String name = UserSession.getInstance().getUser().getName();
                         final String email = UserSession.getInstance().getUser().getEmail();
-                        CustomEvent signOutEvent = new CustomEvent("signOut")
-                                .putCustomAttribute("email", email)
-                                .putCustomAttribute("name", name);
-                        Answers.getInstance().logCustom(signOutEvent);
+                        FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_OUT)
+                                .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
+                                .putCustomAttribute(FlightEvent.KEY_NAME, name)
+                        );
 
                         // Sign out
                         UserSession.getInstance().signOut();

@@ -16,9 +16,9 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.SignUpEvent;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
+import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
@@ -86,11 +86,11 @@ public class SignInFragment extends BaseFragment {
                 UserSession.getInstance().signIn(email, password, new RetrofitCallback<Token>() {
                     @Override
                     public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-                        // SignUp Event Success
-                        SignUpEvent signUpEvent = new SignUpEvent()
-                                .putCustomAttribute("email", email)
-                                .putSuccess(true);
-                        Answers.getInstance().logSignUp(signUpEvent);
+                        // SignIn Event Success
+                        FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
+                                .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
+                                .putSuccess(true)
+                        );
 
                         startActivity(new Intent(getActivity(), MainActivity.class));
                         getActivity().finish();
@@ -98,11 +98,11 @@ public class SignInFragment extends BaseFragment {
 
                     @Override
                     public void onFailure(Call<Token> call, NetworkError error) {
-                        // SignUp Event Fail
-                        SignUpEvent signUpEvent = new SignUpEvent()
-                                .putCustomAttribute("email", email)
-                                .putSuccess(false);
-                        Answers.getInstance().logSignUp(signUpEvent);
+                        // SignIn Event Fail
+                        FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
+                                .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
+                                .putSuccess(false)
+                        );
                         Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

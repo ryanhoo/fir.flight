@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import com.google.gson.Gson;
+import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
@@ -75,6 +76,12 @@ public class UserSession {
         sContext.getSharedPreferences(PREFS_SESSION, Context.MODE_PRIVATE)
                 .edit().clear().apply();
         // TODO Send global notification
+    }
+
+    // Analytics Configs
+
+    private void configAnalytics() {
+        FlightAnalytics.configUserSession(this);
     }
 
     // Requests
@@ -195,6 +202,7 @@ public class UserSession {
                 .putString(KEY_TOKEN, mGson.toJson(mToken))
                 .putString(KEY_USER, mGson.toJson(mUser))
                 .apply();
+        configAnalytics();
     }
 
     private void restoreSession() {
@@ -205,6 +213,7 @@ public class UserSession {
             mToken = mGson.fromJson(token, Token.class);
             mUser = mGson.fromJson(user, User.class);
         }
+        configAnalytics();
     }
 
     // Getters & Setters
