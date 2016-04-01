@@ -16,6 +16,8 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.SignUpEvent;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
@@ -78,24 +80,33 @@ public class SignInFragment extends BaseFragment {
     @OnClick({R.id.button_sign_in})
     public void onClick(View view) {
         if (view.getId() == R.id.button_sign_in) {
-            String email = "tps@whitedew.me";
-            String password = "";
             if (editTextEmail.length() > 0 && editTextPassword.length() > 0) {
-                email = editTextEmail.getText().toString();
-                password = editTextPassword.getText().toString();
-            }
-            UserSession.getInstance().signIn(email, password, new RetrofitCallback<Token>() {
-                @Override
-                public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-                    getActivity().finish();
-                }
+                final String email = editTextEmail.getText().toString();
+                final String password = editTextPassword.getText().toString();
+                UserSession.getInstance().signIn(email, password, new RetrofitCallback<Token>() {
+                    @Override
+                    public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
+                        // SignUp Event Success
+                        SignUpEvent signUpEvent = new SignUpEvent()
+                                .putCustomAttribute("email", email)
+                                .putSuccess(true);
+                        Answers.getInstance().logSignUp(signUpEvent);
 
-                @Override
-                public void onFailure(Call<Token> call, NetworkError error) {
-                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                        startActivity(new Intent(getActivity(), MainActivity.class));
+                        getActivity().finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Token> call, NetworkError error) {
+                        // SignUp Event Fail
+                        SignUpEvent signUpEvent = new SignUpEvent()
+                                .putCustomAttribute("email", email)
+                                .putSuccess(false);
+                        Answers.getInstance().logSignUp(signUpEvent);
+                        Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 

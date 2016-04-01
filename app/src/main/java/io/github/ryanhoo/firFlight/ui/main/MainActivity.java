@@ -24,6 +24,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.UserSession;
 import io.github.ryanhoo.firFlight.data.model.User;
@@ -219,6 +221,15 @@ public class MainActivity extends BaseActivity {
                 .setPositiveButton(getString(R.string.ff_dialog_confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // SignOut Event
+                        final String name = UserSession.getInstance().getUser().getName();
+                        final String email = UserSession.getInstance().getUser().getEmail();
+                        CustomEvent signOutEvent = new CustomEvent("signOut")
+                                .putCustomAttribute("email", email)
+                                .putCustomAttribute("name", name);
+                        Answers.getInstance().logCustom(signOutEvent);
+
+                        // Sign out
                         UserSession.getInstance().signOut();
                         MainActivity.this.finish();
                     }
