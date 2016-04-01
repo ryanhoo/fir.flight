@@ -1,8 +1,10 @@
 package io.github.ryanhoo.firFlight.util;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.util.Log;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.Release;
@@ -45,5 +47,23 @@ public class AppUtils {
             Log.e(TAG, String.format("isAppUpToDate %s: [%s, %s]", app.getName(), packageName, build), e);
         }
         return false;
+    }
+
+    public static String getFlavorName(Context context) {
+        if (context == null) return null;
+        String flavorName = null;
+        try {
+            Context applicationContext = context.getApplicationContext();
+            ApplicationInfo appInfo = applicationContext.getPackageManager()
+                    .getApplicationInfo(applicationContext.getPackageName(), PackageManager.GET_META_DATA);
+            Bundle metaData = appInfo.metaData;
+            if (metaData != null) {
+                flavorName = metaData.getString("FLIGHT_FLAVOR_NAME");
+                Log.d(TAG, "getFlavorName: " + flavorName);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(TAG, "getFlavorName failed: ", e);
+        }
+        return flavorName;
     }
 }

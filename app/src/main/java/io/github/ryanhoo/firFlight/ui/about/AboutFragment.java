@@ -13,6 +13,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.ryanhoo.firFlight.BuildConfig;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
@@ -34,6 +35,8 @@ public class AboutFragment extends BaseFragment {
 
     @Bind(R.id.text_view_app_version)
     TextView textViewViewVersion;
+    @Bind(R.id.text_view_flavor_name)
+    TextView textViewFlavorName;
 
     @Nullable
     @Override
@@ -56,9 +59,10 @@ public class AboutFragment extends BaseFragment {
         } catch (Exception e) {
             Log.e(TAG, "Get app version info", e);
         }
+        textViewFlavorName.setText(BuildConfig.FLAVOR);
     }
 
-    @OnClick({R.id.button_fir, R.id.button_acknowledgements, R.id.button_author})
+    @OnClick({R.id.button_fir, R.id.button_acknowledgements, R.id.button_author, R.id.text_view_app_version})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_fir:
@@ -69,6 +73,13 @@ public class AboutFragment extends BaseFragment {
                 break;
             case R.id.button_author:
                 WebViewHelper.openUrl(getActivity(), URL_AUTHOR);
+                break;
+            case R.id.text_view_app_version:
+                if (textViewFlavorName.getVisibility() == View.VISIBLE) {
+                    textViewFlavorName.setVisibility(View.GONE);
+                } else {
+                    textViewFlavorName.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }

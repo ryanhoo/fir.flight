@@ -66,6 +66,8 @@ android {
 
     productFlavors.all { flavor ->
         manifestPlaceholders.put('flightFlavorName', flavor.name)
+        // Unnecessary, there already has a FLAVOR in BuildConfig
+        // flavor.buildConfigField('String', 'FLAVOR_NAME', "\"${flavor.name}\"")
     }
 }
 

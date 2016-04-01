@@ -13,6 +13,7 @@
         android:gravity="center_horizontal"
         android:paddingBottom="@dimen/ff.padding.larger"
         android:layout_centerInParent="true"
+        android:animateLayoutChanges="true"
         >
 
         <ImageView
@@ -26,7 +27,7 @@
             android:id="@+id/text_view_app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ff.padding.small"
+            android:layout_marginTop="@dimen/ff.padding.large"
             android:letterSpacing="0.05"
             android:textSize="20sp"
             android:textColor="@color/ff.textColor.title"
@@ -37,10 +38,22 @@
             android:id="@+id/text_view_app_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ff.padding.small"
+            android:layout_marginTop="@dimen/ff.padding.normal"
             android:textSize="@dimen/ff.textSize.tips"
             android:textColor="@color/ff.textColor.tips"
             tools:text="1.2.0(16032501)"
+            />
+
+        <TextView
+            android:id="@+id/text_view_flavor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ff.padding.small"
+            android:textSize="@dimen/ff.textSize.tips"
+            android:textColor="@color/ff.textColor.tips"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="WanDouJia"
             />
 
         <TextView
