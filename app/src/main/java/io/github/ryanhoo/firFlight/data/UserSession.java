@@ -88,6 +88,7 @@ public class UserSession {
                 Log.d(TAG, "apiToken#onSuccess: accessToken is " + token.getAccessToken());
                 setAccessToken(token.getAccessToken());
                 requestApiToken(token.getAccessToken(), callback);
+                // requestRefreshApiToken(token.getAccessToken(), callback);
             }
 
             @Override

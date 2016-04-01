@@ -28,7 +28,7 @@ public interface RetrofitService {
     @GET("/user/api_token")
     Call<Token> apiToken(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
 
-    @PATCH("/user/api_token")
+    @POST("/user/api_token")
     Call<Token> refreshApiToken(@Query(QUERY_KEY_ACCESS_TOKEN) String accessToken);
 
     // User
