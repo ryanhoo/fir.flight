@@ -1,16 +1,16 @@
 package io.github.ryanhoo.firFlight.ui;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v7.view.ViewPropertyAnimatorCompatSet;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -18,7 +18,7 @@ import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.main.MainActivity;
-import io.github.ryanhoo.firFlight.ui.signin.SignInFragment;
+import io.github.ryanhoo.firFlight.ui.signin.SignInActivity;
 
 /**
  * Created with Android Studio.
@@ -28,6 +28,8 @@ import io.github.ryanhoo.firFlight.ui.signin.SignInFragment;
  * Desc: SplashScreenActivity
  */
 public class SplashScreenActivity extends BaseActivity {
+
+    private static final int REQUEST_SIGN_IN = 1;
 
     final long ANIMATION_DURATION = 1000;
     final long SHOW_SIGN_IN_DELAY = 1000;
@@ -41,8 +43,7 @@ public class SplashScreenActivity extends BaseActivity {
     @Bind(R.id.image_view_propeller)
     ImageView imageViewPropeller;
 
-    @Bind(R.id.layout_fragment_container)
-    FrameLayout layoutFragmentContainer;
+    Handler mHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,47 +51,52 @@ public class SplashScreenActivity extends BaseActivity {
         setContentView(R.layout.activity_splash_screen);
         ButterKnife.bind(this);
 
+        mHandler = new Handler();
+
         // Update User Token
         if (UserSession.getInstance().isSignedIn()) {
             // Main Activity
-            layoutFragmentContainer.postDelayed(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                    startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
-                    finish();
+                    openMainActivity();
                 }
             }, SIGNED_IN_DELAY);
         } else {
             // Sign In
-            layoutFragmentContainer.postDelayed(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    showSignIn();
+                    openSignInActivity();
                 }
             }, SHOW_SIGN_IN_DELAY);
         }
-
-        resetSloganMarginTop(!UserSession.getInstance().isSignedIn());
 
         // Animate UI in
         animateTextViews();
         animatePropeller();
     }
 
-    // Make room for sign in fragment if necessary
-    private void resetSloganMarginTop(boolean needToMakeRoomForSignIn) {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) textViewAppName.getLayoutParams();
-        params.topMargin = needToMakeRoomForSignIn
-                ? getResources().getDimensionPixelSize(R.dimen.ff_splash_slogan_top_with_sign_in)
-                : getResources().getDimensionPixelSize(R.dimen.ff_splash_slogan_top);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SIGN_IN) {
+            openMainActivity();
+        }
     }
 
-    private void showSignIn() {
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.layout_fragment_container, SignInFragment.newInstance(), "SignInFragment")
-                .commit();
+    private void openMainActivity() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+        finish();
     }
+
+    private void openSignInActivity() {
+        startActivityForResult(new Intent(SplashScreenActivity.this, SignInActivity.class), REQUEST_SIGN_IN);
+        SplashScreenActivity.this.overridePendingTransition(R.anim.slide_in_from_bottom, android.R.anim.fade_out);
+    }
+
+    // Animations
 
     private void animateTextViews() {
         final int TRANSLATE_Y = 100;
