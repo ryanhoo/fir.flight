@@ -51,6 +51,9 @@ public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
 
+    private static final String SAVE_STATE_USER = "user";
+    private static final String SAVE_STATE_CURRENT_TAB = "currentFragmentTab";
+
     private interface Tab {
         String APPS = "apps";
         String MESSAGES = "messages";
@@ -66,6 +69,7 @@ public class MainActivity extends BaseActivity {
     NavigationView navigationView;
     ActionBarDrawerToggle drawerToggle;
 
+    User mUser;
     String mCurrentFragmentTab;
 
     @Override
@@ -78,9 +82,31 @@ public class MainActivity extends BaseActivity {
         setUpDrawerToggle();
         setUpDrawerContent();
 
-        switchScene(null, Tab.APPS);
+        if (savedInstanceState != null) {
+            mUser = savedInstanceState.getParcelable(SAVE_STATE_USER);
+            mCurrentFragmentTab = savedInstanceState.getString(SAVE_STATE_CURRENT_TAB, null);
+            onLoadUserInfo(mUser);
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(mCurrentFragmentTab);
+            if (fragment == null) {
+                switchScene(null, mCurrentFragmentTab);
+            } else {
+                // Reselect Menu Item
+                int index = getSupportFragmentManager().getFragments().indexOf(fragment);
+                if (index >= 0 && index < navigationView.getMenu().size()) {
+                    navigationView.getMenu().getItem(index).setChecked(true);
+                }
+            }
+        } else {
+            requestUser();
+            switchScene(mCurrentFragmentTab, Tab.APPS);
+        }
+    }
 
-        requestUser();
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_STATE_USER, mUser);
+        outState.putString(SAVE_STATE_CURRENT_TAB, mCurrentFragmentTab);
     }
 
     @Override
@@ -238,7 +264,8 @@ public class MainActivity extends BaseActivity {
                 .show();
     }
 
-    private void onLoadUserInfo(final User user) {
+    private void onLoadUserInfo(@Nullable final User user) {
+        if (user == null) return;
         new GlobalLayoutHelper().attachView(drawerLayout, new Runnable() {
             @Override
             public void run() {
@@ -269,14 +296,13 @@ public class MainActivity extends BaseActivity {
     // Request
 
     private void requestUser() {
-        User user = UserSession.getInstance().getUser();
-        if (user != null) {
-            onLoadUserInfo(user);
-        }
+        mUser = UserSession.getInstance().getUser();
+        onLoadUserInfo(mUser);
         UserSession.getInstance().updateUser(new RetrofitCallback<User>() {
             @Override
             public void onSuccess(Call<User> call, Response httpResponse, User user) {
                 Log.d(TAG, String.format("User: %s\n%s\n%s", user.getName(), user.getEmail(), user.getGravatar()));
+                mUser = user;
                 onLoadUserInfo(user);
             }
 
