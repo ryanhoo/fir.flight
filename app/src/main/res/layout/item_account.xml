@@ -34,7 +34,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/ff.textSize.title"
             android:textColor="@color/ff.textColor.title"
-            tools:text="ryan.hoo"
+            android:singleLine="true"
+            tools:text="fir.flight"
             />
 
         <TextView
@@ -44,7 +45,8 @@
             android:layout_marginTop="@dimen/ff.padding.small"
             android:textSize="@dimen/ff.textSize.text"
             android:textColor="@color/ff.textColor.text"
-            tools:text="ryan.hoo@hotmail.com"
+            android:singleLine="true"
+            tools:text="fir.flight@fir.im"
             />
     </LinearLayout>
 

@@ -59,6 +59,13 @@ public class AccountManager {
         return new ArrayList<>(0);
     }
 
+    public static void switchAccount(Context context, Account account) {
+        UserSession.getInstance().setAccount(account);
+        UserSession.getInstance().restoreSession(account);
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_ACCOUNTS, Context.MODE_PRIVATE);
+        prefs.edit().putString(KEY_CURRENT_ACCOUNT, account.getName()).apply();
+    }
+
     public static boolean removeAccount(Context context, Account account) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_ACCOUNTS, Context.MODE_PRIVATE);
         Set<String> accountSet = prefs.getStringSet(KEY_ACCOUNTS, null);

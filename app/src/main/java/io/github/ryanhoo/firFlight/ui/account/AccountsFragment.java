@@ -23,6 +23,7 @@ import io.github.ryanhoo.firFlight.account.Account;
 import io.github.ryanhoo.firFlight.account.AccountManager;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.main.MainActivity;
 import io.github.ryanhoo.firFlight.ui.signin.SignInActivity;
 
 import java.util.List;
@@ -131,17 +132,21 @@ public class AccountsFragment extends BaseFragment {
             textViewName.setText(user.getName());
             textViewEmail.setText(user.getEmail());
 
-            final int position = i;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClick(account, position, isCurrentAccount);
+                    onItemClick(account, isCurrentAccount);
                 }
             });
         }
     }
 
-    private void onItemClick(Account account, int position, boolean isCurrentAccount) {
-
+    private void onItemClick(Account account, boolean isCurrentAccount) {
+        if (isCurrentAccount) return;
+        AccountManager.switchAccount(getActivity(), account);
+        updateUI();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) getActivity()).onAccountChanged();
+        }
     }
 }

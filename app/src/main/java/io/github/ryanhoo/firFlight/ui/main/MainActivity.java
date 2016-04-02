@@ -146,6 +146,21 @@ public class MainActivity extends BaseActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    public void onAccountChanged() {
+        mUser = UserSession.getInstance().getUser();
+        onLoadUserInfo(mUser);
+        Fragment fragmentApps = getSupportFragmentManager().findFragmentByTag(Tab.APPS);
+        Fragment fragmentMessages = getSupportFragmentManager().findFragmentByTag(Tab.MESSAGES);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (fragmentApps != null) {
+            transaction.remove(fragmentApps);
+        }
+        if (fragmentMessages != null) {
+            transaction.remove(fragmentMessages);
+        }
+        transaction.commit();
+    }
+
     private void setUpDrawerToggle() {
         drawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -289,9 +304,9 @@ public class MainActivity extends BaseActivity {
         new GlobalLayoutHelper().attachView(drawerLayout, new Runnable() {
             @Override
             public void run() {
-                final ImageView imageViewIcon = ButterKnife.findById(drawerLayout, R.id.image_view_icon);
-                final TextView textViewName = ButterKnife.findById(drawerLayout, R.id.text_view_name);
-                final TextView textViewEmail = ButterKnife.findById(drawerLayout, R.id.text_view_email);
+                final ImageView imageViewIcon = ButterKnife.findById(navigationView, R.id.image_view_icon);
+                final TextView textViewName = ButterKnife.findById(navigationView, R.id.text_view_name);
+                final TextView textViewEmail = ButterKnife.findById(navigationView, R.id.text_view_email);
 
                 textViewName.setText(user.getName());
                 textViewEmail.setText(user.getEmail());

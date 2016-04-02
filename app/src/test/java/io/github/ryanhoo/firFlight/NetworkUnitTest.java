@@ -31,7 +31,7 @@ public class NetworkUnitTest {
     @Test
     public void signIn() {
         System.out.println("signIn");
-        Call<Token> call = mRetrofitService.signIn("", "");
+        Call<Token> call = mRetrofitService.accessToken("", "");
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
@@ -49,7 +49,7 @@ public class NetworkUnitTest {
     @Test
     public void apiToken() {
         if (mSession.isSignedIn()) {
-            Call<Token> call = mRetrofitService.apiToken(mSession.getToken().getAccessToken());
+            Call<Token> call = mRetrofitService.apiToken();
             call.enqueue(new Callback<Token>() {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
