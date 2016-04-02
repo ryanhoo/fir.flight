@@ -2,7 +2,7 @@ package io.github.ryanhoo.firFlight;
 
 import android.app.Application;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
-import io.github.ryanhoo.firFlight.data.UserSession;
+import io.github.ryanhoo.firFlight.account.UserSession;
 
 /**
  * Created with Android Studio.

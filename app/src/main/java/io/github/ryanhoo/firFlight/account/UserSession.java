@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.data;
+package io.github.ryanhoo.firFlight.account;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,6 +13,8 @@ import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import java.io.IOException;
 
 /**
  * Created with Android Studio.
@@ -85,6 +87,17 @@ public class UserSession {
     }
 
     // Requests
+
+    private void requestSignIn(final String email, final String password) {
+        Call<Token> call = mRetrofitService.signIn(email, password);
+        try {
+            Response<Token> response = call.execute();
+            Token token = response.body();
+
+        } catch (IOException e) {
+            Log.e(TAG, "requestSignIn: ", e);
+        }
+    }
 
     // SignIn Step 1: Request access token
     private void requestSignIn(final String email, final String password, final RetrofitCallback<Token> callback) {

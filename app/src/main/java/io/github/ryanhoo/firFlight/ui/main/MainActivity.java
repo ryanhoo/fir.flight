@@ -27,7 +27,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
-import io.github.ryanhoo.firFlight.data.UserSession;
+import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;

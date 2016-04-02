@@ -1,7 +1,7 @@
 package io.github.ryanhoo.firFlight;
 
 import android.util.Log;
-import io.github.ryanhoo.firFlight.data.UserSession;
+import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;

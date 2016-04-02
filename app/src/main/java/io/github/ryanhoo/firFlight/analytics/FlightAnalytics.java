@@ -8,7 +8,7 @@ import com.crashlytics.android.answers.Answers;
 import im.fir.sdk.FIR;
 import io.fabric.sdk.android.Fabric;
 import io.github.ryanhoo.firFlight.BuildConfig;
-import io.github.ryanhoo.firFlight.data.UserSession;
+import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.User;
 
 import static io.github.ryanhoo.firFlight.analytics.FlightEvent.*;
