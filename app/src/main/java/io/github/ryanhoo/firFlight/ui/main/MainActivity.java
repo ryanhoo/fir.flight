@@ -12,6 +12,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -182,23 +183,35 @@ public class MainActivity extends BaseActivity {
 
         drawerLayout.closeDrawers();
 
+        String title = null;
         String toTab = null;
         switch (item.getItemId()) {
             case R.id.item_apps:
+                title = getString(R.string.ff_main_drawer_section_title_apps);
                 toTab = Tab.APPS;
                 break;
             case R.id.item_accounts:
+                title = getString(R.string.ff_main_drawer_section_title_accounts);
                 toTab = Tab.ACCOUNTS;
                 break;
             case R.id.item_messages:
+                title = getString(R.string.ff_main_drawer_section_title_messages);
                 toTab = Tab.MESSAGES;
                 break;
             case R.id.item_settings:
+                title = getString(R.string.ff_main_drawer_section_title_settings);
                 break;
             case R.id.item_about:
+                title = getString(R.string.ff_main_drawer_section_title_about);
                 toTab = Tab.ABOUT;
                 break;
         }
+        // Update toolbar title
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
+        }
+        // Switch fragments
         if (toTab != null && !toTab.equals(mCurrentFragmentTab)) {
             switchScene(mCurrentFragmentTab, toTab);
         }
