@@ -17,18 +17,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.account.SignInCallback;
+import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
-import io.github.ryanhoo.firFlight.account.UserSession;
-import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
-import io.github.ryanhoo.firFlight.network.NetworkError;
-import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.main.MainActivity;
-import retrofit2.Call;
-import retrofit2.Response;
 
 /**
  * Created with Android Studio.
@@ -83,27 +79,26 @@ public class SignInFragment extends BaseFragment {
             if (editTextEmail.length() > 0 && editTextPassword.length() > 0) {
                 final String email = editTextEmail.getText().toString();
                 final String password = editTextPassword.getText().toString();
-                UserSession.getInstance().signIn(email, password, new RetrofitCallback<Token>() {
+                UserSession.getInstance().signIn(email, password, new SignInCallback() {
                     @Override
-                    public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
+                    public void success() {
                         // SignIn Event Success
                         FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
                                 .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
                                 .putSuccess(true)
                         );
-
                         startActivity(new Intent(getActivity(), MainActivity.class));
                         getActivity().finish();
                     }
 
                     @Override
-                    public void onFailure(Call<Token> call, NetworkError error) {
+                    public void fail() {
                         // SignIn Event Fail
                         FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
                                 .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
                                 .putSuccess(false)
                         );
-                        Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.ff_signin_failed, Toast.LENGTH_SHORT).show();
                     }
                 });
             }

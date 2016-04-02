@@ -14,8 +14,6 @@ import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import java.io.IOException;
-
 /**
  * Created with Android Studio.
  * User: ryan@whitedew.me
@@ -27,7 +25,7 @@ public class UserSession {
 
     private static final String TAG = "UserSession";
 
-    private static final String PREFS_SESSION = "user-session";
+    private static final String PREFS_SESSION_FORMAT = "session-%s";
     private static final String KEY_USER = "user";
     private static final String KEY_TOKEN = "token";
 
@@ -35,6 +33,7 @@ public class UserSession {
 
     private static Context sContext;
 
+    private Account mAccount;
     private Token mToken;
     private User mUser;
 
@@ -44,7 +43,10 @@ public class UserSession {
     private UserSession() {
         mGson = new Gson();
         mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
-        restoreSession();
+        mAccount = AccountManager.getCurrentAccount(sContext);
+        if (mAccount != null) {
+            restoreSession(mAccount);
+        }
     }
 
     public static UserSession getInstance() {
@@ -68,15 +70,20 @@ public class UserSession {
         return mToken != null && mToken.getAccessToken() != null;
     }
 
-    public void signIn(final String email, final String password, final RetrofitCallback<Token> callback) {
-        requestSignIn(email, password, callback);
+    public void signIn(final String email, final String password, final SignInCallback callback) {
+        new AsyncSignInTask(sContext)
+                .setEmail(email)
+                .setPassword(password)
+                .callback(callback)
+                .executeOnExecutor(AsyncSignInTask.THREAD_POOL_EXECUTOR);
     }
 
     public void signOut() {
+        getSharedPreferences(mAccount).edit().clear().apply();
+        AccountManager.removeAccount(sContext, mAccount);
+        mAccount = null;
         mToken = null;
         mUser = null;
-        sContext.getSharedPreferences(PREFS_SESSION, Context.MODE_PRIVATE)
-                .edit().clear().apply();
         // TODO Send global notification
     }
 
@@ -87,97 +94,6 @@ public class UserSession {
     }
 
     // Requests
-
-    private void requestSignIn(final String email, final String password) {
-        Call<Token> call = mRetrofitService.signIn(email, password);
-        try {
-            Response<Token> response = call.execute();
-            Token token = response.body();
-
-        } catch (IOException e) {
-            Log.e(TAG, "requestSignIn: ", e);
-        }
-    }
-
-    // SignIn Step 1: Request access token
-    private void requestSignIn(final String email, final String password, final RetrofitCallback<Token> callback) {
-        Call<Token> call = mRetrofitService.signIn(email, password);
-        call.enqueue(new RetrofitCallback<Token>() {
-            @Override
-            public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-                Log.d(TAG, "apiToken#onSuccess: accessToken is " + token.getAccessToken());
-                setAccessToken(token.getAccessToken());
-                requestApiToken(callback);
-                // requestRefreshApiToken(token.getAccessToken(), callback);
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, NetworkError error) {
-                Log.e(TAG, "signIn#onFailure: " + error.getErrorMessage());
-                if (callback != null) {
-                    callback.onFailure(call, error);
-                }
-            }
-        });
-    }
-
-    // SignIn Step 2: Request api token
-
-    private void requestApiToken(final RetrofitCallback<Token> callback) {
-        Call<Token> call = mRetrofitService.apiToken();
-        call.enqueue(new RetrofitCallback<Token>() {
-            @Override
-            public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-                // If you've never generate a token in the web page, you won't get any api token
-                if (token.getApiToken() == null) {
-                    requestRefreshApiToken(callback);
-                } else {
-                    Log.d(TAG, "apiToken#onSuccess: apiToken is " + token.getApiToken());
-                    setApiToken(token.getApiToken());
-                    storeSession();
-                    // TODO Send global notification
-                    if (callback != null) {
-                        callback.onSuccess(call, httpResponse, token);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, NetworkError error) {
-                Log.e(TAG, "apiToken#onFailure: " + error.getErrorMessage());
-                if (callback != null) {
-                    callback.onFailure(call, error);
-                }
-            }
-        });
-    }
-
-    // SignIn Step 3: Refresh api token only if necessary, even though refreshing api token in every signIn action
-    // would make everything easier and make the code looks better
-
-    private void requestRefreshApiToken(final RetrofitCallback<Token> callback) {
-        Call<Token> call = mRetrofitService.refreshApiToken();
-        call.enqueue(new RetrofitCallback<Token>() {
-            @Override
-            public void onSuccess(Call<Token> call, Response httpResponse, Token token) {
-                Log.d(TAG, "requestRefreshApiToken#onSuccess: apiToken is " + token.getApiToken());
-                setApiToken(token.getApiToken());
-                storeSession();
-                // TODO Send global notification
-                if (callback != null) {
-                    callback.onSuccess(call, httpResponse, token);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, NetworkError error) {
-                Log.e(TAG, "requestRefreshApiToken#onFailure: " + error.getErrorMessage());
-                if (callback != null) {
-                    callback.onFailure(call, error);
-                }
-            }
-        });
-    }
 
     public void updateUser(final RetrofitCallback<User> callback) {
         if (!isSignedIn()) {
@@ -190,7 +106,7 @@ public class UserSession {
             public void onSuccess(Call<User> call, Response httpResponse, User user) {
                 Log.d(TAG, "updateUser#onSuccess: user is " + user.getName());
                 mUser = user;
-                storeSession();
+                storeSession(mAccount);
                 // TODO Send global notification
                 if (callback != null) {
                     callback.onSuccess(call, httpResponse, user);
@@ -209,17 +125,22 @@ public class UserSession {
 
     // Session Store & Restore
 
-    private void storeSession() {
+    private SharedPreferences getSharedPreferences(Account account) {
+        return sContext.getSharedPreferences(String.format(PREFS_SESSION_FORMAT,
+                account.getName()), Context.MODE_PRIVATE);
+    }
+
+    /* package */ void storeSession(Account account) {
         // TODO encrypt
-        sContext.getSharedPreferences(PREFS_SESSION, Context.MODE_PRIVATE).edit()
+        getSharedPreferences(account).edit()
                 .putString(KEY_TOKEN, mGson.toJson(mToken))
                 .putString(KEY_USER, mGson.toJson(mUser))
                 .apply();
         configAnalytics();
     }
 
-    private void restoreSession() {
-        SharedPreferences preferences = sContext.getSharedPreferences(PREFS_SESSION, Context.MODE_PRIVATE);
+    /* package */ void restoreSession(Account account) {
+        SharedPreferences preferences = getSharedPreferences(account);
         String token = preferences.getString(KEY_TOKEN, null);
         String user = preferences.getString(KEY_USER, null);
         if (token != null) {
@@ -229,7 +150,21 @@ public class UserSession {
         configAnalytics();
     }
 
+    /* package */ User getUserOfAccount(Account account) {
+        SharedPreferences preferences = getSharedPreferences(account);
+        String user = preferences.getString(KEY_USER, null);
+        return mGson.fromJson(user, User.class);
+    }
+
     // Getters & Setters
+
+    public Account getAccount() {
+        return mAccount;
+    }
+
+    public void setAccount(Account account) {
+        this.mAccount = account;
+    }
 
     public Token getToken() {
         return mToken;
