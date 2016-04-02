@@ -73,6 +73,7 @@ public class AppsFragment extends BaseFragment
 
         mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
 
+        SwipeRefreshHelper.setRefreshIndicatorColorScheme(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         mAdapter = new AppAdapter(getActivity(), null);
         mAdapter.setOnItemClickListener(this);

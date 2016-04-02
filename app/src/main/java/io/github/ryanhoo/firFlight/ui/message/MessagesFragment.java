@@ -59,6 +59,7 @@ public class MessagesFragment extends BaseFragment
         ButterKnife.bind(this, view);
         mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
 
+        SwipeRefreshHelper.setRefreshIndicatorColorScheme(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
         mAdapter = new MessageAdapter(getActivity(), null);
         mAdapter.setOnItemClickListener(this);

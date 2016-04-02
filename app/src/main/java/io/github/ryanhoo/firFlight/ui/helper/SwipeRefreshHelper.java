@@ -2,6 +2,7 @@ package io.github.ryanhoo.firFlight.ui.helper;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
+import io.github.ryanhoo.firFlight.R;
 
 /**
  * Created with Android Studio.
@@ -28,5 +29,9 @@ public class SwipeRefreshHelper {
         );
         swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.postDelayed(refreshRunnable, REFRESH_RUNNABLE_DELAY);
+    }
+
+    public static void setRefreshIndicatorColorScheme(SwipeRefreshLayout swipeRefreshLayout) {
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     }
 }
