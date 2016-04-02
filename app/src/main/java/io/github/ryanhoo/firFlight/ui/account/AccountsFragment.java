@@ -1,7 +1,12 @@
 package io.github.ryanhoo.firFlight.ui.account;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +15,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.account.Account;
 import io.github.ryanhoo.firFlight.account.AccountManager;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.signin.SignInActivity;
 
 import java.util.List;
 
@@ -27,6 +35,8 @@ import java.util.List;
  * Desc: AccountsFragment
  */
 public class AccountsFragment extends BaseFragment {
+
+    private static final int REQUEST_SIGN_INTO_NEW_ACCOUNT = 1;
 
     @Bind(R.id.layout_container)
     LinearLayout layoutContainer;
@@ -45,13 +55,42 @@ public class AccountsFragment extends BaseFragment {
         updateUI();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SIGN_INTO_NEW_ACCOUNT) {
+            updateUI();
+        }
+    }
+
+    @OnClick({R.id.button_add})
+    public void onClick(View view) {
+        if (view.getId() == R.id.button_add) {
+            startActivityForResult(new Intent(getActivity(), SignInActivity.class), REQUEST_SIGN_INTO_NEW_ACCOUNT);
+            getActivity().overridePendingTransition(R.anim.slide_in_from_bottom, android.R.anim.fade_out);
+        }
+    }
+
     private void updateUI() {
         Account currentAccount = AccountManager.getCurrentAccount(getActivity());
         List<Account> accounts = AccountManager.getAccounts(getActivity());
+        if (accounts.size() == 0) {
+            layoutContainer.removeAllViews();
+            return;
+        }
+        if (layoutContainer.getChildCount() > accounts.size()) {
+            layoutContainer.removeViews(accounts.size(), layoutContainer.getChildCount() - accounts.size());
+        }
         for (int i = 0; i < accounts.size(); i++) {
             final Account account = accounts.get(i);
-            final View itemView = getActivity().getLayoutInflater()
-                    .inflate(R.layout.item_account, layoutContainer, false);
+            final View itemView;
+            if (layoutContainer.getChildCount() > i) {
+                itemView = layoutContainer.getChildAt(i);
+            } else {
+                itemView = getActivity().getLayoutInflater()
+                        .inflate(R.layout.item_account, layoutContainer, false);
+                layoutContainer.addView(itemView);
+            }
             final ImageView imageView = ButterKnife.findById(itemView, R.id.image_view);
             final TextView textViewName = ButterKnife.findById(itemView, R.id.text_view_name);
             final TextView textViewEmail = ButterKnife.findById(itemView, R.id.text_view_email);
@@ -59,6 +98,9 @@ public class AccountsFragment extends BaseFragment {
             final View dividerTopWithPadding = ButterKnife.findById(itemView, R.id.divider_top_with_padding);
             final View dividerBottom = ButterKnife.findById(itemView, R.id.divider_bottom);
             final View selected = ButterKnife.findById(itemView, R.id.view_selected);
+            dividerTop.setVisibility(View.GONE);
+            dividerTopWithPadding.setVisibility(View.GONE);
+            dividerBottom.setVisibility(View.GONE);
             final boolean isCurrentAccount = currentAccount.getName().equals(account.getName());
             selected.setVisibility(isCurrentAccount ? View.VISIBLE : View.GONE);
             if (accounts.size() == 1) {
@@ -75,11 +117,19 @@ public class AccountsFragment extends BaseFragment {
             User user = account.getUser();
             Glide.with(getActivity())
                     .load(user.getGravatar())
+                    .asBitmap()
                     .placeholder(R.color.ff_apps_icon_placeholder)
-                    .into(imageView);
+                    .into(new BitmapImageViewTarget(imageView) {
+                        @Override
+                        protected void setResource(Bitmap resource) {
+                            RoundedBitmapDrawable circularBitmapDrawable =
+                                    RoundedBitmapDrawableFactory.create(getResources(), resource);
+                            circularBitmapDrawable.setCircular(true);
+                            imageView.setImageDrawable(circularBitmapDrawable);
+                        }
+                    });
             textViewName.setText(user.getName());
             textViewEmail.setText(user.getEmail());
-            layoutContainer.addView(itemView);
 
             final int position = i;
             itemView.setOnClickListener(new View.OnClickListener() {

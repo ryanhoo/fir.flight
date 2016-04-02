@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/ff.padding.large"
         android:paddingBottom="@dimen/ff.padding.large"
+        android:animateLayoutChanges="true"
         >
 
         <LinearLayout
@@ -22,6 +23,32 @@
             >
 
             <!--<include layout="@layout/item_account"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/ff.padding.large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ff.white"
+            >
+
+            <View style="@style/FFDivider"/>
+
+            <ImageView
+                android:id="@+id/button_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/ff.padding.large"
+                android:paddingBottom="@dimen/ff.padding.large"
+                android:scaleType="center"
+                android:src="@drawable/ic_account_add"
+                android:background="?attr/selectableItemBackground"
+                android:tint="#CCCCCC"
+                />
+
+            <View style="@style/FFDivider"/>
+
         </LinearLayout>
 
     </LinearLayout>

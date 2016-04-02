@@ -43,6 +43,12 @@
             android:name=".ui.webview.WebViewActivity"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name=".ui.signin.SignInActivity"
+            android:theme="@style/FFTheme.SignIn"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
+            android:screenOrientation="portrait"
+            />
 
         <receiver android:name=".receiver.SystemPackageReceiver">
             <intent-filter>

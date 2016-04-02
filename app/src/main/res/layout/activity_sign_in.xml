@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#449fe0"
+    >
+
+    <android.support.v7.widget.Toolbar
+        xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/ff.transparent"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        toolbar:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/ff.padding.large"
+            android:paddingRight="@dimen/ff.padding.large"
+            android:typeface="monospace"
+            android:textColor="#EAFFFFFF"
+            android:textSize="14sp"
+            android:text="@string/ff.signin.email.hint"
+            />
+
+        <EditText
+            android:id="@+id/edit_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/ff.padding.large"
+            android:paddingRight="@dimen/ff.padding.large"
+            android:paddingTop="@dimen/ff.padding.normal"
+            android:paddingBottom="@dimen/ff.padding.normal"
+            android:typeface="monospace"
+            android:textSize="20sp"
+            android:textColor="#EAFFFFFF"
+            android:textColorHint="#6AFFFFFF"
+            android:background="@color/ff.transparent"
+            android:inputType="textEmailAddress"
+            android:hint="@string/ff.signin.email.example"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/ff.padding.large"
+            android:paddingRight="@dimen/ff.padding.large"
+            android:typeface="monospace"
+            android:textColor="#EAFFFFFF"
+            android:textSize="14sp"
+            android:text="@string/ff.signin.password.hint"
+            />
+
+        <EditText
+            android:id="@+id/edit_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/ff.padding.large"
+            android:paddingRight="@dimen/ff.padding.large"
+            android:paddingTop="@dimen/ff.padding.normal"
+            android:paddingBottom="@dimen/ff.padding.normal"
+            android:typeface="monospace"
+            android:textSize="20sp"
+            android:textColor="#EAFFFFFF"
+            android:textColorHint="#6AFFFFFF"
+            android:background="@color/ff.transparent"
+            android:inputType="textPassword"
+            android:hint="@string/ff.signin.password.example"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/ff.padding.large"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ECFFFFFF"
+        android:textSize="@dimen/ff.textSize.tips"
+        android:text="@string/ff.signin.account.hint"
+        />
+</RelativeLayout>
