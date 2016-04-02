@@ -25,13 +25,14 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
-import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.ui.about.AboutFragment;
+import io.github.ryanhoo.firFlight.ui.account.AccountsFragment;
 import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.helper.GlobalLayoutHelper;
@@ -56,6 +57,7 @@ public class MainActivity extends BaseActivity {
 
     private interface Tab {
         String APPS = "apps";
+        String ACCOUNTS = "accounts";
         String MESSAGES = "messages";
         String ABOUT = "about";
     }
@@ -185,7 +187,8 @@ public class MainActivity extends BaseActivity {
             case R.id.item_apps:
                 toTab = Tab.APPS;
                 break;
-            case R.id.item_account:
+            case R.id.item_accounts:
+                toTab = Tab.ACCOUNTS;
                 break;
             case R.id.item_messages:
                 toTab = Tab.MESSAGES;
@@ -209,6 +212,10 @@ public class MainActivity extends BaseActivity {
             switch (toTab) {
                 case Tab.APPS:
                     to = new AppsFragment();
+                    addToStack = true;
+                    break;
+                case Tab.ACCOUNTS:
+                    to = new AccountsFragment();
                     addToStack = true;
                     break;
                 case Tab.MESSAGES:

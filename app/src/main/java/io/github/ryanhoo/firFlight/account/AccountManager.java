@@ -33,7 +33,8 @@ public class AccountManager {
         if (!accountSet.contains(account.getName())) {
             accountSet.add(account.getName());
         }
-        prefs.edit().putStringSet(KEY_ACCOUNTS, accountSet).apply();
+        prefs.edit().putString(KEY_CURRENT_ACCOUNT, account.getName())
+                .putStringSet(KEY_ACCOUNTS, accountSet).apply();
     }
 
     public static Account getCurrentAccount(Context context) {
