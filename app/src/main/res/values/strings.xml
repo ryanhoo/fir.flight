@@ -3,6 +3,12 @@
     <string name="ff.splash.slogan">An android version Test Flight by using\nthe testing app distribution service provided by fir.im</string>
     <string name="ff.splash.slogan.about">An android version Test Flight\nby using the testing app distribution service provided by fir.im</string>
 
+    <!-- Common -->
+    <string name="ff.ok">OK</string>
+    <string name="ff.cancel">Cancel</string>
+    <string name="ff.confirm">Confirm</string>
+    <string name="ff.dismiss">Dismiss</string>
+
     <!-- Sign In -->
     <string name="ff.signin.failed">Sign in failed</string>
     <string name="ff.signin.menu_item.signin">Next</string>
@@ -33,6 +39,17 @@
     <string name="ff.about.button.fir">fir.im</string>
     <string name="ff.about.button.acknowledgements">Acknowledgements</string>
     <string name="ff.about.button.author">© 2016 Ryan Hoo</string>
+
+    <!-- Settings -->
+    <string name="ff.settings.section.cache">Cache</string>
+    <string name="ff.settings.section.updates">Updates</string>
+    <string name="ff.settings.section.terms">Terms</string>
+    <string name="ff.settings.section.updates.item.check">Check for Updates</string>
+    <string name="ff.settings.section.cache.item.clear_image">Clear image cache</string>
+    <string name="ff.settings.section.terms.item.agreements">Agreements</string>
+
+    <string name="ff.settings.message.cache_cleared">Image cache has been cleared</string>
+    <string name="ff.settings.message.coming_soon">Coming soon...</string>
 
     <!-- Notification -->
     <string name="ff.notification.app.new_version.message" formatted="false">New version %s(%s)</string>

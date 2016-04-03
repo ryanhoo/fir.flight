@@ -55,6 +55,41 @@
         <item name="android:singleLine">true</item>
     </style>
 
+    <style name="FFTextAppearance.Settings.Section" parent="FFTextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/ff.padding.large</item>
+        <item name="android:paddingRight">@dimen/ff.padding.large</item>
+        <item name="android:layout_marginBottom">@dimen/ff.margin.small</item>
+        <item name="android:textSize">@dimen/ff.textSize.tips</item>
+        <item name="android:textColor">@color/ff.textColor.tips</item>
+    </style>
+
+    <style name="FFTextAppearance.Settings.ItemTitle" parent="FFTextAppearance">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">@dimen/ff.padding.large</item>
+        <item name="android:paddingRight">@dimen/ff.padding.large</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textColor">@color/ff.textColor.title</item>
+        <item name="android:textSize">@dimen/ff.textSize.text</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="FFTextAppearance.Settings.ItemDescription" parent="FFTextAppearance">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/ff.padding.large</item>
+        <item name="android:layout_marginRight">@dimen/ff.padding.large</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd" tools:targetApi="jelly_bean_mr1">true</item>
+        <item name="android:textColor">@color/ff.textColor.tips</item>
+        <item name="android:textSize">@dimen/ff.textSize.tips</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">middle</item>
+    </style>
+
     <style name="FFButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -73,5 +108,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/button_text_color_primary_theme</item>
         <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="FFLayout"/>
+
+    <style name="FFLayout.Settings.Item" parent="FFLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/ff.settings.item.minHeight</item>
+        <item name="android:background">@color/ff.white</item>
     </style>
 </resources>

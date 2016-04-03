@@ -18,7 +18,6 @@
       <option name="m_requireAnnotationsFirst" value="true" />
     </inspection_tool>
     <inspection_tool class="RedundantArrayCreation" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
-    <inspection_tool class="RedundantCast" enabled="true" level="WEAK WARNING" enabled_by_default="true" />
     <inspection_tool class="RedundantFieldInitialization" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="RedundantImplements" enabled="false" level="WEAK WARNING" enabled_by_default="false">
       <option name="ignoreSerializable" value="false" />

@@ -38,6 +38,7 @@ import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.helper.GlobalLayoutHelper;
 import io.github.ryanhoo.firFlight.ui.message.MessagesFragment;
+import io.github.ryanhoo.firFlight.ui.setting.SettingsFragment;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
         String APPS = "apps";
         String ACCOUNTS = "accounts";
         String MESSAGES = "messages";
+        String SETTINGS = "settings";
         String ABOUT = "about";
     }
 
@@ -215,6 +217,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.item_settings:
                 title = getString(R.string.ff_main_drawer_section_title_settings);
+                toTab = Tab.SETTINGS;
                 break;
             case R.id.item_about:
                 title = getString(R.string.ff_main_drawer_section_title_about);
@@ -248,6 +251,10 @@ public class MainActivity extends BaseActivity {
                     break;
                 case Tab.MESSAGES:
                     to = new MessagesFragment();
+                    addToStack = true;
+                    break;
+                case Tab.SETTINGS:
+                    to = new SettingsFragment();
                     addToStack = true;
                     break;
                 case Tab.ABOUT:
