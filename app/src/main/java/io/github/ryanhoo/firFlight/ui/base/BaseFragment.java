@@ -1,8 +1,9 @@
 package io.github.ryanhoo.firFlight.ui.base;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.content.Context;
 import android.support.v4.app.Fragment;
+import io.github.ryanhoo.firFlight.account.Account;
+import io.github.ryanhoo.firFlight.account.AccountManager;
 
 /**
  * Created with Android Studio.
@@ -11,10 +12,33 @@ import android.support.v4.app.Fragment;
  * Time: 12:14 AM
  * Desc: BaseFragment
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+
+    private Account mCurrentAccount;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCurrentAccount = AccountManager.getCurrentAccount(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Account account = AccountManager.getCurrentAccount(getActivity());
+        if (account != null) {
+            if (mCurrentAccount == null || !account.getName().equals(mCurrentAccount.getName())) {
+                mCurrentAccount = account;
+                onAccountChanged();
+            }
+        }
+    }
+
+    protected void updateAccount(Account account) {
+        mCurrentAccount = account;
+    }
+
+    protected void onAccountChanged() {
+        // Account has been changed/switched
     }
 }

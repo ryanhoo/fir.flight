@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="?attr/selectableItemBackground"
+    >
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginLeft="@dimen/ff.padding.large"
+        android:layout_marginStart="@dimen/ff.padding.large"
+        android:layout_centerVertical="true"
+        tools:src="@mipmap/ic_launcher"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/ff.common.marginLeft"
+        android:layout_marginStart="@dimen/ff.common.marginLeft"
+        android:layout_toStartOf="@+id/view_selected"
+        android:layout_toLeftOf="@+id/view_selected"
+        >
+
+        <TextView
+            android:id="@+id/text_view_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ff.textSize.title"
+            android:textColor="@color/ff.textColor.title"
+            android:singleLine="true"
+            tools:text="fir.flight"
+            />
+
+        <TextView
+            android:id="@+id/text_view_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ff.padding.small"
+            android:textSize="@dimen/ff.textSize.text"
+            android:textColor="@color/ff.textColor.text"
+            android:singleLine="true"
+            tools:text="fir.flight@fir.im"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/view_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/ff.padding.large"
+        android:layout_marginEnd="@dimen/ff.padding.large"
+        android:src="@drawable/ic_account_selected"
+        android:tint="@color/colorPrimary"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        />
+
+    <View
+        android:id="@+id/divider_top"
+        style="@style/FFDivider"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
+
+    <View
+        android:id="@+id/divider_top_with_padding"
+        android:layout_marginLeft="@dimen/ff.padding.large"
+        android:layout_marginStart="@dimen/ff.padding.large"
+        style="@style/FFDivider"
+        android:visibility="gone"/>
+
+    <View
+        android:id="@+id/divider_bottom"
+        style="@style/FFDivider"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
+</RelativeLayout>

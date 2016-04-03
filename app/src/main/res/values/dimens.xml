@@ -3,6 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="ff.common.marginLeft">60dp</dimen>
+
     <dimen name="ff.divider.height">0.1dp</dimen>
     <dimen name="ff.divider.width">0.1dp</dimen>
 
@@ -24,7 +26,6 @@
     <dimen name="ff.app.icon.size">56dp</dimen>
 
     <dimen name="ff.splash.slogan.top">120dp</dimen>
-    <dimen name="ff.splash.slogan.top.with_sign_in">24dp</dimen>
 
     <!-- Main -->
     <dimen name="ff.main.drawer.header.icon.size">60dp</dimen>

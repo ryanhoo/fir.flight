@@ -1,7 +1,7 @@
 package io.github.ryanhoo.firFlight.network;
 
 import android.util.Log;
-import io.github.ryanhoo.firFlight.data.UserSession;
+import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -28,14 +28,14 @@ public class SessionInterceptor implements Interceptor {
      * It's default false for sure, when api token is required, you must declare it in the
      * retrofit service's path.
      * Such as:
-     * @GET("/apps/latest/{appId}?requireApiToken=true")
+     * \@GET("/apps/latest/{appId}?requireApiToken=true")
      * Call<AppInstallInfo> appInstallInfo(@Path("appId") String appId);
      */
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        if (UserSession.getInstance().isSignedIn()) {
-            Token token = UserSession.getInstance().getToken();
+        Token token = UserSession.getInstance().getToken();
+        if (token != null) {
             HttpUrl httpUrl = request.url();
             boolean isApiTokenRequired = false;
             try {
@@ -53,8 +53,8 @@ public class SessionInterceptor implements Interceptor {
                         .build();
                 Log.d(TAG, "AccessToken: " + token.getAccessToken());
             }
-            Log.d(TAG, "Send request: " + request.url());
         }
+        Log.d(TAG, "Send request: " + request.url());
         return chain.proceed(request);
     }
 }

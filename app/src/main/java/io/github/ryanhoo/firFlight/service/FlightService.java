@@ -7,7 +7,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.util.Log;
 import io.github.ryanhoo.firFlight.R;
-import io.github.ryanhoo.firFlight.data.UserSession;
+import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;

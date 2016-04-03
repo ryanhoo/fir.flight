@@ -16,6 +16,10 @@ public class FlightEvent extends CustomEvent {
     public static final String EVENT_SIGN_IN = "Sign In";
     public static final String EVENT_SIGN_OUT = "Sign Out";
     public static final String EVENT_OPEN_APP = "Open App";
+    // On add new account
+    public static final String EVENT_ACCOUNT = "Account";
+    // On request & refresh api token failed
+    public static final String EVENT_API_TOKEN = "Api Token";
 
     // Keys
     public static final String KEY_ID = "id";
