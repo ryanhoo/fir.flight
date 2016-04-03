@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/ff.padding.large"
         android:layout_marginStart="@dimen/ff.padding.large"
         android:layout_centerVertical="true"
-        tools:src="@mipmap/ic_launcher"
+        android:src="@drawable/default_avatar"
         />
 
     <LinearLayout

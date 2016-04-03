@@ -320,7 +320,7 @@ public class MainActivity extends BaseActivity {
                 Glide.with(MainActivity.this)
                         .load(user.getGravatar())
                         .asBitmap()
-                        .placeholder(R.color.ff_apps_icon_placeholder)
+                        .placeholder(R.drawable.default_avatar)
                         .centerCrop()
                         .into(new BitmapImageViewTarget(imageViewIcon) {
                             @Override

@@ -14,7 +14,7 @@
         android:layout_width="@dimen/ff.main.drawer.header.icon.size"
         android:layout_height="@dimen/ff.main.drawer.header.icon.size"
         android:layout_centerVertical="true"
-        tools:background="@color/ff.apps.icon.placeholder"
+        android:src="@drawable/default_avatar"
         />
 
     <LinearLayout

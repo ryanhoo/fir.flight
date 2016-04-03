@@ -119,7 +119,7 @@ public class AccountsFragment extends BaseFragment {
             Glide.with(getActivity())
                     .load(user.getGravatar())
                     .asBitmap()
-                    .placeholder(R.color.ff_apps_icon_placeholder)
+                    .placeholder(R.drawable.default_avatar)
                     .into(new BitmapImageViewTarget(imageView) {
                         @Override
                         protected void setResource(Bitmap resource) {
