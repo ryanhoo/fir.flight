@@ -14,7 +14,7 @@ import io.github.ryanhoo.firFlight.account.AccountManager;
  */
 public abstract class BaseFragment extends Fragment {
 
-    protected Account mCurrentAccount;
+    private Account mCurrentAccount;
 
     @Override
     public void onAttach(Context context) {
@@ -32,6 +32,10 @@ public abstract class BaseFragment extends Fragment {
                 onAccountChanged();
             }
         }
+    }
+
+    protected void updateAccount(Account account) {
+        mCurrentAccount = account;
     }
 
     protected void onAccountChanged() {

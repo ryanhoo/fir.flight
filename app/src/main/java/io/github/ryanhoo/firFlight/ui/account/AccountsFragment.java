@@ -60,7 +60,7 @@ public class AccountsFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SIGN_INTO_NEW_ACCOUNT) {
-            updateUI();
+            onAccountChanged();
         }
     }
 
@@ -144,6 +144,13 @@ public class AccountsFragment extends BaseFragment {
     private void onItemClick(Account account, boolean isCurrentAccount) {
         if (isCurrentAccount) return;
         AccountManager.switchAccount(getActivity(), account);
+        updateAccount(account);
+        onAccountChanged();
+    }
+
+    @Override
+    protected void onAccountChanged() {
+        super.onAccountChanged();
         updateUI();
         if (getActivity() instanceof MainActivity) {
             ((MainActivity) getActivity()).onAccountChanged();
