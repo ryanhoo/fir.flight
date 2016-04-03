@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
+import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
+import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
@@ -72,7 +74,9 @@ public class AsyncSignInTask extends AsyncTask<String, Integer, Boolean> {
                 apiToken = refreshApiTokenCall.execute().body();
                 if (apiToken == null || TextUtils.isEmpty(apiToken.getApiToken())) {
                     onSignInFail(null, "Api token is null, refresh api token failed");
-                    // TODO Log event
+                    FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_API_TOKEN)
+                            .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
+                    );
                     return false;
                 }
             }

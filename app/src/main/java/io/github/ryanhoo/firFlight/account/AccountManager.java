@@ -2,6 +2,8 @@ package io.github.ryanhoo.firFlight.account;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
+import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.model.User;
 
 import java.util.ArrayList;
@@ -24,7 +26,9 @@ public class AccountManager {
     private static final String KEY_ACCOUNTS = "accounts";
 
     public static void addAccount(Context context, Account account) {
-        // TODO Event: Add Account
+        FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_ACCOUNT)
+                .putCustomAttribute(FlightEvent.KEY_EMAIL, account.getName())
+        );
         SharedPreferences prefs = context.getSharedPreferences(PREFS_ACCOUNTS, Context.MODE_PRIVATE);
         Set<String> accountSet = prefs.getStringSet(KEY_ACCOUNTS, null);
         if (accountSet == null) {
