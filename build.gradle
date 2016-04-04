@@ -24,3 +24,27 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+// Define versions in a single place
+
+ext {
+    // Sdk and tools
+    minSdkVersion = 16
+    targetSdkVersion = 22
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.2'
+
+    supportv4Version = '+'
+    supportLibraryVersion = '23.2.1'
+    junitVersion = '4.12'
+    glideVersion = '3.7.0'
+    butterKnifeVersion = '7.0.1'
+    gsonVersion = '2.6.2'
+    retrofitVersion = '2.0.1'
+    bugHDVersion = 'latest.integration'
+    crashlyticsVersion = '2.5.5'
+    answersVersion = '1.3.6'
+
+    // classpath
+    fabricClassPath = 'io.fabric.tools:gradle:1.+'
+}
