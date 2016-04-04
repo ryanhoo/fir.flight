@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.ui.webview.WebViewActivity;
-import io.github.ryanhoo.firFlight.util.ColorUtils;
 import io.github.ryanhoo.firFlight.webview.chromium.CustomTabActivityHelper;
 
 /**
@@ -19,9 +19,8 @@ import io.github.ryanhoo.firFlight.webview.chromium.CustomTabActivityHelper;
 public class WebViewHelper {
 
     public static void openUrl(final Activity activity, final String title, final String url) {
-        int toolbarColor = ColorUtils.getColorCompat(activity, R.color.colorPrimary);
         CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder(null)
-                .setToolbarColor(toolbarColor)
+                .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
                 .setShowTitle(true)
                 .build();
         CustomTabActivityHelper.openCustomTab(activity, customTabsIntent, Uri.parse(url),
