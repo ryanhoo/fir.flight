@@ -35,7 +35,7 @@ ext {
     buildToolsVersion = '23.0.2'
 
     supportv4Version = '+'
-    supportLibraryVersion = '23.2.1'
+    supportLibraryVersion = '23.3.0'
     junitVersion = '4.12'
     glideVersion = '3.7.0'
     butterKnifeVersion = '7.0.1'
