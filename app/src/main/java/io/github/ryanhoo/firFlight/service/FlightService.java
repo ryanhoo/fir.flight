@@ -17,6 +17,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,12 +55,19 @@ public class FlightService extends IntentService {
         Call<List<App>> call = retrofitService.apps();
         try {
             Response<List<App>> response = call.execute();
-            List<App> apps = response.body();
-            for (final App app : apps) {
-                AppInfo appInfo = new AppInfo(this, app);
-                if (appInfo.isInstalled && !appInfo.isUpToDate) {
-                    onAppNewVersion(app);
+            if (response.isSuccessful()) {
+                List<App> apps = response.body();
+                if (apps == null) {
+                    apps = new ArrayList<>(0);
                 }
+                for (final App app : apps) {
+                    AppInfo appInfo = new AppInfo(this, app);
+                    if (appInfo.isInstalled && !appInfo.isUpToDate) {
+                        onAppNewVersion(app);
+                    }
+                }
+            } else {
+                Log.e(TAG, "requesting new apps: " + response.errorBody().string());
             }
         } catch (IOException e) {
             Log.e(TAG, "Request app list: " + call.request().url(), e);
