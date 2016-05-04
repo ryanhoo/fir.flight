@@ -45,6 +45,7 @@
             />
         <activity
             android:name=".ui.signin.SignInActivity"
+            android:launchMode="singleTask"
             android:theme="@style/FFTheme.SignIn"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
             android:screenOrientation="portrait"

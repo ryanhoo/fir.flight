@@ -1,7 +1,5 @@
 package io.github.ryanhoo.firFlight.ui.signin;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -14,6 +12,8 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.account.Account;
+import io.github.ryanhoo.firFlight.account.AccountManager;
 import io.github.ryanhoo.firFlight.account.SignInCallback;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
@@ -57,6 +57,13 @@ public class SignInActivity extends BaseActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_close);
         }
         mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
+
+        Account currentAccount = AccountManager.getCurrentAccount(this);
+        if (currentAccount != null) {
+            editTextEmail.setText(currentAccount.getName());
+            editTextPassword.requestFocus();
+            editTextPassword.setSelection(0);
+        }
 
         OnTextChangedListener onTextChangedListener = new OnTextChangedListener() {
             @Override

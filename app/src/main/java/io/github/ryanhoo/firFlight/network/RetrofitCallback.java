@@ -1,11 +1,14 @@
 package io.github.ryanhoo.firFlight.network;
 
+import android.content.Context;
+import android.content.Intent;
 import com.google.gson.Gson;
+import io.github.ryanhoo.firFlight.FlightApplication;
+import io.github.ryanhoo.firFlight.ui.signin.SignInActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
@@ -23,6 +26,13 @@ public abstract class RetrofitCallback<T> implements Callback<T> {
         if (response.code() < 400) {
             onSuccess(call, response, response.body());
         } else if (response.code() < 500) {
+            if (response.code() == 401) {
+                Context applicationContext = FlightApplication.getInstance();
+                applicationContext.startActivity(
+                        new Intent(applicationContext, SignInActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                );
+            }
             NetworkError error = new Gson().fromJson(response.errorBody().charStream(), NetworkError.class);
             onFailure(call, error);
         } else {

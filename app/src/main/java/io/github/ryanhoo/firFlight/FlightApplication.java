@@ -1,8 +1,9 @@
 package io.github.ryanhoo.firFlight;
 
 import android.app.Application;
-import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
+import android.support.annotation.NonNull;
 import io.github.ryanhoo.firFlight.account.UserSession;
+import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 
 /**
  * Created with Android Studio.
@@ -13,9 +14,19 @@ import io.github.ryanhoo.firFlight.account.UserSession;
  */
 public class FlightApplication extends Application {
 
+    private static FlightApplication sInstance;
+
+    @NonNull
+    public static FlightApplication getInstance() {
+        return sInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        sInstance = this;
+
         // User Session
         UserSession.init(this);
 
