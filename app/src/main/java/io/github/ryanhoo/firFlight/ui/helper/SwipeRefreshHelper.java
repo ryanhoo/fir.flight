@@ -32,6 +32,10 @@ public class SwipeRefreshHelper {
     }
 
     public static void setRefreshIndicatorColorScheme(SwipeRefreshLayout swipeRefreshLayout) {
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.swiperefresh_colorscheme_first,
+                R.color.swiperefresh_colorscheme_secondary,
+                R.color.swiperefresh_colorscheme_third
+        );
     }
 }

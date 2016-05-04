@@ -39,6 +39,11 @@
     <color name="ff.textColor.button.primaryTheme">#607D8B</color>
     <color name="ff.textColor.button.primaryTheme.pressed">#7A607D8B</color>
 
+    <!-- SwipeRefreshLayout -->
+    <color name="swiperefresh.colorscheme.first">#607D8B</color>
+    <color name="swiperefresh.colorscheme.secondary">#009688</color>
+    <color name="swiperefresh.colorscheme.third">#FFEB3B</color>
+
     <!-- Splash -->
     <color name="ff.splash.app_name">#FFFFFF</color>
     <color name="ff.splash.app_slogan">#CFD8DC</color>
