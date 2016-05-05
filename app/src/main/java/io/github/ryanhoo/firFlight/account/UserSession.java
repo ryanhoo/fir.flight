@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import com.google.gson.Gson;
+import io.github.ryanhoo.firFlight.FlightApplication;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
@@ -41,6 +42,7 @@ public class UserSession {
     private RetrofitService mRetrofitService;
 
     private UserSession() {
+        sContext = FlightApplication.getInstance().getApplicationContext();
         mGson = new Gson();
         mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
         mAccount = AccountManager.getCurrentAccount(sContext);
@@ -50,9 +52,6 @@ public class UserSession {
     }
 
     public static UserSession getInstance() {
-        if (sContext == null) {
-            throw new RuntimeException("Please init context in Application's onCreate by using UserSession.init(this)");
-        }
         if (sInstance == null) {
             synchronized (UserSession.class) {
                 if (sInstance == null)
@@ -60,10 +59,6 @@ public class UserSession {
             }
         }
         return sInstance;
-    }
-
-    public static void init(Context context) {
-        sContext = context.getApplicationContext();
     }
 
     public boolean isSignedIn() {

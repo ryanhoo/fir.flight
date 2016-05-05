@@ -2,7 +2,6 @@ package io.github.ryanhoo.firFlight;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
-import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 
 /**
@@ -26,9 +25,6 @@ public class FlightApplication extends Application {
         super.onCreate();
 
         sInstance = this;
-
-        // User Session
-        UserSession.init(this);
 
         // Crash report, data analysis...
         FlightAnalytics.init(this);
