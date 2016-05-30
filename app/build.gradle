@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "$rootProject.fabricClassPath"
+        classpath paths.fabricClassPath
     }
 }
 apply plugin: 'com.android.application'
@@ -78,33 +78,26 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    testCompile "junit:junit:$rootProject.junitVersion"
+    testCompile libs.junit
 
-    compile "com.android.support:support-v4:$rootProject.supportv4Version"
+    compile libs.support_v4
+    compile libs.appcompat_v7
+    compile libs.material_design
+    compile libs.recyclerview_v7
+    compile libs.cardview_v7
+    compile libs.customtabs
 
-    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:design:$rootProject.supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    compile "com.android.support:customtabs:$rootProject.supportLibraryVersion"
+    compile libs.glide
 
-    // Image Loader https://github.com/bumptech/glide
-    compile "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    compile libs.butterknife
 
-    compile "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    compile libs.gson
 
-    compile "com.google.code.gson:gson:$rootProject.gsonVersion"
+    compile libs.retrofit2
+    compile libs.retrofit2GsonConverter
 
-    compile "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
-    compile "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+    compile libs.bughd
 
-    // BugHD http://bughd.com/doc/android
-    compile "im.fir:fir-sdk:$rootProject.bugHDVersion@aar"
-
-    compile("com.crashlytics.sdk.android:crashlytics:$rootProject.crashlyticsVersion@aar") {
-        transitive = true;
-    }
-    compile("com.crashlytics.sdk.android:answers:$rootProject.answersVersion@aar") {
-        transitive = true;
-    }
+    compile(libs.crashlytics) { transitive = true; }
+    compile(libs.answers) { transitive = true; }
 }
