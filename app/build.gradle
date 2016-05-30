@@ -10,6 +10,9 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
+final Properties signingProperties = new Properties()
+signingProperties.load(new FileInputStream(file('local/signing.properties')))
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
@@ -28,10 +31,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("keystore.jks")
-            keyAlias 'release-keystore'
-            storePassword ''
-            keyPassword ''
+            storeFile file("local/keystore.jks")
+            keyAlias signingProperties['KEY_ALIAS']
+            storePassword signingProperties['KEY_STORE_PASSWORD']
+            keyPassword signingProperties['KEY_PASSWORD']
         }
     }
 
@@ -103,32 +106,5 @@ dependencies {
     }
     compile("com.crashlytics.sdk.android:answers:$rootProject.answersVersion@aar") {
         transitive = true;
-    }
-}
-
-// Keystore password input
-
-// https://www.timroes.de/2014/01/19/using-password-prompts-with-gradle-build-files/
-gradle.taskGraph.whenReady { taskGraph ->
-    def tasks = taskGraph.getAllTasks()
-    boolean hasReleaseTask = false
-    for (Task task : tasks) {
-        if (task.name.startsWith('assemble') &&
-                (task.name.endsWith('release') || task.name.endsWith('Release'))) {
-            hasReleaseTask = true;
-            break;
-        }
-    }
-    if (hasReleaseTask) {
-        if (System.console()) {
-            def keystorePassword = System.console().readPassword('\nPlease enter key password: ')
-            keystorePassword = new String(keystorePassword)
-            android.signingConfigs.release.storePassword = keystorePassword
-            android.signingConfigs.release.keyPassword = keystorePassword
-        } else {
-            throw new RuntimeException('>>>>> System.console() is null \n' +
-                    '* Solution: \n' +
-                    '>>>>>  Please run with --no-daemon and be prepared to input key store password!')
-        }
     }
 }
