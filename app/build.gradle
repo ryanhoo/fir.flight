@@ -74,7 +74,6 @@ android {
         // flavor.buildConfigField('String', 'FLAVOR_NAME', "\"${flavor.name}\"")
     }
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -87,6 +86,9 @@ dependencies {
     compile libs.cardview_v7
     compile libs.customtabs
 
+    compile libs.rxjava
+    compile libs.rxandroid
+
     compile libs.glide
 
     compile libs.butterknife
@@ -95,9 +97,13 @@ dependencies {
 
     compile libs.retrofit2
     compile libs.retrofit2GsonConverter
+    compile libs.retrofit2RxJavaAdapter
+
+    compile libs.sqlbrite
 
     compile libs.bughd
 
     compile(libs.crashlytics) { transitive = true; }
     compile(libs.answers) { transitive = true; }
 }
+
