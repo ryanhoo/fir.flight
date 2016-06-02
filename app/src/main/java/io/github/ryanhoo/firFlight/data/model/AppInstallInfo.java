@@ -31,6 +31,7 @@ import java.util.Date;
   }
 }
 */
+//TODO Repeat with Release
 public class AppInstallInfo implements Parcelable {
 
     public AppInstallInfo() {
