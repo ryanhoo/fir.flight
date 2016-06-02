@@ -24,6 +24,7 @@ import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.source.DataRepository;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
@@ -35,6 +36,9 @@ import io.github.ryanhoo.firFlight.util.IntentUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import retrofit2.Call;
 import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import java.util.List;
 import java.util.Map;
@@ -135,6 +139,28 @@ public class AppsFragment extends BaseFragment
     }
 
     private void requestApps() {
+        DataRepository.getInstance().apps()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<App>>() {
+
+                    @Override
+                    public void onNext(List<App> apps) {
+                        mAdapter.setData(apps);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onFailure: " + e);
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    @Override
+                    public void onCompleted() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+        /*
         Call<List<App>> call = mRetrofitService.apps();
         call.enqueue(new RetrofitCallback<List<App>>() {
             @Override
@@ -150,6 +176,7 @@ public class AppsFragment extends BaseFragment
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+        */
     }
 
     // Update app
