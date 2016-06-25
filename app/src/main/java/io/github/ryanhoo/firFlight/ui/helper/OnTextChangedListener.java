@@ -5,7 +5,7 @@ import android.text.TextWatcher;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/3/16
  * Time: 1:52 AM
  * Desc: OnTextChangedListener

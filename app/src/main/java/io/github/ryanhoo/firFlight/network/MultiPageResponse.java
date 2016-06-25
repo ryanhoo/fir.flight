@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/19/16
  * Time: 9:21 PM
  * Desc: MultiPageResponse

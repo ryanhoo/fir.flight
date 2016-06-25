@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 2/4/16
  * Time: 9:41 PM
  * Desc: GlobalLayoutHelper

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/16/16
  * Time: 11:10 PM
  * Desc: Release

@@ -7,7 +7,7 @@ import io.github.ryanhoo.firFlight.data.model.App;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 6/1/16
  * Time: 12:59 PM
  * Desc: AppTable

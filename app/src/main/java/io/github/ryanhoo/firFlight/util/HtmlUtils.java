@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/19/16
  * Time: 10:08 PM
  * Desc: HtmlUtils

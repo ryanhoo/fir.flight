@@ -5,7 +5,7 @@ import io.github.ryanhoo.firFlight.BuildConfig;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/1/16
  * Time: 6:09 PM
  * Desc: FlightEvent

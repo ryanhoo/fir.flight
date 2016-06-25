@@ -8,7 +8,7 @@ import com.bumptech.glide.module.GlideModule;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/19/16
  * Time: 1:32 AM
  * Desc: GlideConfiguration

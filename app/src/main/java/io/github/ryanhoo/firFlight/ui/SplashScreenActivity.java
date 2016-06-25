@@ -22,7 +22,7 @@ import io.github.ryanhoo.firFlight.ui.signin.SignInActivity;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/15/16
  * Time: 8:27 PM
  * Desc: SplashScreenActivity

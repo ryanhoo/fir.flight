@@ -4,7 +4,7 @@ import io.github.ryanhoo.firFlight.data.model.User;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/2/16
  * Time: 5:43 PM
  * Desc: Account

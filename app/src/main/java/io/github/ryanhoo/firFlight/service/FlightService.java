@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/23/16
  * Time: 8:35 PM
  * Desc: FlightService

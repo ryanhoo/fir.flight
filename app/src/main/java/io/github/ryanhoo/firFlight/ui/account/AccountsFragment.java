@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/2/16
  * Time: 11:17 PM
  * Desc: AccountsFragment

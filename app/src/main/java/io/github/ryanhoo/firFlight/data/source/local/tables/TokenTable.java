@@ -7,7 +7,7 @@ import io.github.ryanhoo.firFlight.data.model.Token;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 6/1/16
  * Time: 1:34 PM
  * Desc: TokenTable

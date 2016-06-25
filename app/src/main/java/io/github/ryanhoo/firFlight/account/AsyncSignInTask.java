@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/2/16
  * Time: 4:46 PM
  * Desc: AsyncSignInTask

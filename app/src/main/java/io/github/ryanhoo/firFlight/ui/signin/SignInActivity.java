@@ -25,7 +25,7 @@ import io.github.ryanhoo.firFlight.ui.helper.OnTextChangedListener;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/3/16
  * Time: 12:49 AM
  * Desc: SignInActivity

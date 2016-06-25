@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 5/31/16
  * Time: 4:12 PM
  * Desc: DbContract

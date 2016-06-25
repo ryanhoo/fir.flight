@@ -44,7 +44,7 @@ import retrofit2.Response;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/17/16
  * Time: 1:36 AM
  * Desc: MainActivity

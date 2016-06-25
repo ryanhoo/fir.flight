@@ -7,7 +7,7 @@ import android.util.Log;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/20/16
  * Time: 11:05 PM
  * Desc: SystemPackageReceiver

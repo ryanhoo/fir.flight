@@ -11,7 +11,7 @@ import io.github.ryanhoo.firFlight.webview.chromium.CustomTabActivityHelper;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/24/16
  * Time: 9:31 PM
  * Desc: WebViewHelper

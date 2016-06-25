@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 5/31/16
  * Time: 8:42 PM
  * Desc: RemoteDataSource

@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/20/16
  * Time: 5:36 PM
  * Desc: AsyncDownloadTask

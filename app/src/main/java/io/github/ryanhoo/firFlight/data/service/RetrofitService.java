@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/15/16
  * Time: 11:06 PM
  * Desc: RetrofitService

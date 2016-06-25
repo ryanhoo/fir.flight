@@ -15,7 +15,7 @@ import java.util.Date;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/15/16
  * Time: 10:58 PM
  * Desc: RetrofitClient

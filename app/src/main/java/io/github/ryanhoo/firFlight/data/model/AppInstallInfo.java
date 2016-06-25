@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/20/16
  * Time: 9:32 PM
  * Desc: AppInstallation
