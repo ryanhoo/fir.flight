@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import io.github.ryanhoo.firFlight.network.ServerConfig;
 
+import java.util.Date;
+
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com
@@ -69,7 +71,7 @@ public class App implements Parcelable {
     private String customMarketUrl;
 
     @SerializedName("created_at")
-    private long createdAt;
+    private Date createdAt;
 
     @SerializedName("icon_url")
     private String iconUrl;
@@ -77,7 +79,10 @@ public class App implements Parcelable {
     @SerializedName("master_release")
     private Release masterRelease;
 
+    // TODO No util methods in model layer
     // Util Methods
+
+    @Deprecated
     public String getAppUrl() {
         return String.format("%s/%s", ServerConfig.FIR_HOST, shortUrl);
     }
@@ -140,11 +145,11 @@ public class App implements Parcelable {
         this.shortUrl = shortUrl;
     }
 
-    public long getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -178,7 +183,11 @@ public class App implements Parcelable {
         dest.writeString(this.bundleId);
         dest.writeString(this.shortUrl);
         dest.writeString(this.customMarketUrl);
-        dest.writeLong(this.createdAt);
+        long tempTime = -1;
+        if (this.createdAt != null) {
+            tempTime = this.createdAt.getTime();
+        }
+        dest.writeLong(tempTime);
         dest.writeString(this.iconUrl);
         dest.writeParcelable(this.masterRelease, 0);
     }
@@ -191,7 +200,10 @@ public class App implements Parcelable {
         this.bundleId = in.readString();
         this.shortUrl = in.readString();
         this.customMarketUrl = in.readString();
-        this.createdAt = in.readLong();
+        long tempTime = in.readLong();
+        if (tempTime != -1) {
+            this.createdAt = new Date(tempTime);
+        }
         this.iconUrl = in.readString();
         this.masterRelease = in.readParcelable(Release.class.getClassLoader());
     }

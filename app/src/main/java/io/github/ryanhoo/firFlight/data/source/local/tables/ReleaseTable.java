@@ -12,12 +12,13 @@ import io.github.ryanhoo.firFlight.data.model.Release;
  * Time: 1:14 PM
  * Desc: ReleaseTable
  */
-public final class ReleaseTable implements BaseColumns {
+public final class ReleaseTable implements BaseColumns, BaseTable<Release> {
 
     // Table Name
     public static final String TABLE_NAME = "release";
 
     // Columns
+    public static final String COLUMN_ID = _ID; // "_id"
     public static final String COLUMN_VERSION = "version";
     public static final String COLUMN_BUILD = "build";
     public static final String COLUMN_RELEASE_TYPE = "release_type";
@@ -43,7 +44,18 @@ public final class ReleaseTable implements BaseColumns {
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
-    public static ContentValues toContentValues(Release release) {
+    @Override
+    public String createTableSql() {
+        return CREATE_TABLE;
+    }
+
+    @Override
+    public String deleteTableSql() {
+        return DELETE_TABLE;
+    }
+
+    @Override
+    public ContentValues toContentValues(Release release) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_VERSION, release.getVersion());
         contentValues.put(COLUMN_BUILD, release.getBuild());
@@ -55,9 +67,10 @@ public final class ReleaseTable implements BaseColumns {
         return contentValues;
     }
 
-    public static Release parseCursor(Cursor c) {
+    @Override
+    public Release parseCursor(Cursor c) {
         Release release = new Release();
-        release.setId(c.getLong(c.getColumnIndexOrThrow(_ID)));
+        release.setId(c.getLong(c.getColumnIndexOrThrow(COLUMN_ID)));
         release.setVersion(c.getString(c.getColumnIndexOrThrow(COLUMN_VERSION)));
         release.setBuild(c.getString(c.getColumnIndexOrThrow(COLUMN_BUILD)));
         release.setReleaseType(c.getString(c.getColumnIndexOrThrow(COLUMN_RELEASE_TYPE)));

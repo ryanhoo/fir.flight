@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com
@@ -56,7 +58,7 @@ public class User implements Parcelable {
     private boolean developer;
 
     @SerializedName("created_at")
-    private long createdAt;
+    private Date createdAt;
 
     public String getId() {
         return id;
@@ -114,11 +116,11 @@ public class User implements Parcelable {
         this.developer = developer;
     }
 
-    public long getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -136,7 +138,11 @@ public class User implements Parcelable {
         dest.writeString(this.gravatar);
         dest.writeByte(confirmed ? (byte) 1 : (byte) 0);
         dest.writeByte(developer ? (byte) 1 : (byte) 0);
-        dest.writeLong(this.createdAt);
+        long tempTime = -1;
+        if (this.createdAt != null) {
+            tempTime = this.createdAt.getTime();
+        }
+        dest.writeLong(tempTime);
     }
 
     private void readFromParcel(Parcel in) {
@@ -147,7 +153,10 @@ public class User implements Parcelable {
         this.gravatar = in.readString();
         this.confirmed = in.readByte() != 0;
         this.developer = in.readByte() != 0;
-        this.createdAt = in.readLong();
+        long tempTime = in.readLong();
+        if (tempTime != -1) {
+            this.createdAt = new Date(tempTime);
+        }
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {

@@ -52,7 +52,7 @@ public class LocalDataSource implements DataSourceContract {
                 .mapToOne(new Func1<Cursor, User>() {
                     @Override
                     public User call(Cursor c) {
-                        return UserTable.parseCursor(c);
+                        return new UserTable().parseCursor(c);
                     }
                 });
     }
@@ -66,11 +66,11 @@ public class LocalDataSource implements DataSourceContract {
                 .mapToList(new Func1<Cursor, App>() {
                     @Override
                     public App call(Cursor ac) {
-                        App app = AppTable.parseCursor(ac);
-                        long masterReleaseId = ac.getLong(ac.getColumnIndexOrThrow(AppTable.COLUMN_MASTER_RELEASE_ID));
+                        App app = new AppTable().parseCursor(ac);
+                        long masterReleaseId = ac.getLong(ac.getColumnIndexOrThrow(AppTable.COLUMN_RELEASE_ID));
                         Cursor rc = mDatabaseHelper.query(releaseSqlQuery, String.valueOf(masterReleaseId));
                         rc.moveToFirst();
-                        app.setMasterRelease(ReleaseTable.parseCursor(rc));
+                        app.setMasterRelease(new ReleaseTable().parseCursor(rc));
                         return app;
                     }
                 });
@@ -80,14 +80,14 @@ public class LocalDataSource implements DataSourceContract {
         if (isAppExists(app)) {
             deleteApp(app);
         }
-        ContentValues contentValues = AppTable.toContentValues(app);
+        ContentValues contentValues = new AppTable().toContentValues(app);
         long masterReleaseId = saveRelease(app.getMasterRelease());
-        contentValues.put(AppTable.COLUMN_MASTER_RELEASE_ID, masterReleaseId);
+        contentValues.put(AppTable.COLUMN_RELEASE_ID, masterReleaseId);
         return mDatabaseHelper.insert(AppTable.TABLE_NAME, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     public long saveRelease(Release release) {
-        ContentValues contentValues = ReleaseTable.toContentValues(release);
+        ContentValues contentValues = new ReleaseTable().toContentValues(release);
         return mDatabaseHelper.insert(ReleaseTable.TABLE_NAME, contentValues, SQLiteDatabase.CONFLICT_REPLACE);
     }
 

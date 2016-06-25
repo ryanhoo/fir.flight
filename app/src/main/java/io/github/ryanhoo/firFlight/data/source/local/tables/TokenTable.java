@@ -12,7 +12,7 @@ import io.github.ryanhoo.firFlight.data.model.Token;
  * Time: 1:34 PM
  * Desc: TokenTable
  */
-public final class TokenTable implements BaseColumns {
+public final class TokenTable implements BaseColumns, BaseTable<Token> {
 
     // Table Name
     public static final String TABLE_NAME = "token";
@@ -33,12 +33,28 @@ public final class TokenTable implements BaseColumns {
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
-    public static ContentValues toContentValues(Token token) {
-        return null;
+    @Override
+    public String createTableSql() {
+        return CREATE_TABLE;
     }
 
-    public static Token parseCursor(Cursor c) {
-        return null;
+    @Override
+    public String deleteTableSql() {
+        return DELETE_TABLE;
+    }
+
+    public ContentValues toContentValues(Token token) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ACCESS_TOKEN, token.getAccessToken());
+        contentValues.put(COLUMN_API_TOKEN, token.getApiToken());
+        return contentValues;
+    }
+
+    public Token parseCursor(Cursor c) {
+        Token token = new Token();
+        token.setAccessToken(c.getString(c.getColumnIndexOrThrow(COLUMN_ACCESS_TOKEN)));
+        token.setApiToken(c.getString(c.getColumnIndexOrThrow(COLUMN_API_TOKEN)));
+        return token;
     }
 
 }

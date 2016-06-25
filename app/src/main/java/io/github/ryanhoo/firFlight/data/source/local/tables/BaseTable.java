@@ -12,9 +12,9 @@ import android.database.Cursor;
  */
 public interface BaseTable<T> {
 
-    String createTable();
+    String createTableSql();
 
-    String deleteTable();
+    String deleteTableSql();
 
     ContentValues toContentValues(T t);
 
