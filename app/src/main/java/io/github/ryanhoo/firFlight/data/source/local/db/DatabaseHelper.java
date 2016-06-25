@@ -1,10 +1,10 @@
-package io.github.ryanhoo.firFlight.data.source.local;
+package io.github.ryanhoo.firFlight.data.source.local.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import io.github.ryanhoo.firFlight.data.source.local.tables.*;
+import io.github.ryanhoo.firFlight.data.source.local.db.tables.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DatabaseHelper";
 
-    public static final int DATABASE_VERSION = 23;
+    public static final int DATABASE_VERSION = 24;
     public static final String DATABASE_NAME = "fir-flight.db";
 
     List<Class<? extends BaseTable>> mRegisteredTables;

@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.data.source.local.tables;
+package io.github.ryanhoo.firFlight.data.source.local.db.tables;
 
 import android.content.ContentValues;
 import android.database.Cursor;

@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com
@@ -21,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
   "created_at": 1458030884
 }
 */
-public class Release implements Parcelable {
+public class Release implements Parcelable, Serializable {
 
     public Release() {
         // Empty Constructor

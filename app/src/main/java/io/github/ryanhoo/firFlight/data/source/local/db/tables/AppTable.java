@@ -1,10 +1,14 @@
-package io.github.ryanhoo.firFlight.data.source.local.tables;
+package io.github.ryanhoo.firFlight.data.source.local.db.tables;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.provider.BaseColumns;
+import android.util.Log;
 import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.data.model.Release;
+import io.github.ryanhoo.firFlight.util.ObjectUtils;
 
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -15,6 +19,8 @@ import java.util.Date;
  * Desc: AppTable
  */
 public final class AppTable implements BaseColumns, BaseTable<App> {
+
+    private static final String TAG = "AppTable";
 
     // Table Name
     public static final String TABLE_NAME = "app";
@@ -62,6 +68,10 @@ public final class AppTable implements BaseColumns, BaseTable<App> {
                     "WHERE " + ReleaseTable._ID + " = old." + AppTable.COLUMN_RELEASE_ID + ";\n" +
                     "END";
 
+    public static final String QUERY_ALL_APPS = "SELECT * FROM " + TABLE_NAME + ";";
+
+    public static final String WHERE_ID_EQUALS = COLUMN_ID + "=?";
+
     @Override
     public String createTableSql() {
         return CREATE_TABLE;
@@ -85,7 +95,13 @@ public final class AppTable implements BaseColumns, BaseTable<App> {
         contentValues.put(COLUMN_TYPE, app.getType());
         contentValues.put(COLUMN_CREATED_AT, app.getCreatedAt() == null ? -1 : app.getCreatedAt().getTime());
         if (app.getMasterRelease() != null) {
-            contentValues.put(COLUMN_RELEASE_ID, app.getMasterRelease().getId());
+            try {
+                byte[] releaseInBytes = ObjectUtils.objectToByte(app.getMasterRelease());
+                contentValues.put(COLUMN_RELEASE_ID, releaseInBytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
         }
         return contentValues;
     }
@@ -104,6 +120,14 @@ public final class AppTable implements BaseColumns, BaseTable<App> {
         long createdAt = c.getLong(c.getColumnIndexOrThrow(COLUMN_CREATED_AT));
         if (createdAt != -1) {
             app.setCreatedAt(new Date(createdAt));
+        }
+        byte[] releaseInBytes = c.getBlob(c.getColumnIndexOrThrow(COLUMN_RELEASE_ID));
+        if (releaseInBytes != null) {
+            try {
+                app.setMasterRelease((Release) ObjectUtils.byteToObject(releaseInBytes));
+            } catch (IOException | ClassNotFoundException e) {
+                Log.e(TAG, "parseCursor: ", e);
+            }
         }
         return app;
     }

@@ -21,10 +21,10 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
-import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
-import io.github.ryanhoo.firFlight.data.source.DataRepository;
+import io.github.ryanhoo.firFlight.data.source.AppRepository;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
@@ -62,7 +62,6 @@ public class AppsFragment extends BaseFragment
     LinearLayoutManager layoutManager;
 
     AppAdapter mAdapter;
-    RESTfulApiService mRESTfulApiService;
 
     @Nullable
     @Override
@@ -74,8 +73,6 @@ public class AppsFragment extends BaseFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-        mRESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
 
         SwipeRefreshHelper.setRefreshIndicatorColorScheme(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -119,7 +116,7 @@ public class AppsFragment extends BaseFragment
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        requestApps();
+        requestApps(true);
     }
 
     @Override
@@ -138,12 +135,12 @@ public class AppsFragment extends BaseFragment
         }
     }
 
-    private void requestApps() {
-        DataRepository.getInstance().apps()
+    private void requestApps(boolean forceUpdate) {
+        AppRepository.getInstance()
+                .apps(forceUpdate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<App>>() {
-
                     @Override
                     public void onNext(List<App> apps) {
                         mAdapter.setData(apps);
@@ -160,23 +157,6 @@ public class AppsFragment extends BaseFragment
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
-        /*
-        Call<List<App>> call = mRetrofitService.apps();
-        call.enqueue(new RetrofitCallback<List<App>>() {
-            @Override
-            public void onSuccess(Call<List<App>> call, Response httpResponse, List<App> apps) {
-                mAdapter.setData(apps);
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-            @Override
-            public void onFailure(Call<List<App>> call, NetworkError error) {
-                Log.e(TAG, "onFailure: " + error.getErrorMessage());
-                Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-        */
     }
 
     // Update app

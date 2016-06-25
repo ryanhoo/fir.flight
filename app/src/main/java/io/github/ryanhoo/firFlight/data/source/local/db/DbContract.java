@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.data.source.local;
+package io.github.ryanhoo.firFlight.data.source.local.db;
 
 import android.provider.BaseColumns;
 
