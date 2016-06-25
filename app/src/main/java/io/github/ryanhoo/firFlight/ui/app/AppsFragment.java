@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.data.source.DataRepository;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
@@ -62,7 +62,7 @@ public class AppsFragment extends BaseFragment
     LinearLayoutManager layoutManager;
 
     AppAdapter mAdapter;
-    RetrofitService mRetrofitService;
+    RESTfulApiService mRESTfulApiService;
 
     @Nullable
     @Override
@@ -75,7 +75,7 @@ public class AppsFragment extends BaseFragment
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
+        mRESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
 
         SwipeRefreshHelper.setRefreshIndicatorColorScheme(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -183,7 +183,7 @@ public class AppsFragment extends BaseFragment
 
     private void requestInstallUrl(final AppAdapter.ViewHolder holder, final App app, final int position) {
         holder.buttonAction.setEnabled(false);
-        Call<AppInstallInfo> call = RetrofitClient.defaultInstance().create(RetrofitService.class)
+        Call<AppInstallInfo> call = RetrofitClient.defaultInstance().create(RESTfulApiService.class)
                 .appInstallInfo(app.getId());
         call.enqueue(new RetrofitCallback<AppInstallInfo>() {
             @Override

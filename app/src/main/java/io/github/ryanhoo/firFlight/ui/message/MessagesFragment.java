@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.network.MultiPageResponse;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
@@ -45,7 +45,7 @@ public class MessagesFragment extends BaseFragment
     RecyclerView recyclerView;
 
     MessageAdapter mAdapter;
-    RetrofitService mRetrofitService;
+    RESTfulApiService mRESTfulApiService;
 
     @Nullable
     @Override
@@ -57,7 +57,7 @@ public class MessagesFragment extends BaseFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
+        mRESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
 
         SwipeRefreshHelper.setRefreshIndicatorColorScheme(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -98,7 +98,7 @@ public class MessagesFragment extends BaseFragment
     }
 
     private void requestSystemNotifications() {
-        Call<MultiPageResponse<Message>> call = mRetrofitService.systemNotifications();
+        Call<MultiPageResponse<Message>> call = mRESTfulApiService.systemNotifications();
         call.enqueue(new RetrofitCallback<MultiPageResponse<Message>>() {
             @Override
             public void onSuccess(Call<MultiPageResponse<Message>> call, Response httpResponse, MultiPageResponse<Message> messageMultiPageResponse) {

@@ -9,7 +9,7 @@ import android.util.Log;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.App;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.app.AppInfo;
 import io.github.ryanhoo.firFlight.ui.main.MainActivity;
@@ -51,8 +51,8 @@ public class FlightService extends IntentService {
         Log.d(TAG, "onHandleIntent: " + intent.getAction() + " on thread #" + Thread.currentThread().getName());
         if (!UserSession.getInstance().isSignedIn()) return;
 
-        RetrofitService retrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
-        Call<List<App>> call = retrofitService.apps();
+        RESTfulApiService RESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
+        Call<List<App>> call = RESTfulApiService.apps();
         try {
             Response<List<App>> response = call.execute();
             if (response.isSuccessful()) {

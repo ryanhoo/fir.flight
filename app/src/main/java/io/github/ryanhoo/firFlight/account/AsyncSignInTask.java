@@ -8,7 +8,7 @@ import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import retrofit2.Call;
 
@@ -53,11 +53,11 @@ public class AsyncSignInTask extends AsyncTask<String, Integer, Boolean> {
             onSignInFail(null, "Email or password is empty");
             return false;
         }
-        RetrofitService retrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
+        RESTfulApiService RESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
         try {
             Token token = new Token();
             // Step 1: Access Token
-            Call<Token> accessTokenCall = retrofitService.accessToken(email, password);
+            Call<Token> accessTokenCall = RESTfulApiService.accessToken(email, password);
             Token accessToken = accessTokenCall.execute().body();
             if (accessToken == null || TextUtils.isEmpty(accessToken.getAccessToken())) {
                 onSignInFail(null, "Access token is null");
@@ -67,10 +67,10 @@ public class AsyncSignInTask extends AsyncTask<String, Integer, Boolean> {
             UserSession.getInstance().setAccessToken(accessToken.getAccessToken());
             Log.d(TAG, "doInBackground: accessToken is " + accessToken.getAccessToken());
             // Step 2: Api Token
-            Call<Token> apiTokenCall = retrofitService.apiToken();
+            Call<Token> apiTokenCall = RESTfulApiService.apiToken();
             Token apiToken = apiTokenCall.execute().body();
             if (apiToken == null || TextUtils.isEmpty(apiToken.getApiToken())) {
-                Call<Token> refreshApiTokenCall = retrofitService.refreshApiToken();
+                Call<Token> refreshApiTokenCall = RESTfulApiService.refreshApiToken();
                 apiToken = refreshApiTokenCall.execute().body();
                 if (apiToken == null || TextUtils.isEmpty(apiToken.getApiToken())) {
                     onSignInFail(null, "Api token is null, refresh api token failed");
@@ -84,7 +84,7 @@ public class AsyncSignInTask extends AsyncTask<String, Integer, Boolean> {
             UserSession.getInstance().setApiToken(apiToken.getApiToken());
             Log.d(TAG, "doInBackground: api token is " + apiToken.getApiToken());
             // Step 3: User
-            Call<User> userCall = retrofitService.user();
+            Call<User> userCall = RESTfulApiService.user();
             User user = userCall.execute().body();
             if (user == null) {
                 onSignInFail(null, "User is null");

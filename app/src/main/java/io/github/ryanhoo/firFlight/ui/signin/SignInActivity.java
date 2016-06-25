@@ -18,7 +18,7 @@ import io.github.ryanhoo.firFlight.account.SignInCallback;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.helper.OnTextChangedListener;
@@ -44,7 +44,7 @@ public class SignInActivity extends BaseActivity {
 
     MenuItem menuItemSignIn;
 
-    RetrofitService mRetrofitService;
+    RESTfulApiService mRESTfulApiService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class SignInActivity extends BaseActivity {
             actionBar.setTitle(null);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_close);
         }
-        mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
+        mRESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
 
         Account currentAccount = AccountManager.getCurrentAccount(this);
         if (currentAccount != null) {

@@ -8,7 +8,7 @@ import io.github.ryanhoo.firFlight.FlightApplication;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
@@ -39,12 +39,12 @@ public class UserSession {
     private User mUser;
 
     private Gson mGson;
-    private RetrofitService mRetrofitService;
+    private RESTfulApiService mRESTfulApiService;
 
     private UserSession() {
         sContext = FlightApplication.getInstance().getApplicationContext();
         mGson = new Gson();
-        mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
+        mRESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
         mAccount = AccountManager.getCurrentAccount(sContext);
         if (mAccount != null) {
             restoreSession(mAccount);
@@ -95,7 +95,7 @@ public class UserSession {
             signOut();
             return;
         }
-        Call<User> call = mRetrofitService.user();
+        Call<User> call = mRESTfulApiService.user();
         call.enqueue(new RetrofitCallback<User>() {
             @Override
             public void onSuccess(Call<User> call, Response httpResponse, User user) {

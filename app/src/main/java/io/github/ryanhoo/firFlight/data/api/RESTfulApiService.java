@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.data.service;
+package io.github.ryanhoo.firFlight.data.api;
 
 import io.github.ryanhoo.firFlight.data.model.*;
 import io.github.ryanhoo.firFlight.network.MultiPageResponse;
@@ -12,9 +12,10 @@ import java.util.List;
  * User: ryan.hoo.j@gmail.com
  * Date: 3/15/16
  * Time: 11:06 PM
- * Desc: RetrofitService
+ * Desc: RESTfulApiService
  */
-public interface RetrofitService {
+@Deprecated
+public interface RESTfulApiService {
 
     // Token
 
@@ -28,9 +29,12 @@ public interface RetrofitService {
     @POST("/user/api_token")
     Call<Token> refreshApiToken();
 
+
     // User
+
     @GET("/user")
     Call<User> user();
+
 
     // Apps
 
@@ -39,6 +43,7 @@ public interface RetrofitService {
 
     @GET("/apps/latest/{appId}?requireApiToken=true")
     Call<AppInstallInfo> appInstallInfo(@Path("appId") String appId);
+
 
     // Notifications
 

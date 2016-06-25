@@ -12,9 +12,9 @@ import java.util.List;
  * User: ryan.hoo.j@gmail.com
  * Date: 5/31/16
  * Time: 11:10 PM
- * Desc: ApiService
+ * Desc: RESTFulApiService
  */
-public interface ApiService {
+public interface RESTFulApiService {
 
     // User
     @GET("/user")

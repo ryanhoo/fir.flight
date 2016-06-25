@@ -18,10 +18,10 @@ import java.util.List;
 public class RemoteDataSource implements DataSourceContract {
 
     private static RemoteDataSource sInstance;
-    ApiService mApi;
+    RESTFulApiService mApi;
 
     private RemoteDataSource() {
-        mApi = RetrofitClient.defaultInstance().create(ApiService.class);
+        mApi = RetrofitClient.defaultInstance().create(RESTFulApiService.class);
     }
 
     public static RemoteDataSource getInstance() {
