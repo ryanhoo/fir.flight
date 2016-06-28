@@ -1,5 +1,6 @@
 package io.github.ryanhoo.firFlight.network;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.ryanhoo.firFlight.data.model.IMessageContent;
@@ -9,7 +10,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.internal.util.RxThreadFactory;
 
 import java.util.Date;
 
@@ -34,6 +34,7 @@ public class RetrofitClient {
     public static OkHttpClient defaultOkHttpClient() {
         return new OkHttpClient.Builder()
                 .addNetworkInterceptor(new SessionInterceptor())
+                .addNetworkInterceptor(new StethoInterceptor())
                 .build();
     }
 

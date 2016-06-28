@@ -2,6 +2,7 @@ package io.github.ryanhoo.firFlight;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+import com.facebook.stetho.Stetho;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 
 /**
@@ -25,6 +26,9 @@ public class FlightApplication extends Application {
         super.onCreate();
 
         sInstance = this;
+
+        // Facebook debug bridge
+        Stetho.initializeWithDefaults(this);
 
         // Crash report, data analysis...
         FlightAnalytics.init(this);

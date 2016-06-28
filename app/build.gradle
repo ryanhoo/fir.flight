@@ -105,5 +105,9 @@ dependencies {
 
     compile(libs.crashlytics) { transitive = true; }
     compile(libs.answers) { transitive = true; }
+
+    compile libs.stetho
+    compile libs.stetho_okhttp
+    compile libs.stetho_jsconsole
 }
 
