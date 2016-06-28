@@ -18,7 +18,7 @@ public class Injection {
         return FlightApplication.getInstance();
     }
 
-    public static RESTFulApiService provideApi() {
+    public static RESTFulApiService provideRESTfulApi() {
         return RetrofitClient.defaultInstance().create(RESTFulApiService.class);
     }
 }

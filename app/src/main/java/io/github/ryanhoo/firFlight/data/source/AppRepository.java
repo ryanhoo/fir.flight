@@ -25,7 +25,7 @@ public class AppRepository implements AppContract {
 
     private AppRepository() {
         mLocalDataSource = new LocalAppDataSource(Injection.provideContext());
-        mRemoteDataSource = new RemoteAppDataSource(Injection.provideApi());
+        mRemoteDataSource = new RemoteAppDataSource(Injection.provideRESTfulApi());
     }
 
     public static AppRepository getInstance() {
