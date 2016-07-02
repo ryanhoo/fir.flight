@@ -19,10 +19,12 @@ import java.util.List;
 public interface RESTFulApiService {
 
     // User
+
     @GET("/user")
     Observable<User> user();
 
     // Apps
+
     @GET("/apps")
     Observable<List<App>> apps();
 
