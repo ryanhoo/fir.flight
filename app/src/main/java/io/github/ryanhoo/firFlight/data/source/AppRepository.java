@@ -53,6 +53,6 @@ public class AppRepository implements AppContract {
         if (forceUpdate) {
             return remote;
         }
-        return Observable.concat(local, remote).first();
+        return Observable.concat(local.first(), remote);
     }
 }

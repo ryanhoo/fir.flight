@@ -42,11 +42,16 @@ public final class MessageTable implements BaseColumns, BaseTable<Message> {
                     COLUMN_IS_READ + " INTEGER DEFAULT 0, " +
                     COLUMN_TEMPLATE + " TEXT, " +
                     COLUMN_CREATED_AT + " INTEGER, " +
-                    COLUMN_CONTENT + " TEXT NOT NULL" +
+                    COLUMN_CONTENT + " TEXT" +
                 " );";
 
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+
+    public static final String QUERY_ALL_SYSTEM_MESSAGES =
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_TYPE + "=?";
+
+    public static final String WHERE_ID_EQUALS = COLUMN_ID + "=?";
 
     @Override
     public String createTableSql() {
@@ -65,10 +70,12 @@ public final class MessageTable implements BaseColumns, BaseTable<Message> {
         contentValues.put(COLUMN_IS_READ, message.isRead() ? 1 : 0);
         contentValues.put(COLUMN_TEMPLATE, message.getTemplate());
         contentValues.put(COLUMN_CREATED_AT, message.getCreatedAt() == null ? -1 : message.getCreatedAt().getTime());
-        try {
-            contentValues.put(COLUMN_CONTENT, ObjectUtils.objectToByte(message.getContent()));
-        } catch (IOException e) {
-            Log.e(TAG, "When saving message content: " + message.getContent(), e);
+        if (message.getContent() != null) {
+            try {
+                contentValues.put(COLUMN_CONTENT, ObjectUtils.objectToByte(message.getContent()));
+            } catch (IOException e) {
+                Log.e(TAG, "When saving message content: " + message.getContent(), e);
+            }
         }
         return contentValues;
     }
@@ -82,10 +89,12 @@ public final class MessageTable implements BaseColumns, BaseTable<Message> {
         long createdAt = c.getLong(c.getColumnIndexOrThrow(COLUMN_CREATED_AT));
         message.setCreatedAt(createdAt == -1 ? null : new Date(createdAt));
         byte[] bytes = c.getBlob(c.getColumnIndexOrThrow(COLUMN_CONTENT));
-        try {
-            message.setContent((IMessageContent) ObjectUtils.byteToObject(bytes));
-        } catch (IOException | ClassNotFoundException e) {
-            Log.e(TAG, "When parsing message content: " + new String(bytes), e);
+        if (bytes != null) {
+            try {
+                message.setContent((IMessageContent) ObjectUtils.byteToObject(bytes));
+            } catch (IOException | ClassNotFoundException e) {
+                Log.e(TAG, "When parsing message content: " + new String(bytes), e);
+            }
         }
         return message;
     }

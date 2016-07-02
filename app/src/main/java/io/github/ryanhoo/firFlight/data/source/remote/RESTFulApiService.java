@@ -1,7 +1,9 @@
 package io.github.ryanhoo.firFlight.data.source.remote;
 
 import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.model.User;
+import io.github.ryanhoo.firFlight.network.MultiPageResponse;
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -23,4 +25,9 @@ public interface RESTFulApiService {
     // Apps
     @GET("/apps")
     Observable<List<App>> apps();
+
+    // Messages
+
+    @GET("/notifications?type=sys")
+    Observable<MultiPageResponse<Message>> systemMessages();
 }

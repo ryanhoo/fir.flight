@@ -2,6 +2,8 @@ package io.github.ryanhoo.firFlight.data.model;
 
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com
@@ -9,5 +11,5 @@ import android.os.Parcelable;
  * Time: 8:10 PM
  * Desc: IMessageContent
  */
-public interface IMessageContent extends Parcelable {
+public interface IMessageContent extends Parcelable, Serializable {
 }

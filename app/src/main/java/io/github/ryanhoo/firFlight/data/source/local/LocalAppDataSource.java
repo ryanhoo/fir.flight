@@ -3,6 +3,7 @@ package io.github.ryanhoo.firFlight.data.source.local;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.source.AppContract;
 import io.github.ryanhoo.firFlight.data.source.local.db.tables.AppTable;
@@ -18,10 +19,16 @@ import java.util.List;
  * Time: 12:25 AM
  * Desc: LocalAppDataSource
  */
-public class LocalAppDataSource extends AbstractLocalDataSource implements AppContract.Local {
+public class LocalAppDataSource extends AbstractLocalDataSource<AppTable> implements AppContract.Local {
 
     public LocalAppDataSource(Context context) {
         super(context);
+    }
+
+    @NonNull
+    @Override
+    protected AppTable instantiateTable() {
+        return new AppTable();
     }
 
     @Override
@@ -30,14 +37,14 @@ public class LocalAppDataSource extends AbstractLocalDataSource implements AppCo
                 .mapToList(new Func1<Cursor, App>() {
                     @Override
                     public App call(Cursor cursor) {
-                        return new AppTable().parseCursor(cursor);
+                        return mTable.parseCursor(cursor);
                     }
                 });
     }
 
     @Override
     public boolean save(App app) {
-        mDatabaseHelper.insert(AppTable.TABLE_NAME, new AppTable().toContentValues(app), SQLiteDatabase.CONFLICT_REPLACE);
+        mDatabaseHelper.insert(AppTable.TABLE_NAME, mTable.toContentValues(app), SQLiteDatabase.CONFLICT_REPLACE);
         return true;
     }
 
