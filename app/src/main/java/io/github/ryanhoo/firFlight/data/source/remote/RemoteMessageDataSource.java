@@ -2,6 +2,7 @@ package io.github.ryanhoo.firFlight.data.source.remote;
 
 import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.source.MessageContract;
+import io.github.ryanhoo.firFlight.data.source.remote.api.RESTFulApiService;
 import io.github.ryanhoo.firFlight.network.MultiPageResponse;
 import rx.Observable;
 import rx.functions.Func1;

@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.data.source.remote;
+package io.github.ryanhoo.firFlight.data.source.remote.api;
 
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.Message;

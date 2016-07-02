@@ -1,5 +1,7 @@
 package io.github.ryanhoo.firFlight.data.source.remote;
 
+import io.github.ryanhoo.firFlight.data.source.remote.api.RESTFulApiService;
+
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com

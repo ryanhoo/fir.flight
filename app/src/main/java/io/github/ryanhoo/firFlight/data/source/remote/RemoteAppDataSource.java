@@ -2,6 +2,7 @@ package io.github.ryanhoo.firFlight.data.source.remote;
 
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.source.AppContract;
+import io.github.ryanhoo.firFlight.data.source.remote.api.RESTFulApiService;
 import rx.Observable;
 
 import java.util.List;

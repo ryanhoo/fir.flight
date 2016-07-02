@@ -2,7 +2,7 @@ package io.github.ryanhoo.firFlight.data;
 
 import android.content.Context;
 import io.github.ryanhoo.firFlight.FlightApplication;
-import io.github.ryanhoo.firFlight.data.source.remote.RESTFulApiService;
+import io.github.ryanhoo.firFlight.data.source.remote.api.RESTFulApiService;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 
 /**
