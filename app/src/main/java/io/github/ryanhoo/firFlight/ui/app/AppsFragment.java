@@ -37,6 +37,7 @@ import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import retrofit2.Call;
 import retrofit2.Response;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -136,7 +137,7 @@ public class AppsFragment extends BaseFragment
     }
 
     private void requestApps(boolean forceUpdate) {
-        AppRepository.getInstance()
+        Subscription subscription = AppRepository.getInstance()
                 .apps(forceUpdate)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -157,6 +158,7 @@ public class AppsFragment extends BaseFragment
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 });
+        addSubscription(subscription);
     }
 
     // Update app
