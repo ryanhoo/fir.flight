@@ -9,11 +9,6 @@
             android:checked="true"
             />
         <item
-            android:id="@+id/item_accounts"
-            android:title="@string/ff.main.drawer.section.title.accounts"
-            android:icon="@drawable/ic_drawer_item_account"
-            />
-        <item
             android:id="@+id/item_messages"
             android:title="@string/ff.main.drawer.section.title.messages"
             android:icon="@drawable/ic_drawer_item_message"

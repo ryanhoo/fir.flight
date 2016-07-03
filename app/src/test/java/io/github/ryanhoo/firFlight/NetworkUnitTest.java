@@ -3,7 +3,7 @@ package io.github.ryanhoo.firFlight;
 import android.util.Log;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -19,19 +19,19 @@ public class NetworkUnitTest {
 
     private static final String TAG = "NetworkUnitTest";
 
-    static RetrofitService mRetrofitService;
+    static RESTfulApiService mRESTfulApiService;
     static UserSession mSession;
 
     @BeforeClass
     public static void beforeClass() {
-        mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
+        mRESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
         mSession = UserSession.getInstance();
     }
 
     @Test
     public void signIn() {
         System.out.println("signIn");
-        Call<Token> call = mRetrofitService.accessToken("", "");
+        Call<Token> call = mRESTfulApiService.accessToken("", "");
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
@@ -49,7 +49,7 @@ public class NetworkUnitTest {
     @Test
     public void apiToken() {
         if (mSession.isSignedIn()) {
-            Call<Token> call = mRetrofitService.apiToken();
+            Call<Token> call = mRESTfulApiService.apiToken();
             call.enqueue(new Callback<Token>() {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {

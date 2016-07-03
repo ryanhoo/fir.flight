@@ -4,32 +4,36 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/16/16
  * Time: 11:10 PM
  * Desc: Release
  */
 /*
 {
-      "version": "2.6.5",
-      "build": "16031502",
-      "release_type": "inhouse",
-      "distribution_name": "",
-      "supported_platform": null,
-      "created_at": 1458030884
-    }
+  "version": "2.6.5",
+  "build": "16031502",
+  "release_type": "inhouse",
+  "distribution_name": "",
+  "supported_platform": null,
+  "created_at": 1458030884
+}
 */
-public class Release implements Parcelable {
+public class Release implements Parcelable, Serializable {
 
     public Release() {
         // Empty Constructor
     }
 
-    public Release(Parcel in) {
+    protected Release(Parcel in) {
         readFromParcel(in);
     }
+
+    private long id;
 
     @SerializedName("version")
     private String version;
@@ -51,6 +55,14 @@ public class Release implements Parcelable {
 
     @SerializedName("created_at")
     private long createdAt;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getVersion() {
         return version;
@@ -115,6 +127,7 @@ public class Release implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.id);
         dest.writeString(this.version);
         dest.writeString(this.build);
         dest.writeString(this.changelog);
@@ -125,6 +138,7 @@ public class Release implements Parcelable {
     }
 
     private void readFromParcel(Parcel in) {
+        this.id = in.readLong();
         this.version = in.readString();
         this.build = in.readString();
         this.changelog = in.readString();

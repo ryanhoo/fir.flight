@@ -19,7 +19,7 @@ import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/18/16
  * Time: 10:29 PM
  * Desc: WebViewActivity

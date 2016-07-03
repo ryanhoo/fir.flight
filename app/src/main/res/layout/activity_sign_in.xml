@@ -89,6 +89,6 @@
         android:layout_alignParentBottom="true"
         android:textColor="#ECFFFFFF"
         android:textSize="@dimen/ff.textSize.tips"
-        android:text="@string/ff.signin.account.hint"
+        android:visibility="gone"
         />
 </RelativeLayout>

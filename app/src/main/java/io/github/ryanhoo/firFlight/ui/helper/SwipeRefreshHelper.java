@@ -6,7 +6,7 @@ import io.github.ryanhoo.firFlight.R;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/22/16
  * Time: 1:10 PM
  * Desc: SwipeRefreshHelper

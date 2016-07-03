@@ -8,7 +8,7 @@ import io.github.ryanhoo.firFlight.service.FlightService;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/23/16
  * Time: 8:43 PM
  * Desc: FlightReceiver

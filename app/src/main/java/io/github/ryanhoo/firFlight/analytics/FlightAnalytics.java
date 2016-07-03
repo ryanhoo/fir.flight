@@ -15,7 +15,7 @@ import static io.github.ryanhoo.firFlight.analytics.FlightEvent.*;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/1/16
  * Time: 6:11 PM
  * Desc: FlightAnalytics

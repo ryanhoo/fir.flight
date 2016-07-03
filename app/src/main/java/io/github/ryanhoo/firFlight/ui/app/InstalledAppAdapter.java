@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/5/16
  * Time: 10:31 PM
  * Desc: InstalledAppAdapter

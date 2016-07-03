@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/15/16
  * Time: 8:12 PM
  * Desc: BaseActivity

@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/19/16
  * Time: 11:53 PM
  * Desc: MessageContentDeserializer

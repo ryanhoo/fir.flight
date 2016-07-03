@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,23 +16,20 @@ import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
-import io.github.ryanhoo.firFlight.network.MultiPageResponse;
-import io.github.ryanhoo.firFlight.network.NetworkError;
-import io.github.ryanhoo.firFlight.network.RetrofitCallback;
-import io.github.ryanhoo.firFlight.network.RetrofitClient;
+import io.github.ryanhoo.firFlight.data.source.MessageRepository;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
-import retrofit2.Call;
-import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import java.util.List;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/19/16
  * Time: 8:42 PM
  * Desc: MessageListFragment
@@ -39,13 +37,14 @@ import java.util.List;
 public class MessagesFragment extends BaseFragment
         implements SwipeRefreshLayout.OnRefreshListener, BaseAdapter.OnItemClickListener<Message> {
 
+    private static final String TAG = "MessagesFragment";
+
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
 
     MessageAdapter mAdapter;
-    RetrofitService mRetrofitService;
 
     @Nullable
     @Override
@@ -57,7 +56,6 @@ public class MessagesFragment extends BaseFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
 
         SwipeRefreshHelper.setRefreshIndicatorColorScheme(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -75,15 +73,9 @@ public class MessagesFragment extends BaseFragment
     }
 
     @Override
-    protected void onAccountChanged() {
-        super.onAccountChanged();
-        onRefresh();
-    }
-
-    @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        requestSystemNotifications();
+        requestSystemMessages(false);
     }
 
     @Override
@@ -97,21 +89,28 @@ public class MessagesFragment extends BaseFragment
         }
     }
 
-    private void requestSystemNotifications() {
-        Call<MultiPageResponse<Message>> call = mRetrofitService.systemNotifications();
-        call.enqueue(new RetrofitCallback<MultiPageResponse<Message>>() {
-            @Override
-            public void onSuccess(Call<MultiPageResponse<Message>> call, Response httpResponse, MultiPageResponse<Message> messageMultiPageResponse) {
-                List<Message> messages = messageMultiPageResponse.getData();
-                mAdapter.setData(messages);
-                swipeRefreshLayout.setRefreshing(false);
-            }
+    private void requestSystemMessages(boolean forceUpdate) {
+        swipeRefreshLayout.setRefreshing(true);
+        MessageRepository.getInstance().systemMessages(forceUpdate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Message>>() {
+                    @Override
+                    public void onCompleted() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
 
-            @Override
-            public void onFailure(Call<MultiPageResponse<Message>> call, NetworkError error) {
-                Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "requestSystemNotifications: ", e);
+                        Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onNext(List<Message> messages) {
+                        mAdapter.setData(messages);
+                    }
+                });
     }
 }

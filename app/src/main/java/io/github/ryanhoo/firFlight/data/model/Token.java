@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/15/16
  * Time: 10:07 PM
  * Desc: Token
@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 /*
 // 1. /signIn
 {
-  "api_token": "0d1b816b9f69103cd11ef2b3dfd1ca37"
+  "access_token": "0d1b816b9f69103cd11ef2b3dfd1ca37"
 }
 // 2. /user/api_token
 {
@@ -27,7 +27,7 @@ public class Token implements Parcelable {
         // Empty Constructor
     }
 
-    public Token(Parcel in) {
+    protected Token(Parcel in) {
         readFromParcel(in);
     }
 

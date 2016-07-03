@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/16/16
  * Time: 8:03 AM
  * Desc: RetrofitCallback

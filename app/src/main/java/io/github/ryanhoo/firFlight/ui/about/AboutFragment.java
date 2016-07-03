@@ -20,7 +20,7 @@ import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/24/16
  * Time: 12:33 PM
  * Desc: AboutFragment

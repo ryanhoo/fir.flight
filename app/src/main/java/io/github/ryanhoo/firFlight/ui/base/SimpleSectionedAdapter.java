@@ -32,7 +32,7 @@ import java.util.Comparator;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 4/5/16
  * Time: 5:40 PM
  * Desc: SimpleSectionedAdapter

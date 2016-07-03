@@ -21,9 +21,10 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
-import io.github.ryanhoo.firFlight.data.service.RetrofitService;
+import io.github.ryanhoo.firFlight.data.source.AppRepository;
 import io.github.ryanhoo.firFlight.network.NetworkError;
 import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
@@ -35,13 +36,17 @@ import io.github.ryanhoo.firFlight.util.IntentUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import retrofit2.Call;
 import retrofit2.Response;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/19/16
  * Time: 12:29 AM
  * Desc: AppListFragment
@@ -58,7 +63,6 @@ public class AppsFragment extends BaseFragment
     LinearLayoutManager layoutManager;
 
     AppAdapter mAdapter;
-    RetrofitService mRetrofitService;
 
     @Nullable
     @Override
@@ -70,8 +74,6 @@ public class AppsFragment extends BaseFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-        mRetrofitService = RetrofitClient.defaultInstance().create(RetrofitService.class);
 
         SwipeRefreshHelper.setRefreshIndicatorColorScheme(swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -107,15 +109,9 @@ public class AppsFragment extends BaseFragment
     }
 
     @Override
-    protected void onAccountChanged() {
-        super.onAccountChanged();
-        onRefresh();
-    }
-
-    @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        requestApps();
+        requestApps(true);
     }
 
     @Override
@@ -134,29 +130,37 @@ public class AppsFragment extends BaseFragment
         }
     }
 
-    private void requestApps() {
-        Call<List<App>> call = mRetrofitService.apps();
-        call.enqueue(new RetrofitCallback<List<App>>() {
-            @Override
-            public void onSuccess(Call<List<App>> call, Response httpResponse, List<App> apps) {
-                mAdapter.setData(apps);
-                swipeRefreshLayout.setRefreshing(false);
-            }
+    private void requestApps(boolean forceUpdate) {
+        Subscription subscription = AppRepository.getInstance()
+                .apps(forceUpdate)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<App>>() {
+                    @Override
+                    public void onNext(List<App> apps) {
+                        mAdapter.setData(apps);
+                    }
 
-            @Override
-            public void onFailure(Call<List<App>> call, NetworkError error) {
-                Log.e(TAG, "onFailure: " + error.getErrorMessage());
-                Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onFailure: " + e);
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+        addSubscription(subscription);
     }
 
     // Update app
 
     private void requestInstallUrl(final AppAdapter.ViewHolder holder, final App app, final int position) {
         holder.buttonAction.setEnabled(false);
-        Call<AppInstallInfo> call = RetrofitClient.defaultInstance().create(RetrofitService.class)
+        Call<AppInstallInfo> call = RetrofitClient.defaultInstance().create(RESTfulApiService.class)
                 .appInstallInfo(app.getId());
         call.enqueue(new RetrofitCallback<AppInstallInfo>() {
             @Override

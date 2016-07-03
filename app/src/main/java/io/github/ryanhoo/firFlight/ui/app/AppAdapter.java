@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/17/16
  * Time: 2:11 AM
  * Desc: AppAdapter

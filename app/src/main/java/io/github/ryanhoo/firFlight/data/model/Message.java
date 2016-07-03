@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 3/19/16
  * Time: 7:56 PM
  * Desc: Message
