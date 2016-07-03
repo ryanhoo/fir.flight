@@ -30,17 +30,15 @@ import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.model.User;
-import io.github.ryanhoo.firFlight.network.NetworkError;
-import io.github.ryanhoo.firFlight.network.RetrofitCallback;
 import io.github.ryanhoo.firFlight.ui.about.AboutFragment;
-import io.github.ryanhoo.firFlight.ui.account.AccountsFragment;
 import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.helper.GlobalLayoutHelper;
 import io.github.ryanhoo.firFlight.ui.message.MessagesFragment;
 import io.github.ryanhoo.firFlight.ui.setting.SettingsFragment;
-import retrofit2.Call;
-import retrofit2.Response;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created with Android Studio.
@@ -59,7 +57,6 @@ public class MainActivity extends BaseActivity {
 
     private interface Tab {
         String APPS = "apps";
-        String ACCOUNTS = "accounts";
         String MESSAGES = "messages";
         String SETTINGS = "settings";
         String ABOUT = "about";
@@ -148,21 +145,6 @@ public class MainActivity extends BaseActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public void onAccountChanged() {
-        mUser = UserSession.getInstance().getUser();
-        onLoadUserInfo(mUser);
-        Fragment fragmentApps = getSupportFragmentManager().findFragmentByTag(Tab.APPS);
-        Fragment fragmentMessages = getSupportFragmentManager().findFragmentByTag(Tab.MESSAGES);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (fragmentApps != null) {
-            transaction.remove(fragmentApps);
-        }
-        if (fragmentMessages != null) {
-            transaction.remove(fragmentMessages);
-        }
-        transaction.commit();
-    }
-
     private void setUpDrawerToggle() {
         drawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -207,10 +189,6 @@ public class MainActivity extends BaseActivity {
                 title = getString(R.string.ff_main_drawer_section_title_apps);
                 toTab = Tab.APPS;
                 break;
-            case R.id.item_accounts:
-                title = getString(R.string.ff_main_drawer_section_title_accounts);
-                toTab = Tab.ACCOUNTS;
-                break;
             case R.id.item_messages:
                 title = getString(R.string.ff_main_drawer_section_title_messages);
                 toTab = Tab.MESSAGES;
@@ -243,10 +221,6 @@ public class MainActivity extends BaseActivity {
             switch (toTab) {
                 case Tab.APPS:
                     to = new AppsFragment();
-                    addToStack = true;
-                    break;
-                case Tab.ACCOUNTS:
-                    to = new AccountsFragment();
                     addToStack = true;
                     break;
                 case Tab.MESSAGES:
@@ -340,18 +314,24 @@ public class MainActivity extends BaseActivity {
     private void requestUser() {
         mUser = UserSession.getInstance().getUser();
         onLoadUserInfo(mUser);
-        UserSession.getInstance().updateUser(new RetrofitCallback<User>() {
-            @Override
-            public void onSuccess(Call<User> call, Response httpResponse, User user) {
-                Log.d(TAG, String.format("User: %s\n%s\n%s", user.getName(), user.getEmail(), user.getGravatar()));
-                mUser = user;
-                onLoadUserInfo(user);
-            }
+        UserSession.getInstance().user(false)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-            @Override
-            public void onFailure(Call<User> call, NetworkError error) {
-                Toast.makeText(MainActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                        mUser = user;
+                        onLoadUserInfo(user);
+                    }
+                });
     }
 }

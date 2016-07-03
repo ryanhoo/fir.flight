@@ -12,16 +12,17 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
-import io.github.ryanhoo.firFlight.account.Account;
-import io.github.ryanhoo.firFlight.account.AccountManager;
-import io.github.ryanhoo.firFlight.account.SignInCallback;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
+import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.helper.OnTextChangedListener;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created with Android Studio.
@@ -57,13 +58,6 @@ public class SignInActivity extends BaseActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_nav_close);
         }
         mRESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
-
-        Account currentAccount = AccountManager.getCurrentAccount(this);
-        if (currentAccount != null) {
-            editTextEmail.setText(currentAccount.getName());
-            editTextPassword.requestFocus();
-            editTextPassword.setSelection(0);
-        }
 
         OnTextChangedListener onTextChangedListener = new OnTextChangedListener() {
             @Override
@@ -105,30 +99,37 @@ public class SignInActivity extends BaseActivity {
         menuItemSignIn.setEnabled(false);
         final String email = editTextEmail.getText().toString();
         final String password = editTextPassword.getText().toString();
-        UserSession.getInstance().signIn(email, password, new SignInCallback() {
-            @Override
-            public void success() {
-                // SignIn Event Success
-                FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
-                        .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
-                        .putSuccess(true)
-                );
-                menuItemSignIn.setEnabled(false);
-                setResult(RESULT_OK);
-                finish();
-            }
+        UserSession.getInstance().signIn(email, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<User>() {
+                    @Override
+                    public void onCompleted() {
+                        // SignIn Event Success
+                        FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
+                                .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
+                                .putSuccess(true)
+                        );
+                        menuItemSignIn.setEnabled(false);
+                        setResult(RESULT_OK);
+                        finish();
+                    }
 
-            @Override
-            public void fail() {
-                // SignIn Event Fail
-                FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
-                        .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
-                        .putSuccess(false)
-                );
-                Toast.makeText(SignInActivity.this, R.string.ff_signin_failed, Toast.LENGTH_SHORT).show();
-                menuItemSignIn.setEnabled(false);
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        // SignIn Event Fail
+                        FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
+                                .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
+                                .putSuccess(false)
+                        );
+                        Toast.makeText(SignInActivity.this, R.string.ff_signin_failed, Toast.LENGTH_SHORT).show();
+                        menuItemSignIn.setEnabled(false);
+                    }
+
+                    @Override
+                    public void onNext(User user) {
+                    }
+                });
     }
 
     @Override

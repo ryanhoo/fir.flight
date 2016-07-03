@@ -109,12 +109,6 @@ public class AppsFragment extends BaseFragment
     }
 
     @Override
-    protected void onAccountChanged() {
-        super.onAccountChanged();
-        onRefresh();
-    }
-
-    @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         requestApps(true);
@@ -153,6 +147,7 @@ public class AppsFragment extends BaseFragment
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         swipeRefreshLayout.setRefreshing(false);
                     }
+
                     @Override
                     public void onCompleted() {
                         swipeRefreshLayout.setRefreshing(false);

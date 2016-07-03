@@ -73,12 +73,6 @@ public class MessagesFragment extends BaseFragment
     }
 
     @Override
-    protected void onAccountChanged() {
-        super.onAccountChanged();
-        onRefresh();
-    }
-
-    @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         requestSystemMessages(false);
