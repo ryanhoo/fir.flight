@@ -1,7 +1,9 @@
 package io.github.ryanhoo.firFlight.data.api;
 
-import io.github.ryanhoo.firFlight.data.model.*;
-import io.github.ryanhoo.firFlight.network.MultiPageResponse;
+import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
+import io.github.ryanhoo.firFlight.data.model.Token;
+import io.github.ryanhoo.firFlight.data.model.User;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -43,22 +45,4 @@ public interface RESTfulApiService {
 
     @GET("/apps/latest/{appId}?requireApiToken=true")
     Call<AppInstallInfo> appInstallInfo(@Path("appId") String appId);
-
-
-    // Notifications
-
-    String NOTIFICATON_TYPE_SYS = "sys";
-    String NOTIFICATION_TYPE_RELEASE = "release";
-
-    @GET("/notifications")
-    Call<MultiPageResponse<Message>> notifications(@Query("type") String type, @Query("page") int page);
-
-    @GET("/notifications?type=sys")
-    Call<MultiPageResponse<Message>> systemNotifications();
-
-    @POST("/notifications/{notificationId}")
-    Call<Message> markNotificationAsRead(@Path("notificationId") String notificationId, @Query("is_read") boolean isRead);
-
-    @DELETE("/notifications/{notificationId}")
-    Call<Message> deleteNotification(@Path("notificationId") String notificationId);
 }

@@ -16,6 +16,8 @@ public interface UserContract {
 
         Observable<User> user();
 
+        User _user();
+
         boolean save(User user);
 
         boolean delete(User user);
@@ -27,6 +29,8 @@ public interface UserContract {
 
         Observable<User> user();
     }
+
+    User restoreUser();
 
     Observable<User> user(boolean forceUpdate);
 }

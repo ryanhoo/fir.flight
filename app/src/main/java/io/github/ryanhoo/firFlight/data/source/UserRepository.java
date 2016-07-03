@@ -38,6 +38,11 @@ public class UserRepository implements UserContract {
     }
 
     @Override
+    public User restoreUser() {
+        return mLocalDataSource._user();
+    }
+
+    @Override
     public Observable<User> user(boolean forceUpdate) {
         Observable<User> remote = mRemoteDataSource.user().doOnNext(new Action1<User>() {
             @Override

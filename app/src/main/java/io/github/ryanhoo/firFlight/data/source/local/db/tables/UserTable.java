@@ -46,8 +46,8 @@ public final class UserTable implements BaseColumns, BaseTable<User> {
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
-    public static final String QUERY_USER_WHERE_EMAIL_EQUALS =
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + "=?;";
+    public static final String QUERY_USER =
+            "SELECT * FROM " + TABLE_NAME + ";";
 
     public static final String WHERE_ID_EQUALS = COLUMN_ID + "=?";
 

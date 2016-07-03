@@ -33,13 +33,25 @@ public class LocalUserDataSource extends AbstractLocalDataSource<UserTable> impl
 
     @Override
     public Observable<User> user() {
-        return mDatabaseHelper.createQuery(TABLE_NAME, QUERY_USER_WHERE_EMAIL_EQUALS)
+        return mDatabaseHelper.createQuery(TABLE_NAME, QUERY_USER)
                 .mapToOne(new Func1<Cursor, User>() {
                     @Override
                     public User call(Cursor cursor) {
-                        return mTable.parseCursor(cursor);
+                        if (cursor.getCount() > 0) {
+                            return mTable.parseCursor(cursor);
+                        }
+                        return null;
                     }
                 });
+    }
+
+    @Override
+    public User _user() {
+        Cursor cursor = mDatabaseHelper.query(QUERY_USER);
+        if (cursor != null && cursor.getCount() > 0) {
+            return mTable.parseCursor(cursor);
+        }
+        return null;
     }
 
     @Override

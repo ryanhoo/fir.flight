@@ -33,6 +33,11 @@ public final class TokenTable implements BaseColumns, BaseTable<Token> {
     public static final String DELETE_TABLE =
             "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
 
+    public static final String QUERY_TOKEN = "SELECT * FROM " + TABLE_NAME + ";";
+
+    public static final String WHERE_ACCESS_TOKEN_EQUALS =
+            "WHERE " + COLUMN_ACCESS_TOKEN + "=?";
+
     @Override
     public String createTableSql() {
         return CREATE_TABLE;
