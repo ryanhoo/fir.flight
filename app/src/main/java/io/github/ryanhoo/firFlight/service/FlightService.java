@@ -9,15 +9,11 @@ import android.util.Log;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.App;
-import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
-import io.github.ryanhoo.firFlight.network.RetrofitClient;
+import io.github.ryanhoo.firFlight.data.source.AppRepository;
 import io.github.ryanhoo.firFlight.ui.app.AppInfo;
 import io.github.ryanhoo.firFlight.ui.main.MainActivity;
-import retrofit2.Call;
-import retrofit2.Response;
+import rx.Subscriber;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,27 +47,36 @@ public class FlightService extends IntentService {
         Log.d(TAG, "onHandleIntent: " + intent.getAction() + " on thread #" + Thread.currentThread().getName());
         if (!UserSession.getInstance().isSignedIn()) return;
 
-        RESTfulApiService RESTfulApiService = RetrofitClient.defaultInstance().create(RESTfulApiService.class);
-        Call<List<App>> call = RESTfulApiService.apps();
-        try {
-            Response<List<App>> response = call.execute();
-            if (response.isSuccessful()) {
-                List<App> apps = response.body();
-                if (apps == null) {
-                    apps = new ArrayList<>(0);
-                }
-                for (final App app : apps) {
-                    AppInfo appInfo = new AppInfo(this, app);
-                    if (appInfo.isInstalled && !appInfo.isUpToDate) {
-                        onAppNewVersion(app);
+        Log.d(TAG, "Start requesting apps...");
+        AppRepository.getInstance().apps(true)
+                .subscribe(new Subscriber<List<App>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "Request apps completed");
                     }
-                }
-            } else {
-                Log.e(TAG, "requesting new apps: " + response.errorBody().string());
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Request app list: " + call.request().url(), e);
-        }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Request apps: ", e);
+
+                    }
+
+                    @Override
+                    public void onNext(List<App> apps) {
+                        for (final App app : apps) {
+                            AppInfo appInfo = new AppInfo(FlightService.this, app);
+                            if (appInfo.isInstalled && !appInfo.isUpToDate) {
+                                onAppNewVersion(app);
+                            }
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "Destroy Update Service");
+        super.onDestroy();
     }
 
     private void onAppNewVersion(App app) {

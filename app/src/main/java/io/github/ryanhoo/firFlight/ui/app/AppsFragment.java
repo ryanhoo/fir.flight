@@ -21,21 +21,15 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
-import io.github.ryanhoo.firFlight.data.api.RESTfulApiService;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import io.github.ryanhoo.firFlight.data.source.AppRepository;
-import io.github.ryanhoo.firFlight.network.NetworkError;
-import io.github.ryanhoo.firFlight.network.RetrofitCallback;
-import io.github.ryanhoo.firFlight.network.RetrofitClient;
 import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
 import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
-import retrofit2.Call;
-import retrofit2.Response;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -160,20 +154,25 @@ public class AppsFragment extends BaseFragment
 
     private void requestInstallUrl(final AppAdapter.ViewHolder holder, final App app, final int position) {
         holder.buttonAction.setEnabled(false);
-        Call<AppInstallInfo> call = RetrofitClient.defaultInstance().create(RESTfulApiService.class)
-                .appInstallInfo(app.getId());
-        call.enqueue(new RetrofitCallback<AppInstallInfo>() {
-            @Override
-            public void onSuccess(Call<AppInstallInfo> call, Response httpResponse, AppInstallInfo appInstallInfo) {
-                downloadApp(app.getId(), appInstallInfo.getInstallUrl(), position);
-            }
+        AppRepository.getInstance().appInstallInfo(app.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<AppInstallInfo>() {
+                    @Override
+                    public void onCompleted() {
+                    }
 
-            @Override
-            public void onFailure(Call<AppInstallInfo> call, NetworkError error) {
-                Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                holder.buttonAction.setEnabled(true);
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        holder.buttonAction.setEnabled(true);
+                    }
+
+                    @Override
+                    public void onNext(AppInstallInfo appInstallInfo) {
+                        downloadApp(app.getId(), appInstallInfo.getInstallUrl(), position);
+                    }
+                });
     }
 
     private void downloadApp(final String appId, final String installUrl, final int position) {

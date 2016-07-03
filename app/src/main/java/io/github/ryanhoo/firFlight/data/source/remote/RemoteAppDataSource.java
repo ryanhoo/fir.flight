@@ -1,6 +1,7 @@
 package io.github.ryanhoo.firFlight.data.source.remote;
 
 import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import io.github.ryanhoo.firFlight.data.source.AppContract;
 import io.github.ryanhoo.firFlight.data.source.remote.api.RESTFulApiService;
 import rx.Observable;
@@ -23,5 +24,10 @@ public class RemoteAppDataSource extends AbstractRemoteDataSource implements App
     @Override
     public Observable<List<App>> apps() {
         return mApi.apps();
+    }
+
+    @Override
+    public Observable<AppInstallInfo> appInstallInfo(String appId) {
+        return mApi.appInstallInfo(appId);
     }
 }

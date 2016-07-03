@@ -2,6 +2,7 @@ package io.github.ryanhoo.firFlight.data.source;
 
 import io.github.ryanhoo.firFlight.data.Injection;
 import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import io.github.ryanhoo.firFlight.data.source.local.LocalAppDataSource;
 import io.github.ryanhoo.firFlight.data.source.remote.RemoteAppDataSource;
 import rx.Observable;
@@ -54,5 +55,10 @@ public class AppRepository implements AppContract {
             return remote;
         }
         return Observable.concat(local.first(), remote);
+    }
+
+    @Override
+    public Observable<AppInstallInfo> appInstallInfo(String appId) {
+        return mRemoteDataSource.appInstallInfo(appId);
     }
 }

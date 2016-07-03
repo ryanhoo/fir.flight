@@ -1,11 +1,7 @@
 package io.github.ryanhoo.firFlight.data.source.remote.api;
 
-import io.github.ryanhoo.firFlight.data.model.App;
-import io.github.ryanhoo.firFlight.data.model.Message;
-import io.github.ryanhoo.firFlight.data.model.Token;
-import io.github.ryanhoo.firFlight.data.model.User;
+import io.github.ryanhoo.firFlight.data.model.*;
 import io.github.ryanhoo.firFlight.network.MultiPageResponse;
-import retrofit2.Call;
 import retrofit2.http.*;
 import rx.Observable;
 
@@ -41,6 +37,9 @@ public interface RESTFulApiService {
 
     @GET("/apps")
     Observable<List<App>> apps();
+
+    @GET("/apps/latest/{appId}?requireApiToken=true")
+    Observable<AppInstallInfo> appInstallInfo(@Path("appId") String appId);
 
     // Messages
 

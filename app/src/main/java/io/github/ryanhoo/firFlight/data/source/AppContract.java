@@ -1,6 +1,7 @@
 package io.github.ryanhoo.firFlight.data.source;
 
 import io.github.ryanhoo.firFlight.data.model.App;
+import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import rx.Observable;
 
 import java.util.List;
@@ -32,7 +33,12 @@ public interface AppContract {
     interface Remote {
 
         Observable<List<App>> apps();
+
+        Observable<AppInstallInfo> appInstallInfo(String appId);
     }
 
     Observable<List<App>> apps(boolean forceUpdate);
+
+    Observable<AppInstallInfo> appInstallInfo(String appId);
+
 }
