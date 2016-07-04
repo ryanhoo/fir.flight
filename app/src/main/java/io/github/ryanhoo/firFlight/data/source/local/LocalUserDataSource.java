@@ -49,6 +49,7 @@ public class LocalUserDataSource extends AbstractLocalDataSource<UserTable> impl
     public User _user() {
         Cursor cursor = mDatabaseHelper.query(QUERY_USER);
         if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
             return mTable.parseCursor(cursor);
         }
         return null;

@@ -33,6 +33,7 @@ public class LocalTokenDataSource extends AbstractLocalDataSource<TokenTable> im
     public Token token() {
         Cursor cursor = mDatabaseHelper.query(QUERY_TOKEN);
         if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
             return mTable.parseCursor(cursor);
         }
         return null;
