@@ -9,6 +9,7 @@ import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.data.source.TokenRepository;
 import io.github.ryanhoo.firFlight.data.source.UserRepository;
+import io.github.ryanhoo.firFlight.event.SignInEvent;
 import io.github.ryanhoo.firFlight.event.SignOutEvent;
 import io.github.ryanhoo.firFlight.event.UserUpdatedEvent;
 import io.github.ryanhoo.firFlight.util.DbUtils;
@@ -111,8 +112,9 @@ public class UserSession {
                     @Override
                     public void call(User user) {
                         mUser = user;
-
                         storeSession();
+
+                        RxBus.getInstance().post(new SignInEvent());
                     }
                 });
     }
@@ -173,20 +175,6 @@ public class UserSession {
 
     public void setToken(Token token) {
         this.mToken = token;
-    }
-
-    public void setAccessToken(String accessToken) {
-        if (mToken == null) {
-            mToken = new Token();
-        }
-        mToken.setAccessToken(accessToken);
-    }
-
-    public void setApiToken(String apiToken) {
-        if (mToken == null) {
-            mToken = new Token();
-        }
-        mToken.setApiToken(apiToken);
     }
 
     public User getUser() {
