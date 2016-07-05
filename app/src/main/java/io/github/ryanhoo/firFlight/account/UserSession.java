@@ -13,6 +13,7 @@ import io.github.ryanhoo.firFlight.event.SignInEvent;
 import io.github.ryanhoo.firFlight.event.SignOutEvent;
 import io.github.ryanhoo.firFlight.event.UserUpdatedEvent;
 import io.github.ryanhoo.firFlight.util.DbUtils;
+import io.github.ryanhoo.firFlight.util.NetworkUtils;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -138,15 +139,16 @@ public class UserSession {
     // Requests
 
     public Observable<User> user(boolean forceUpdate) {
-        return mUserRepository.user(forceUpdate).doOnNext(new Action1<User>() {
-            @Override
-            public void call(User user) {
-                mUser = user;
-                storeSession();
+        return mUserRepository.user(forceUpdate && NetworkUtils.isNetworkAvailable(sContext))
+                .doOnNext(new Action1<User>() {
+                    @Override
+                    public void call(User user) {
+                        mUser = user;
+                        storeSession();
 
-                RxBus.getInstance().post(new UserUpdatedEvent(mUser));
-            }
-        });
+                        RxBus.getInstance().post(new UserUpdatedEvent(mUser));
+                    }
+                });
     }
 
     // Session Store & Restore

@@ -29,6 +29,7 @@ import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
+import io.github.ryanhoo.firFlight.util.NetworkUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import rx.Subscriber;
 import rx.Subscription;
@@ -126,9 +127,9 @@ public class AppsFragment extends BaseFragment
 
     private void requestApps(boolean forceUpdate) {
         Subscription subscription = AppRepository.getInstance()
-                .apps(forceUpdate)
+                .apps(forceUpdate && NetworkUtils.isNetworkAvailable(getActivity()))
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread(), true)
                 .subscribe(new Subscriber<List<App>>() {
                     @Override
                     public void onNext(List<App> apps) {
