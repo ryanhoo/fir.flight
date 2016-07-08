@@ -1,43 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
-        <android.support.design.widget.AppBarLayout
+        <include layout="@layout/toolbar"/>
+
+        <android.support.design.widget.TabLayout
+            xmlns:tabLayout="http://schemas.android.com/apk/res-auto"
+            style="@style/FFStyle.Main.Tab"
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
-
-            <include layout="@layout/toolbar"/>
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:id="@+id/layout_fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            tabLayout:tabMode="fixed"
             />
-    </LinearLayout>
 
-    <android.support.design.widget.NavigationView
-        xmlns:navigationView="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/ff.background"
-        navigationView:itemBackground="@color/ff.transparent"
-        navigationView:headerLayout="@layout/layout_drawer_header"
-        navigationView:menu="@menu/main_drawer"
-        tools:layout_gravity=""
         />
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>

@@ -28,9 +28,7 @@
     <dimen name="ff.splash.slogan.top">120dp</dimen>
 
     <!-- Main -->
-    <dimen name="ff.main.drawer.header.icon.size">60dp</dimen>
-    <dimen name="ff.main.drawer.header.name">18sp</dimen>
-    <dimen name="ff.main.drawer.header.email">14sp</dimen>
+    <dimen name="ff.main.tab.indicator.height">2dp</dimen>
 
     <!-- Settings -->
     <dimen name="ff.settings.item.minHeight">44dp</dimen>

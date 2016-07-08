@@ -3,14 +3,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/ff.theme.white.colorPrimary</item>
+        <item name="colorPrimaryDark">@color/ff.theme.white.colorPrimaryDark</item>
+        <item name="colorAccent">@color/ff.theme.white.colorAccent</item>
 
         <item name="android:windowBackground">@color/ff.background</item>
 
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
-        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColorPrimary">@color/ff.theme.white.textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/ff.theme.white.textColorSecondary</item>
+
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="FFTheme" parent="AppTheme"/>
@@ -45,6 +47,18 @@
         <item name="android:background">@color/ff.divider</item>
     </style>
 
+    <!-- Main -->
+
+    <style name="FFStyle.Main.Tab" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">?attr/colorAccent</item>
+        <item name="tabIndicatorHeight">@dimen/ff.main.tab.indicator.height</item>
+        <item name="tabPaddingStart">@dimen/ff.padding.normal</item>
+        <item name="tabPaddingEnd">@dimen/ff.padding.normal</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="tabTextAppearance">@style/FFTextAppearance.Main.Tab</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
     <style name="FFTextAppearance"/>
 
     <style name="FFTextAppearance.Splash">
@@ -53,6 +67,21 @@
         <item name="android:textColorHint">@color/ff.splash.text_hint</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="FFTextAppearance.Toolbar.Main" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">monospace</item>
+        <!--<item name="android:textStyle">bold</item>-->
+        <!--<item name="android:letterSpacing" tools:ignore="NewApi">0.1</item>-->
+    </style>
+
+    <style name="FFTextAppearance.Main.Tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="FFTextAppearance.Settings.Section" parent="FFTextAppearance">

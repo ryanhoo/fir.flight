@@ -19,15 +19,17 @@
     <string name="ff.signin.password.example">******</string>
 
     <!-- Main -->
-    <string name="ff.main.drawer.open">Open navigation drawer</string>
-    <string name="ff.main.drawer.close">Close navigation drawer</string>
-
-    <string name="ff.main.drawer.section.title.apps">My Apps</string>
-    <string name="ff.main.drawer.section.title.messages">Notifications</string>
-    <string name="ff.main.drawer.section.title.settings">Settings</string>
-    <string name="ff.main.drawer.section.title.about">About</string>
-    <string name="ff.main.drawer.section.title.sign_out">Sign out</string>
     <string name="ff.dialog.sign_out.title">Sign out</string>
+
+    <string name="ff.main.tab.apps">Apps</string>
+    <string name="ff.main.tab.messages">Messages</string>
+    <string name="ff.main.tab.profile">Profile</string>
+
+    <string-array name="ff_main_tab_titles">
+        <item>@string/ff.main.tab.apps</item>
+        <item>@string/ff.main.tab.messages</item>
+        <item>@string/ff.main.tab.profile</item>
+    </string-array>
 
     <!-- Apps -->
     <string name="ff.apps.update">Update</string>

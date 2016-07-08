@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/ff.app.name"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
         android:theme="@style/AppTheme"
         android:name=".FlightApplication">
         <activity
@@ -27,6 +27,7 @@
             android:theme="@style/FFTheme.Splash"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:launchMode="singleTask"
             android:label="@string/ff.app.name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
