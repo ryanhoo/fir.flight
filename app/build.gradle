@@ -59,7 +59,9 @@ android {
     }
 
     productFlavors {
-        develop
+        develop {
+            applicationId 'io.github.ryanhoo.firFlight.dev'
+        }
 
         fir
 
