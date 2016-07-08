@@ -9,11 +9,11 @@ import android.support.v7.widget.Toolbar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
-import io.github.ryanhoo.firFlight.ui.about.AboutFragment;
 import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.message.MessagesFragment;
+import io.github.ryanhoo.firFlight.ui.profile.ProfileFragment;
 
 /**
  * Created with Android Studio.
@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
         final BaseFragment[] fragments = new BaseFragment[tabTitles.length];
         fragments[0] = new AppsFragment();
         fragments[1] = new MessagesFragment();
-        fragments[2] = new AboutFragment();
+        fragments[2] = new ProfileFragment();
 
         MainTabAdapter adapter = new MainTabAdapter(getSupportFragmentManager(), tabTitles, fragments);
         viewPager.setAdapter(adapter);

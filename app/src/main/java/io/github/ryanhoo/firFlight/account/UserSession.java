@@ -151,6 +151,19 @@ public class UserSession {
                 });
     }
 
+    public Observable<Token> refreshApiToken() {
+        return mTokenRepository.refreshApiToken().doOnNext(new Action1<Token>() {
+            @Override
+            public void call(Token token) {
+                if (token == null || TextUtils.isEmpty(token.getApiToken())) {
+                    throw new RuntimeException("Invalid api token");
+                }
+                mToken.setApiToken(token.getApiToken());
+                storeSession();
+            }
+        });
+    }
+
     // Session Store & Restore
 
     /* package */ void storeSession() {

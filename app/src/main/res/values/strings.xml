@@ -36,6 +36,12 @@
     <string name="ff.apps.open">Open</string>
     <string name="ff.apps.install">Install</string>
 
+    <!-- Profile -->
+    <string name="ff.profile.api_token">Api Token</string>
+    <string name="ff.profile.api_token.description">可用于调用公开 API，可用于登录 fir-cli，\n可用于配置 BugHD 的 SDK，请勿泄露您的 token。</string>
+
+    <string name="ff.profile.button.refresh">Refresh</string>
+
     <!-- About -->
     <string name="ff.about.button.fir">fir.im</string>
     <string name="ff.about.button.acknowledgements">Acknowledgements</string>

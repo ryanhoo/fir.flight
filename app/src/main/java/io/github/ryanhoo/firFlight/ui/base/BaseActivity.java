@@ -6,6 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created with Android Studio.
@@ -16,9 +18,19 @@ import android.view.MenuItem;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
+    private CompositeSubscription mSubscriptions;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mSubscriptions != null) {
+            mSubscriptions.clear();
+        }
     }
 
     @Override
@@ -45,5 +57,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             actionBar.setDisplayShowHomeEnabled(true);
         }
         return actionBar;
+    }
+
+    protected void addSubscription(Subscription subscription) {
+        if (subscription == null) return;
+        if (mSubscriptions == null) {
+            mSubscriptions = new CompositeSubscription();
+        }
+        mSubscriptions.add(subscription);
     }
 }
