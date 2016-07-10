@@ -21,6 +21,7 @@ import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.common.FlightDialog;
 
 /**
  * Created with Android Studio.
@@ -43,6 +44,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     Button buttonRefresh;
 
     ProfileContract.Presenter mPresenter;
+    FlightDialog mProgressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +61,8 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        mProgressDialog = FlightDialog.defaultLoadingDialog(getActivity());
 
         // Init
         User user = UserSession.getInstance().getUser();
@@ -111,11 +115,13 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
 
     @Override
     public void onRefreshApiTokenStart() {
+        mProgressDialog.show();
         buttonRefresh.setEnabled(false);
     }
 
     @Override
     public void onRefreshApiTokenCompleted() {
+        mProgressDialog.dismiss();
         buttonRefresh.setEnabled(true);
     }
 }

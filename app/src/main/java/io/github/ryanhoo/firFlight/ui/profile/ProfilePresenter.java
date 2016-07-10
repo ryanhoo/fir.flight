@@ -74,6 +74,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: ", e);
+                        mView.onRefreshApiTokenCompleted();
                     }
 
                     @Override
