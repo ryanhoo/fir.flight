@@ -1,5 +1,6 @@
 package io.github.ryanhoo.firFlight.ui.profile;
 
+import android.content.Context;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.ui.base.BasePresenter;
@@ -15,6 +16,8 @@ import io.github.ryanhoo.firFlight.ui.base.BaseView;
 public interface ProfileContract {
 
     interface View extends BaseView<Presenter> {
+
+        Context getContext();
 
         void updateUserProfile(User user);
 

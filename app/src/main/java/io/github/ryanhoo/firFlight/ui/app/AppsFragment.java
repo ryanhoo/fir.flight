@@ -27,6 +27,7 @@ import io.github.ryanhoo.firFlight.data.source.AppRepository;
 import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
 import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.common.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
 import io.github.ryanhoo.firFlight.util.NetworkUtils;
@@ -139,7 +140,9 @@ public class AppsFragment extends BaseFragment
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onFailure: " + e);
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        new FlightToast.Builder(getActivity())
+                                .message(e.getMessage())
+                                .show();
                         swipeRefreshLayout.setRefreshing(false);
                     }
 

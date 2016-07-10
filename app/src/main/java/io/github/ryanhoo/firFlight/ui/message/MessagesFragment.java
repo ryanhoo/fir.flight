@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
@@ -19,6 +18,7 @@ import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
 import io.github.ryanhoo.firFlight.data.source.MessageRepository;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.common.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.NetworkUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
@@ -105,7 +105,9 @@ public class MessagesFragment extends BaseFragment
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "requestSystemNotifications: ", e);
-                        Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        new FlightToast.Builder(getActivity())
+                                .message(e.getMessage())
+                                .show();
                         swipeRefreshLayout.setRefreshing(false);
                     }
 

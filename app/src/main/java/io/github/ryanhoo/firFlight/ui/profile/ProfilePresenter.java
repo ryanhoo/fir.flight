@@ -4,6 +4,7 @@ import android.util.Log;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
+import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,16 +38,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 .user(true)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<User>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "onError: ", e);
-                    }
-
+                .subscribe(new NetworkSubscriber<User>(mView.getContext()){
                     @Override
                     public void onNext(User user) {
                         mView.updateUserProfile(user);
@@ -60,26 +52,20 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 .refreshApiToken()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Token>() {
+                .subscribe(new NetworkSubscriber<Token>(mView.getContext()){
                     @Override
                     public void onStart() {
                         mView.onRefreshApiTokenStart();
                     }
 
                     @Override
-                    public void onCompleted() {
-                        mView.onRefreshApiTokenCompleted();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "onError: ", e);
-                        mView.onRefreshApiTokenCompleted();
-                    }
-
-                    @Override
                     public void onNext(Token token) {
                         mView.updateApiToken(token);
+                    }
+
+                    @Override
+                    public void onUnsubscribe() {
+                        mView.onRefreshApiTokenCompleted();
                     }
                 });
         mSubscriptions.add(subscription);
