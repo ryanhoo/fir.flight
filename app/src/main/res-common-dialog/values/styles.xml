@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Common">
+
+    </style>
+
+    <style name="Common.Dialog">
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="Common.Dialog.Animated">
+        <item name="android:windowAnimationStyle">@style/Common.Animation.Dialog</item>
+    </style>
+
+    <style name="Common.Animation.Dialog" parent="Common">
+        <item name="android:windowEnterAnimation">@anim/common_dialog_scale_in</item>
+        <item name="android:windowExitAnimation">@anim/common_dialog_scale_out</item>
+    </style>
+</resources>
