@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
-import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import rx.android.schedulers.AndroidSchedulers;
@@ -38,8 +36,6 @@ import java.util.List;
  */
 public class MessagesFragment extends BaseFragment
         implements SwipeRefreshLayout.OnRefreshListener, BaseAdapter.OnItemClickListener<Message> {
-
-    private static final String TAG = "MessagesFragment";
 
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -108,14 +104,6 @@ public class MessagesFragment extends BaseFragment
                     @Override
                     public void onNext(List<Message> messages) {
                         mAdapter.setData(messages);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "requestSystemNotifications", e);
-                        new FlightToast.Builder(getActivity())
-                                .message(e.getMessage())
-                                .show();
                     }
 
                     @Override

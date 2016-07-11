@@ -30,7 +30,6 @@ import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
 import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
-import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
@@ -141,18 +140,9 @@ public class AppsFragment extends BaseFragment
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true)
                 .subscribe(new NetworkSubscriber<List<App>>(getActivity()) {
-
                     @Override
                     public void onNext(List<App> apps) {
                         mAdapter.setData(apps);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "requestApps", e);
-                        new FlightToast.Builder(getActivity())
-                                .message(e.getMessage())
-                                .show();
                     }
 
                     @Override

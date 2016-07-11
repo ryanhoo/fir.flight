@@ -82,4 +82,6 @@
     <!-- Dialog -->
     <string name="ff.dialog.sign_out.message">Do you really want to sign out?</string>
 
+    <!-- Errors -->
+    <string name="ff.network.error.timeout">Request Timeout</string>
 </resources>

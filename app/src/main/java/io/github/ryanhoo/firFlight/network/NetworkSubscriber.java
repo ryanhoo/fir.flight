@@ -2,10 +2,13 @@ package io.github.ryanhoo.firFlight.network;
 
 import android.content.Context;
 import android.util.Log;
+import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
 import java.lang.ref.WeakReference;
+import java.net.SocketTimeoutException;
 
 /**
  * Created with Android Studio.
@@ -48,12 +51,21 @@ public class NetworkSubscriber<T> extends Subscriber<T> {
     @Override
     public void onError(Throwable e) {
         Context context = mWeakContext.get();
+        String message = e.getMessage();
+        if (e instanceof HttpException) {
+            HttpException httpException = (HttpException) e;
+            message = httpException.message();
+        } else if (e instanceof SocketTimeoutException) {
+            if (context != null) {
+                message = context.getString(R.string.ff_network_error_timeout);
+            }
+        }
         if (context != null) {
             new FlightToast.Builder(context)
-                    .message(e.getMessage())
+                    .message(message)
                     .show();
         } else {
-            Log.e(TAG, "" + e.getMessage(), e);
+            Log.e(TAG, "" + message, e);
         }
         onUnsubscribe();
     }
