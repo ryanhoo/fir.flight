@@ -49,7 +49,8 @@ public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
         int itemCount = state.getItemCount();
         for (int i = 0; i < itemCount; i++) {
             View itemView = parent.getChildAt(i);
-            applyItemDecoration(canvas, itemView, itemCount, i);
+            int adapterPosition = parent.getChildAdapterPosition(itemView);
+            applyItemDecoration(canvas, itemView, itemCount, adapterPosition);
         }
     }
 
@@ -73,7 +74,7 @@ public class DefaultItemDecoration extends RecyclerView.ItemDecoration {
             // First
             canvas.drawLine(startX, startY, stopX, stopY, mDividerPaint);
             canvas.drawLine(startX + mPaddingLeft, startY + itemHeight, stopX, stopY + itemHeight, mDividerPaint);
-        } else if (position >= totalCount - 2) {
+        } else if (position == totalCount - 1) {
             // Last
             canvas.drawLine(startX, startY + itemHeight, stopX, stopY + itemHeight, mDividerPaint);
         } else {
