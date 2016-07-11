@@ -41,6 +41,11 @@ public class AppRepository implements AppContract {
     }
 
     @Override
+    public Observable<List<App>> apps() {
+        return apps(false);
+    }
+
+    @Override
     public Observable<List<App>> apps(boolean forceUpdate) {
         Observable<List<App>> local = mLocalDataSource.apps();
         Observable<List<App>> remote = mRemoteDataSource.apps()

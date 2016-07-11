@@ -30,7 +30,6 @@ import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
-import io.github.ryanhoo.firFlight.util.NetworkUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import rx.Subscriber;
 import rx.Subscription;
@@ -107,7 +106,7 @@ public class AppsFragment extends BaseFragment
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        requestApps(true);
+        requestApps();
     }
 
     @Override
@@ -126,9 +125,9 @@ public class AppsFragment extends BaseFragment
         }
     }
 
-    private void requestApps(boolean forceUpdate) {
+    private void requestApps() {
         Subscription subscription = AppRepository.getInstance()
-                .apps(forceUpdate && NetworkUtils.isNetworkAvailable(getActivity()))
+                .apps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true)
                 .subscribe(new Subscriber<List<App>>() {

@@ -32,5 +32,5 @@ public interface MessageContract {
         Observable<List<Message>> systemMessages();
     }
 
-    Observable<List<Message>> systemMessages(boolean forceUpdate);
+    Observable<List<Message>> systemMessages();
 }

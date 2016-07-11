@@ -37,6 +37,8 @@ public interface AppContract {
         Observable<AppInstallInfo> appInstallInfo(String appId);
     }
 
+    Observable<List<App>> apps();
+
     Observable<List<App>> apps(boolean forceUpdate);
 
     Observable<AppInstallInfo> appInstallInfo(String appId);

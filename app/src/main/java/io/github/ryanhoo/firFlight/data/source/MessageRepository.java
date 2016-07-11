@@ -40,7 +40,7 @@ public class MessageRepository implements MessageContract {
     }
 
     @Override
-    public Observable<List<Message>> systemMessages(boolean forceUpdate) {
+    public Observable<List<Message>> systemMessages() {
         Observable<List<Message>> local = mLocalDataSource.systemMessages();
         Observable<List<Message>> remote = mRemoteDataSource.systemMessages()
                 .doOnNext(new Action1<List<Message>>() {
@@ -50,9 +50,6 @@ public class MessageRepository implements MessageContract {
                         mLocalDataSource.save(messages);
                     }
                 });
-        if (forceUpdate) {
-            return remote;
-        }
         return Observable.concat(local.first(), remote);
     }
 }

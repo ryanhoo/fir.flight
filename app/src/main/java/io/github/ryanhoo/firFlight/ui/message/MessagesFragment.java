@@ -22,7 +22,6 @@ import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
-import io.github.ryanhoo.firFlight.util.NetworkUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -83,7 +82,7 @@ public class MessagesFragment extends BaseFragment
     @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
-        requestSystemMessages(false);
+        requestSystemMessages();
     }
 
     @Override
@@ -97,10 +96,10 @@ public class MessagesFragment extends BaseFragment
         }
     }
 
-    private void requestSystemMessages(boolean forceUpdate) {
+    private void requestSystemMessages() {
         swipeRefreshLayout.setRefreshing(true);
         MessageRepository.getInstance()
-                .systemMessages(forceUpdate && NetworkUtils.isNetworkAvailable(getActivity()))
+                .systemMessages()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true)
                 .subscribe(new Subscriber<List<Message>>() {
