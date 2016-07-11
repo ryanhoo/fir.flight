@@ -1,97 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/ff.padding.large"
+    android:background="?attr/selectableItemBackground"
     >
 
-    <android.support.v7.widget.CardView
+    <ImageView
+        android:id="@+id/image_view_icon"
+        android:layout_width="@dimen/ff.app.icon.size"
+        android:layout_height="@dimen/ff.app.icon.size"
+        android:layout_marginRight="@dimen/ff.margin.normal"
+        android:layout_marginEnd="@dimen/ff.margin.normal"
+        tools:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/ff.app.name"/>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/ff.margin.small"
+        android:layout_toRightOf="@id/image_view_icon"
+        android:layout_toEndOf="@id/image_view_icon"
+        android:layout_toLeftOf="@+id/button_action"
+        android:layout_toStartOf="@+id/button_action"
+        android:layout_centerVertical="true"
         >
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/text_view_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ff.textSize.title"
+            android:textColor="@color/ff.textColor.title"
+            tools:text="fir.flight"
+            />
+
+        <TextView
+            android:id="@+id/text_view_local_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ff.padding.small"
+            android:textSize="@dimen/ff.textSize.tips"
+            android:textColor="@color/ff.textColor.tips"
+            tools:text="v2.0.1(160110)"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+        <TextView
+            android:id="@+id/text_view_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ff.padding.small"
+            android:textSize="@dimen/ff.textSize.tips"
+            android:textColor="@color/ff.textColor.tips"
+            tools:text="v2.1.1(160231)"
+            />
+
+        <TextView
+            android:id="@+id/text_view_bundle_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/ff.margin.normal"
-            android:background="?attr/selectableItemBackground"
-            >
+            android:layout_marginTop="@dimen/ff.padding.small"
+            android:textSize="@dimen/ff.textSize.tips"
+            android:textColor="@color/ff.textColor.tips"
+            tools:text="io.github.ryanhoo.firFlight"
+            />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/image_view_icon"
-                android:layout_width="@dimen/ff.app.icon.size"
-                android:layout_height="@dimen/ff.app.icon.size"
-                android:layout_marginRight="@dimen/ff.margin.normal"
-                android:layout_marginEnd="@dimen/ff.margin.normal"
-                tools:src="@mipmap/ic_launcher"
-                android:contentDescription="@string/ff.app.name"/>
+    <Button
+        android:id="@+id/button_action"
+        style="@style/FFButton"
+        android:layout_width="60dp"
+        android:layout_marginLeft="@dimen/ff.padding.small"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        tools:text="@string/ff.apps.install"
+        tools:ignore="RtlHardcoded"/>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/image_view_icon"
-                android:layout_toEndOf="@id/image_view_icon"
-                android:layout_toLeftOf="@+id/button_action"
-                android:layout_toStartOf="@+id/button_action"
-                android:layout_centerVertical="true"
-                >
-
-                <TextView
-                    android:id="@+id/text_view_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/ff.textSize.title"
-                    android:textColor="@color/ff.textColor.title"
-                    tools:text="fir.flight"
-                    />
-
-                <TextView
-                    android:id="@+id/text_view_local_version"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ff.padding.small"
-                    android:textSize="@dimen/ff.textSize.tips"
-                    android:textColor="@color/ff.textColor.tips"
-                    tools:text="v2.0.1(160110)"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    />
-
-                <TextView
-                    android:id="@+id/text_view_version"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ff.padding.small"
-                    android:textSize="@dimen/ff.textSize.tips"
-                    android:textColor="@color/ff.textColor.tips"
-                    tools:text="v2.1.1(160231)"
-                    />
-
-                <TextView
-                    android:id="@+id/text_view_bundle_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/ff.padding.small"
-                    android:textSize="@dimen/ff.textSize.tips"
-                    android:textColor="@color/ff.textColor.tips"
-                    tools:text="io.github.ryanhoo.firFlight"
-                    />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/button_action"
-                style="@style/FFButton"
-                android:layout_width="60dp"
-                android:layout_marginLeft="@dimen/ff.padding.small"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                tools:text="@string/ff.apps.install"
-                tools:ignore="RtlHardcoded"/>
-
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-</FrameLayout>
+</RelativeLayout>

@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +28,7 @@ import io.github.ryanhoo.firFlight.data.source.AppRepository;
 import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
 import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
@@ -77,6 +79,11 @@ public class AppsFragment extends BaseFragment
         recyclerView.setAdapter(mAdapter);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DefaultItemDecoration(
+                ContextCompat.getColor(getContext(), R.color.ff_white),
+                ContextCompat.getColor(getContext(), R.color.ff_divider),
+                getContext().getResources().getDimensionPixelSize(R.dimen.ff_padding_large)
+        ));
 
         SwipeRefreshHelper.refresh(swipeRefreshLayout, new Runnable() {
             @Override
