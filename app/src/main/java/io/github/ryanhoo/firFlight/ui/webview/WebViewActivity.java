@@ -1,11 +1,17 @@
 package io.github.ryanhoo.firFlight.ui.webview;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -16,6 +22,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
+import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 
 /**
  * Created with Android Studio.
@@ -66,6 +73,67 @@ public class WebViewActivity extends BaseActivity {
             super.onBackPressed();
         }
     }
+
+    // Menu
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.webview, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_refresh:
+                refreshPage();
+                break;
+            case R.id.menu_item_copy_link:
+                copyLink();
+                break;
+            case R.id.menu_item_open_in_browser:
+                openInBrowser();
+                break;
+            case R.id.menu_item_share:
+                share();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void refreshPage() {
+        webView.reload();
+    }
+
+    private void copyLink() {
+        String url = webView.getUrl();
+        ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipData data = ClipData.newPlainText("WebView Link", url);
+        clipboardManager.setPrimaryClip(data);
+        new FlightToast.Builder(this)
+                .message(url)
+                .duration(1000)
+                .show();
+    }
+
+    private void openInBrowser() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(webView.getUrl()));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    private void share() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(intent, getResources().getText(R.string.ff_webview_share_title)));
+        }
+    }
+
+    // Setup WebView
 
     @SuppressLint("SetJavaScriptEnabled")
     private void setUpWebView(WebView webView) {

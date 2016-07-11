@@ -62,7 +62,15 @@
     <string name="ff.settings.section.terms.item.agreements">Agreements</string>
 
     <string name="ff.settings.message.cache_cleared">Image cache has been cleared</string>
-    <string name="ff.settings.message.coming_soon">Coming soon...</string>
+    <string name="ff.settings.message.coming_soon">Coming soon…</string>
+
+    <!-- WebView -->
+    <string name="ff.webview.menu.refresh">Refresh</string>
+    <string name="ff.webview.menu.copy_link">Copy Link</string>
+    <string name="ff.webview.menu.open_in_browser">Open in Browser</string>
+    <string name="ff.webview.menu.share">Share</string>
+
+    <string name="ff.webview.share_title">Share this page to</string>
 
     <!-- Notification -->
     <string name="ff.notification.app.new_version.message" formatted="false">New version %s(%s)</string>

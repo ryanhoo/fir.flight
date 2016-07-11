@@ -8,7 +8,7 @@
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:titleTextColor="?attr/colorAccent"
     app:titleTextAppearance="@style/FFTextAppearance.Toolbar"
     app:title="@string/ff.app.name"

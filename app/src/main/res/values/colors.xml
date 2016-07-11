@@ -66,4 +66,7 @@
 
     <!-- Apps -->
     <color name="ff.apps.icon.placeholder">#7ACFD8DC</color>
+
+    <!-- WWebView -->
+    <color name="ff.webview.customTabs.toolbar">#393a3f</color>
 </resources>
