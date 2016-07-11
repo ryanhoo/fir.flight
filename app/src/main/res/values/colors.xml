@@ -23,6 +23,10 @@
     <color name="ff.theme.white.textColorPrimary">#212121</color>
     <color name="ff.theme.white.textColorSecondary">#7F7F7F</color>
 
+    <color name="ff.theme.black.colorPrimary">#374046</color>
+    <color name="ff.theme.black.colorPrimaryDark">#374046</color>
+    <color name="ff.theme.black.colorAccent">#FFFFFF</color>
+
     <!-- Common Colors -->
     <color name="ff.background">#F9F9F9</color>
 

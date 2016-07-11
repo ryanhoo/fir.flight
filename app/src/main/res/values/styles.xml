@@ -35,6 +35,13 @@
         <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
     </style>
 
+    <style name="FFTheme.WebView">
+        <item name="colorPrimary">@color/ff.theme.black.colorPrimary</item>
+        <item name="colorPrimaryDark">@color/ff.theme.black.colorPrimaryDark</item>
+        <item name="colorAccent">@color/ff.theme.black.colorAccent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
+
     <style name="FFTheme.SignIn">
         <item name="colorPrimary">#449fe0</item>
         <item name="colorPrimaryDark">#449fe0</item>
@@ -69,7 +76,7 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="FFTextAppearance.Toolbar.Main" parent="TextAppearance.Design.Tab">
+    <style name="FFTextAppearance.Toolbar" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textAllCaps">false</item>

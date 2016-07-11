@@ -20,7 +20,7 @@ public class WebViewHelper {
 
     public static void openUrl(final Activity activity, final String title, final String url) {
         CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder(null)
-                .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                .setToolbarColor(ContextCompat.getColor(activity, R.color.ff_black))
                 .setShowTitle(true)
                 .build();
         CustomTabActivityHelper.openCustomTab(activity, customTabsIntent, Uri.parse(url),

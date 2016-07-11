@@ -4,6 +4,8 @@
     <string name="ff.splash.slogan.about">An android version Test Flight\nby using the testing app distribution service provided by fir.im</string>
 
     <!-- Common -->
+    <string name="ff.no">No</string>
+    <string name="ff.yes">Yes</string>
     <string name="ff.ok">OK</string>
     <string name="ff.cancel">Cancel</string>
     <string name="ff.confirm">Confirm</string>
@@ -37,6 +39,10 @@
     <string name="ff.apps.install">Install</string>
 
     <!-- Profile -->
+    <string name="ff.profile.menu.settings">Settings</string>
+    <string name="ff.profile.menu.about">About</string>
+    <string name="ff.profile.menu.sign_out">Sign Out</string>
+
     <string name="ff.profile.api_token">Api Token</string>
     <string name="ff.profile.api_token.description">可用于调用公开 API，可用于登录 fir-cli，\n可用于配置 BugHD 的 SDK，请勿泄露您的 token。</string>
 
@@ -63,7 +69,5 @@
 
     <!-- Dialog -->
     <string name="ff.dialog.sign_out.message">Do you really want to sign out?</string>
-    <string name="ff.dialog.cancel">Cancel</string>
-    <string name="ff.dialog.confirm">Confirm</string>
 
 </resources>
