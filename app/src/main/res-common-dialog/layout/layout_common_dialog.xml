@@ -45,7 +45,7 @@
         android:maxWidth="200dp"
         android:layout_below="@+id/layout_icon"
         android:paddingTop="@dimen/ff.margin.normal"
-        android:lineSpacingMultiplier="1.3"
+        android:lineSpacingMultiplier="@integer/lineSpacingMultiplier"
         android:textColor="@color/ff.white"
         android:textSize="14sp"
         android:gravity="center"
