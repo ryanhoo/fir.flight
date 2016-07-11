@@ -38,7 +38,7 @@
 
     <color name="ff.textColor.title">#666666</color>
     <color name="ff.textColor.text">#727272</color>
-    <color name="ff.textColor.tips">#42000000</color>
+    <color name="ff.textColor.tips">#6C000000</color>
 
     <color name="ff.textColor.button">#666666</color>
     <color name="ff.textColor.button.pressed">#8A666666</color>
