@@ -54,6 +54,15 @@
         <item name="android:background">@color/ff.divider</item>
     </style>
 
+    <style name="FFEmptyView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#7C7C7D</item>
+        <item name="android:lineSpacingMultiplier">@integer/lineSpacingMultiplier</item>
+    </style>
+
     <!-- Main -->
 
     <style name="FFStyle.Main.Tab" parent="Widget.Design.TabLayout">

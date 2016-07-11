@@ -17,13 +17,13 @@ import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
 import io.github.ryanhoo.firFlight.data.source.MessageRepository;
+import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
-import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -45,6 +45,8 @@ public class MessagesFragment extends BaseFragment
     SwipeRefreshLayout swipeRefreshLayout;
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
+    @Bind(R.id.empty_view)
+    View emptyView;
 
     MessageAdapter mAdapter;
 
@@ -102,24 +104,25 @@ public class MessagesFragment extends BaseFragment
                 .systemMessages()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true)
-                .subscribe(new Subscriber<List<Message>>() {
+                .subscribe(new NetworkSubscriber<List<Message>>(getActivity()) {
                     @Override
-                    public void onCompleted() {
-                        swipeRefreshLayout.setRefreshing(false);
+                    public void onNext(List<Message> messages) {
+                        mAdapter.setData(messages);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "requestSystemNotifications: ", e);
+                        Log.e(TAG, "requestSystemNotifications", e);
                         new FlightToast.Builder(getActivity())
                                 .message(e.getMessage())
                                 .show();
-                        swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
-                    public void onNext(List<Message> messages) {
-                        mAdapter.setData(messages);
+                    public void onUnsubscribe() {
+                        swipeRefreshLayout.setRefreshing(false);
+                        boolean isEmpty = mAdapter.getItemCount() == 0;
+                        emptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
                     }
                 });
     }

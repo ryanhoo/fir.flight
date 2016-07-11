@@ -37,6 +37,10 @@
     <string name="ff.apps.update">Update</string>
     <string name="ff.apps.open">Open</string>
     <string name="ff.apps.install">Install</string>
+    <string name="ff.apps.empty">No apps found</string>
+
+    <!-- Messages -->
+    <string name="ff.messages.empty">No messages received</string>
 
     <!-- Profile -->
     <string name="ff.profile.menu.settings">Settings</string>

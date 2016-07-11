@@ -25,6 +25,7 @@ import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import io.github.ryanhoo.firFlight.data.source.AppRepository;
+import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
 import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
 import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
@@ -58,6 +59,8 @@ public class AppsFragment extends BaseFragment
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
+    @Bind(R.id.empty_view)
+    View emptyView;
 
     AppAdapter mAdapter;
 
@@ -137,7 +140,8 @@ public class AppsFragment extends BaseFragment
                 .apps()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true)
-                .subscribe(new Subscriber<List<App>>() {
+                .subscribe(new NetworkSubscriber<List<App>>(getActivity()) {
+
                     @Override
                     public void onNext(List<App> apps) {
                         mAdapter.setData(apps);
@@ -145,16 +149,17 @@ public class AppsFragment extends BaseFragment
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onFailure: " + e);
+                        Log.e(TAG, "requestApps", e);
                         new FlightToast.Builder(getActivity())
                                 .message(e.getMessage())
                                 .show();
-                        swipeRefreshLayout.setRefreshing(false);
                     }
 
                     @Override
-                    public void onCompleted() {
+                    public void onUnsubscribe() {
                         swipeRefreshLayout.setRefreshing(false);
+                        boolean isEmpty = mAdapter.getItemCount() == 0;
+                        emptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
                     }
                 });
         addSubscription(subscription);

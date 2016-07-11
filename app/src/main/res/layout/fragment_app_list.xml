@@ -27,4 +27,12 @@
             />
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <TextView
+        style="@style/FFEmptyView"
+        android:id="@+id/empty_view"
+        android:text="@string/ff.apps.empty"
+        android:paddingBottom="@dimen/ff.emptyView.marginBottom"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
 </RelativeLayout>
