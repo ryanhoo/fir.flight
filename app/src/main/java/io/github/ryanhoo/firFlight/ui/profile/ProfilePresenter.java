@@ -13,7 +13,7 @@ import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/9/16
  * Time: 12:32 AM
  * Desc: ProfilePresenter

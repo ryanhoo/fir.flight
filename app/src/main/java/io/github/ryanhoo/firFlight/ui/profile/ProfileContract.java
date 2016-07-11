@@ -8,7 +8,7 @@ import io.github.ryanhoo.firFlight.ui.base.BaseView;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/9/16
  * Time: 12:21 AM
  * Desc: ProfileContract

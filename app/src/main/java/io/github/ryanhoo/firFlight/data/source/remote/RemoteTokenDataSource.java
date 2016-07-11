@@ -7,7 +7,7 @@ import rx.Observable;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/3/16
  * Time: 9:52 PM
  * Desc: RemoteTokenDataSource

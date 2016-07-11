@@ -8,7 +8,7 @@ import rx.Observable;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/3/16
  * Time: 9:54 PM
  * Desc: TokenRepository

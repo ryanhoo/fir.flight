@@ -2,14 +2,14 @@ package io.github.ryanhoo.firFlight.network;
 
 import android.content.Context;
 import android.util.Log;
-import io.github.ryanhoo.firFlight.ui.common.FlightToast;
+import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import rx.Subscriber;
 
 import java.lang.ref.WeakReference;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/11/16
  * Time: 12:36 AM
  * Desc: A default subscriber, the purpose of creating this is meant to provide a default solution

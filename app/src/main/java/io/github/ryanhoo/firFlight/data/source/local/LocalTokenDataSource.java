@@ -12,7 +12,7 @@ import static io.github.ryanhoo.firFlight.data.source.local.db.tables.TokenTable
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/3/16
  * Time: 9:39 PM
  * Desc: LocalTokenDataSource

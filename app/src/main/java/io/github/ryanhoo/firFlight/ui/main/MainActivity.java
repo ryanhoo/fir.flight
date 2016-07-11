@@ -17,7 +17,7 @@ import io.github.ryanhoo.firFlight.ui.profile.ProfileFragment;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/8/16
  * Time: 9:28 PM
  * Desc: MainActivityV2

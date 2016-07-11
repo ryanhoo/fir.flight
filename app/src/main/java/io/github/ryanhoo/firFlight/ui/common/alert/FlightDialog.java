@@ -1,4 +1,4 @@
-package io.github.ryanhoo.firFlight.ui.common;
+package io.github.ryanhoo.firFlight.ui.common.alert;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -16,7 +16,7 @@ import io.github.ryanhoo.firFlight.R;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/10/16
  * Time: 4:11 PM
  * Desc: FlightDialog

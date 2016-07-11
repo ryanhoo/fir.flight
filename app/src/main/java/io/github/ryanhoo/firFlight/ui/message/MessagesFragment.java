@@ -18,7 +18,7 @@ import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
 import io.github.ryanhoo.firFlight.data.source.MessageRepository;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
-import io.github.ryanhoo.firFlight.ui.common.FlightToast;
+import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.util.NetworkUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;

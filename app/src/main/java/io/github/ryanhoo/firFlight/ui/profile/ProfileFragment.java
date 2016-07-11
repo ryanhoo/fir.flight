@@ -21,11 +21,11 @@ import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
-import io.github.ryanhoo.firFlight.ui.common.FlightDialog;
+import io.github.ryanhoo.firFlight.ui.common.alert.FlightDialog;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/9/16
  * Time: 12:21 AM
  * Desc: ProfileFragment
