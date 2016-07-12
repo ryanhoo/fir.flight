@@ -1,7 +1,6 @@
 package io.github.ryanhoo.firFlight.util;
 
 import android.content.Context;
-import android.util.Log;
 import io.github.ryanhoo.firFlight.data.source.local.db.DatabaseHelper;
 
 /**
@@ -13,10 +12,7 @@ import io.github.ryanhoo.firFlight.data.source.local.db.DatabaseHelper;
  */
 public class DbUtils {
 
-    private static final String TAG = "DbUtils";
-
     public static void clearDataBase(Context context) {
-        boolean result = context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
-        Log.i(TAG, "clearDataBase: " + (result ? "succeeded" : "failed"));
+        new DatabaseHelper(context).clearDatabase();
     }
 }

@@ -27,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Register tables here
-     * */
+     */
     private void registerTables() {
         mRegisteredTables = new ArrayList<>();
         mRegisteredTables.add(AppTable.class);
@@ -68,6 +68,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } catch (Exception e) {
             Log.e(TAG, "onDelete: ", e);
         }
+    }
+
+    public void clearDatabase() {
+        if (mRegisteredTables == null) return;
+
+        onDelete(getWritableDatabase());
+        onCreate(getWritableDatabase());
     }
 
     // Tables creation & deletion
