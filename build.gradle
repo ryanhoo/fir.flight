@@ -60,7 +60,8 @@ ext {
             answers               : 'com.crashlytics.sdk.android:answers:1.3.6@aar',
             stetho                : "com.facebook.stetho:stetho:$stethoVersion",
             stetho_okhttp         : "com.facebook.stetho:stetho-okhttp3:$stethoVersion",
-            stetho_jsconsole      : "com.facebook.stetho:stetho-js-rhino:$stethoVersion"
+            stetho_jsconsole      : "com.facebook.stetho:stetho-js-rhino:$stethoVersion",
+            calligraphy           : 'uk.co.chrisjenx:calligraphy:2.2.0'
     ]
 
     // classpath

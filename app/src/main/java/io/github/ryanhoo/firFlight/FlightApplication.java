@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.annotation.NonNull;
 import com.facebook.stetho.Stetho;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created with Android Studio.
@@ -26,6 +27,14 @@ public class FlightApplication extends Application {
         super.onCreate();
 
         sInstance = this;
+
+        // Custom fonts
+        CalligraphyConfig.initDefault(
+                new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
         // Facebook debug bridge
         Stetho.initializeWithDefaults(this);

@@ -120,5 +120,7 @@ dependencies {
     compile libs.stetho
     compile libs.stetho_okhttp
     compile libs.stetho_jsconsole
+
+    compile libs.calligraphy
 }
 

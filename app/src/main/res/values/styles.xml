@@ -15,6 +15,8 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
 
         <item name="alertDialogTheme">@style/FFDialog</item>
+
+        <item name="android:textViewStyle">@style/FFTheme.Widget.TextView</item>
     </style>
 
     <style name="FFTheme" parent="AppTheme"/>
@@ -29,7 +31,7 @@
 
         <item name="android:windowBackground">@color/colorPrimary</item>
 
-        <!-- API Level 19+ -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
     </style>
 
@@ -70,43 +72,57 @@
     <style name="FFDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/ff.alertDialog.colorAccent</item>
         <!--<item name="windowMinWidthMinor">@dimen/ff.common.dialogWidth</item>-->
+        <item name="fontPath">@string/ff.font.roboto.regular</item>
     </style>
 
     <!-- Main -->
 
-    <style name="FFStyle.Main.Tab" parent="Widget.Design.TabLayout">
+    <style name="FFStyle.MainTab" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">?attr/colorAccent</item>
         <item name="tabIndicatorHeight">@dimen/ff.main.tab.indicator.height</item>
         <item name="tabPaddingStart">@dimen/ff.padding.normal</item>
         <item name="tabPaddingEnd">@dimen/ff.padding.normal</item>
         <item name="tabBackground">?attr/selectableItemBackground</item>
-        <item name="tabTextAppearance">@style/FFTextAppearance.Main.Tab</item>
+        <item name="tabTextAppearance">@style/FFTextAppearance.MainTab</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="FFTheme.Widget"/>
+
+    <style name="FFTheme.Widget.Toolbar.Light" parent="ThemeOverlay.AppCompat.Light">
+        <item name="fontPath">@string/ff.font.roboto.monospace.regular</item>
+    </style>
+
+    <style name="FFTheme.Widget.PopupTheme.Light" parent="ThemeOverlay.AppCompat.Light">
+        <item name="fontPath">@string/ff.font.roboto.regular</item>
+    </style>
+
+    <style name="FFTheme.Widget.Toolbar.Dark" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="fontPath">@string/ff.font.roboto.regular</item>
+    </style>
+
+    <style name="FFTheme.Widget.PopupTheme.Dark" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="fontPath">@string/ff.font.roboto.regular</item>
+    </style>
+
+    <style name="FFTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <item name="fontPath">@string/ff.font.roboto.regular</item>
     </style>
 
     <style name="FFTextAppearance"/>
 
-    <style name="FFTextAppearance.Splash">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/ff.splash.text</item>
-        <item name="android:textColorHint">@color/ff.splash.text_hint</item>
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:singleLine">true</item>
-    </style>
-
-    <style name="FFTextAppearance.Toolbar" parent="TextAppearance.Design.Tab">
+    <style name="FFTextAppearance.ToolbarTitle">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">?android:textColorPrimary</item>
-        <item name="android:textAllCaps">false</item>
+        <item name="fontPath">@string/ff.font.roboto.regular</item>
         <item name="android:fontFamily">monospace</item>
-        <!--<item name="android:textStyle">bold</item>-->
-        <!--<item name="android:letterSpacing" tools:ignore="NewApi">0.1</item>-->
     </style>
 
-    <style name="FFTextAppearance.Main.Tab" parent="TextAppearance.Design.Tab">
+    <style name="FFTextAppearance.MainTab" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">monospace</item>
     </style>
 
     <style name="FFTextAppearance.Settings.Section" parent="FFTextAppearance">
