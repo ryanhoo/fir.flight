@@ -51,6 +51,9 @@
     <color name="ff.textColor.button.primaryTheme">#607D8B</color>
     <color name="ff.textColor.button.primaryTheme.pressed">#7A607D8B</color>
 
+    <!-- Material Alert Dialog -->
+    <color name="ff.alertDialog.colorAccent">#4A90E2</color>
+
     <!-- SwipeRefreshLayout -->
     <color name="swiperefresh.colorscheme.first">#212121</color>
     <color name="swiperefresh.colorscheme.secondary">#00796B</color>

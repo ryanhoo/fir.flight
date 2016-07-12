@@ -13,6 +13,8 @@
         <item name="android:textColorSecondary">@color/ff.theme.white.textColorSecondary</item>
 
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+
+        <item name="alertDialogTheme">@style/FFDialog</item>
     </style>
 
     <style name="FFTheme" parent="AppTheme"/>
@@ -32,6 +34,7 @@
     </style>
 
     <style name="FFTheme.Main">
+        <!--<item name="android:alertDialogTheme">@null</item>-->
         <!--<item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>-->
     </style>
 
@@ -62,6 +65,11 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#7C7C7D</item>
         <item name="android:lineSpacingMultiplier">@integer/lineSpacingMultiplier</item>
+    </style>
+
+    <style name="FFDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/ff.alertDialog.colorAccent</item>
+        <!--<item name="windowMinWidthMinor">@dimen/ff.common.dialogWidth</item>-->
     </style>
 
     <!-- Main -->

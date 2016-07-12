@@ -21,8 +21,6 @@
     <string name="ff.signin.password.example">******</string>
 
     <!-- Main -->
-    <string name="ff.dialog.sign_out.title">Sign out</string>
-
     <string name="ff.main.tab.apps">Apps</string>
     <string name="ff.main.tab.messages">Messages</string>
     <string name="ff.main.tab.profile">Profile</string>
@@ -80,7 +78,8 @@
     <string name="ff.notification.app.new_version.message" formatted="false">New version %s(%s)</string>
 
     <!-- Dialog -->
-    <string name="ff.dialog.sign_out.message">Do you really want to sign out?</string>
+    <string name="ff.dialog.sign_out.title">Sign out</string>
+    <string name="ff.dialog.sign_out.message">Sign out will clear all your local caches. Do you really want to sign out?</string>
 
     <!-- Errors -->
     <string name="ff.network.error.timeout">Request Timeout</string>

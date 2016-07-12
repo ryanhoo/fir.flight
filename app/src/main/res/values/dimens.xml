@@ -5,6 +5,8 @@
 
     <dimen name="ff.common.marginLeft">60dp</dimen>
 
+    <item name="ff.common.dialogWidth" type="dimen">67%</item>
+
     <dimen name="ff.divider.height">0.1dp</dimen>
     <dimen name="ff.divider.width">0.1dp</dimen>
 
