@@ -15,7 +15,7 @@
 
         <android.support.design.widget.TabLayout
             xmlns:tabLayout="http://schemas.android.com/apk/res-auto"
-            style="@style/FFStyle.Main.Tab"
+            style="@style/FFStyle.MainTab"
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

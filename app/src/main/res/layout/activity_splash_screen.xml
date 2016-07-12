@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:animateLayoutChanges="true"
+    android:background="#4690E2"
     >
 
     <TextView
@@ -15,16 +15,13 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_marginTop="@dimen/ff.splash.slogan.top"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@color/ff.splash.app_name"
-        android:letterSpacing="0.05"
-        android:shadowColor="@color/ff.text_shadow"
-        android:shadowDx="2"
-        android:shadowDy="2"
-        android:shadowRadius="4"
+        android:textSize="32sp"
+        android:textColor="@color/ff.white"
         android:text="@string/ff.app.name"
-        tools:targetApi="lollipop"/>
+        fontPath="@string/ff.font.roboto.thin"
+        tools:targetApi="lollipop"
+        tools:ignore="MissingPrefix"
+        />
 
     <TextView
         android:id="@+id/text_view_slogan"
@@ -32,39 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_app_name"
         android:layout_centerHorizontal="true"
-        android:lineSpacingMultiplier="1.1"
+        android:lineSpacingMultiplier="@integer/lineSpacingMultiplier"
         android:gravity="center"
-        android:layout_margin="@dimen/ff.margin.normal"
-        android:textSize="@dimen/ff.textSize.tips"
-        android:textColor="@color/ff.splash.app_slogan"
+        android:layout_margin="@dimen/ff.margin.large"
+        android:textSize="18sp"
+        android:textColor="@color/ff.white"
         android:text="@string/ff.splash.slogan"
-        />
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        >
-
-        <ImageView
-            android:id="@+id/image_view_kid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/splash_logo"
-            android:contentDescription="@string/ff.app.name"
-            />
-
-        <ImageView
-            android:id="@+id/image_view_propeller"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/propeller"
-            android:contentDescription="@string/ff.app.name"
-            tools:ignore="RtlHardcoded"/>
-    </FrameLayout>
-
+        fontPath="@string/ff.font.roboto.thin"
+        tools:ignore="MissingPrefix"/>
 </RelativeLayout>

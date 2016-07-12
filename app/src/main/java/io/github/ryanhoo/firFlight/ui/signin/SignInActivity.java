@@ -1,13 +1,18 @@
 package io.github.ryanhoo.firFlight.ui.signin;
 
 import android.content.Intent;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.EditText;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,6 +73,27 @@ public class SignInActivity extends BaseActivity {
         editTextPassword.addTextChangedListener(onTextChangedListener);
 
         mProgressDialog = FlightDialog.defaultLoadingDialog(this);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        // https://crazygui.wordpress.com/2010/09/05/high-quality-radial-gradient-in-android/
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int screenHeight = displayMetrics.heightPixels;
+
+        Window window = getWindow();
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setColors(new int[]{
+                ContextCompat.getColor(this, R.color.ff_signin_gradientColor),
+                ContextCompat.getColor(this, R.color.ff_signin_background)
+        });
+        gradientDrawable.setGradientType(GradientDrawable.RADIAL_GRADIENT);
+        gradientDrawable.setGradientRadius(screenHeight);
+        gradientDrawable.setGradientCenter(0, screenHeight * 0.5f);
+
+        window.setBackgroundDrawable(gradientDrawable);
+        window.setFormat(PixelFormat.RGBA_8888);
     }
 
     @Override

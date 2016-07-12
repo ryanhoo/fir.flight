@@ -27,9 +27,10 @@
 
     <dimen name="ff.app.icon.size">56dp</dimen>
 
-    <dimen name="ff.splash.slogan.top">120dp</dimen>
-
     <dimen name="ff.emptyView.marginBottom">64dp</dimen>
+
+    <!-- Splash -->
+    <dimen name="ff.splash.slogan.top">100dp</dimen>
 
     <!-- Main -->
     <dimen name="ff.main.tab.indicator.height">2dp</dimen>

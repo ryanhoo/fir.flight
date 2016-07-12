@@ -29,7 +29,7 @@
         <item name="android:textColorPrimary">@color/textColorPrimaryHolo</item>
         <item name="android:textColorSecondary">@color/textColorSecondaryHolo</item>
 
-        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/ff.splash.background</item>
 
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
@@ -48,9 +48,12 @@
     </style>
 
     <style name="FFTheme.SignIn">
-        <item name="colorPrimary">#449fe0</item>
-        <item name="colorPrimaryDark">#449fe0</item>
-        <item name="colorAccent">@color/ff.white</item>
+        <item name="colorPrimary">@color/ff.theme.blue.colorPrimary</item>
+        <item name="colorPrimaryDark">@color/ff.theme.blue.colorPrimaryDark</item>
+        <item name="colorAccent">@color/ff.theme.blue.colorAccent</item>
+
+        <item name="android:windowBackground">@color/ff.splash.background</item>
+
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 

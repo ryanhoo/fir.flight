@@ -1,6 +1,6 @@
 <resources>
     <string name="ff.app.name">fir.flight</string>
-    <string name="ff.splash.slogan">An android version Test Flight by using\nthe testing app distribution service provided by fir.im</string>
+    <string name="ff.splash.slogan">An android version Test Flight\nby using the testing app distribution\nservice provided by fir.im</string>
     <string name="ff.splash.slogan.about">An android version Test Flight\nby using the testing app distribution service provided by fir.im</string>
 
     <!-- Common -->

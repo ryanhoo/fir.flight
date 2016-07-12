@@ -27,6 +27,10 @@
     <color name="ff.theme.black.colorPrimaryDark">#374046</color>
     <color name="ff.theme.black.colorAccent">#FFFFFF</color>
 
+    <color name="ff.theme.blue.colorPrimary">#4A90E2</color>
+    <color name="ff.theme.blue.colorPrimaryDark">#4A90E2</color>
+    <color name="ff.theme.blue.colorAccent">#FFFFFF</color>
+
     <!-- Common Colors -->
     <color name="ff.background">#F9F9F9</color>
 
@@ -60,12 +64,14 @@
     <color name="swiperefresh.colorscheme.third">#607D8B</color>
 
     <!-- Splash -->
-    <color name="ff.splash.app_name">#FFFFFF</color>
-    <color name="ff.splash.app_slogan">#CFD8DC</color>
-    <color name="ff.splash.text_hint">#AACFD8DC</color>
-    <color name="ff.splash.text">#CFD8DC</color>
+    <color name="ff.splash.background">@color/ff.theme.blue.colorPrimary</color>
+    <color name="ff.splash.gradientColor">#5BB9FA</color>
 
-    <!-- Main -->
+    <!-- Sign In -->
+    <color name="ff.signin.background">@color/ff.theme.blue.colorPrimary</color>
+    <color name="ff.signin.gradientColor">#5BB9FA</color>
+
+
 
     <!-- Apps -->
     <color name="ff.apps.icon.placeholder">#7ACFD8DC</color>

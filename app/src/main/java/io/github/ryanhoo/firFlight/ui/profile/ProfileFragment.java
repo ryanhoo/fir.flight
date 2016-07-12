@@ -1,13 +1,13 @@
 package io.github.ryanhoo.firFlight.ui.profile;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AlertDialog;
+import android.view.*;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +49,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -77,6 +78,44 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    // Menu
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.profile, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_settings:
+
+                break;
+            case R.id.menu_item_about:
+
+                break;
+            case R.id.menu_item_sign_out:
+                onSignOut();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onSignOut() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.ff_dialog_sign_out_title)
+                .setMessage(R.string.ff_dialog_sign_out_message)
+                .setNegativeButton(R.string.ff_no, null)
+                .setPositiveButton(R.string.ff_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        UserSession.getInstance().signOut();
+                    }
+                })
+                .show();
     }
 
     // OnClick Events

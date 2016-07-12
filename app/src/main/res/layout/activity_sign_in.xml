@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#449fe0"
     >
 
     <android.support.v7.widget.Toolbar
@@ -43,14 +43,15 @@
             android:paddingRight="@dimen/ff.padding.large"
             android:paddingTop="@dimen/ff.padding.normal"
             android:paddingBottom="@dimen/ff.padding.normal"
-            android:typeface="monospace"
             android:textSize="20sp"
             android:textColor="#EAFFFFFF"
             android:textColorHint="#6AFFFFFF"
             android:background="@color/ff.transparent"
             android:inputType="textEmailAddress"
             android:hint="@string/ff.signin.email.example"
-            />
+            android:fontFamily="monospace"
+            fontPath="@string/ff.font.roboto.monospace.regular"
+            tools:ignore="MissingPrefix"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -71,13 +72,15 @@
             android:paddingRight="@dimen/ff.padding.large"
             android:paddingTop="@dimen/ff.padding.normal"
             android:paddingBottom="@dimen/ff.padding.normal"
-            android:typeface="monospace"
             android:textSize="20sp"
             android:textColor="#EAFFFFFF"
             android:textColorHint="#6AFFFFFF"
             android:background="@color/ff.transparent"
             android:inputType="textPassword"
             android:hint="@string/ff.signin.password.example"
+            android:fontFamily="monospace"
+            fontPath="@string/ff.font.roboto.monospace.regular"
+            tools:ignore="MissingPrefix"
             />
 
     </LinearLayout>

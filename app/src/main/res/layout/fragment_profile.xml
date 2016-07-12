@@ -41,11 +41,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/ff.margin.normal"
-                android:textStyle="bold"
                 android:textColor="?attr/colorAccent"
                 android:textSize="18sp"
+                fontPath="@string/ff.font.roboto.medium"
                 tools:text="TestFlight"
-                />
+                tools:ignore="MissingPrefix"/>
 
             <TextView
                 android:id="@+id/text_view_email"
@@ -69,7 +69,8 @@
             android:textSize="14sp"
             android:textAllCaps="true"
             android:text="@string/ff.profile.api_token"
-            />
+            fontPath="@string/ff.font.roboto.medium"
+            tools:ignore="MissingPrefix"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -96,10 +97,10 @@
             android:layout_marginBottom="@dimen/ff.margin.normal"
             android:textColor="@color/ff.white"
             android:textSize="13sp"
-            android:fontFamily="monospace"
             android:background="@drawable/bg_profile_api_token"
+            fontPath="@string/ff.font.roboto.monospace.regular"
             tools:text="ad1b8e4b9ft6103cd11ef9j3dfd1c4kb"
-            />
+            tools:ignore="MissingPrefix"/>
 
         <Button
             android:id="@+id/button_refresh"
