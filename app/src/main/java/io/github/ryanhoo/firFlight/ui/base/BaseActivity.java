@@ -23,6 +23,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        addSubscription(subscribeEvents());
     }
 
     @Override
@@ -65,5 +67,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             mSubscriptions = new CompositeSubscription();
         }
         mSubscriptions.add(subscription);
+    }
+
+    protected Subscription subscribeEvents() {
+        return null;
     }
 }

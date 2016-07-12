@@ -1,5 +1,6 @@
 package io.github.ryanhoo.firFlight.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -9,11 +10,17 @@ import android.support.v7.widget.Toolbar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.RxBus;
+import io.github.ryanhoo.firFlight.event.SignOutEvent;
 import io.github.ryanhoo.firFlight.ui.app.AppsFragment;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.message.MessagesFragment;
 import io.github.ryanhoo.firFlight.ui.profile.ProfileFragment;
+import io.github.ryanhoo.firFlight.ui.signin.SignInActivity;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created with Android Studio.
@@ -59,5 +66,27 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
+    }
+
+    // RxBus Events
+
+    @Override
+    protected Subscription subscribeEvents() {
+        return RxBus.getInstance().toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Action1<Object>() {
+                    @Override
+                    public void call(Object o) {
+                        if (o instanceof SignOutEvent) {
+                            onSignOutEvent();
+                        }
+                    }
+                })
+                .subscribe(RxBus.defaultSubscriber());
+    }
+
+    private void onSignOutEvent() {
+        startActivity(new Intent(this, SignInActivity.class));
+        finish();
     }
 }
