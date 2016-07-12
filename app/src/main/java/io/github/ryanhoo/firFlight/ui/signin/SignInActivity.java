@@ -1,5 +1,6 @@
 package io.github.ryanhoo.firFlight.ui.signin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -8,7 +9,6 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
@@ -16,9 +16,11 @@ import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.model.User;
+import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
+import io.github.ryanhoo.firFlight.ui.common.alert.FlightDialog;
 import io.github.ryanhoo.firFlight.ui.helper.OnTextChangedListener;
-import rx.Subscriber;
+import io.github.ryanhoo.firFlight.ui.main.MainActivity;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -43,6 +45,8 @@ public class SignInActivity extends BaseActivity {
 
     MenuItem menuItemSignIn;
 
+    FlightDialog mProgressDialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +66,8 @@ public class SignInActivity extends BaseActivity {
         };
         editTextEmail.addTextChangedListener(onTextChangedListener);
         editTextPassword.addTextChangedListener(onTextChangedListener);
+
+        mProgressDialog = FlightDialog.defaultLoadingDialog(this);
     }
 
     @Override
@@ -91,38 +97,43 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void signIn() {
-        menuItemSignIn.setEnabled(false);
         final String email = editTextEmail.getText().toString();
         final String password = editTextPassword.getText().toString();
         UserSession.getInstance().signIn(email, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<User>() {
+                .subscribe(new NetworkSubscriber<User>(this) {
+                    @Override
+                    public void onStart() {
+                        menuItemSignIn.setEnabled(false);
+                        mProgressDialog.show();
+                    }
+
                     @Override
                     public void onCompleted() {
+                        super.onCompleted();
                         // SignIn Event Success
+                        menuItemSignIn.setEnabled(true);
+                        mProgressDialog.dismiss();
                         FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
                                 .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
                                 .putSuccess(true)
                         );
-                        menuItemSignIn.setEnabled(false);
-                        setResult(RESULT_OK);
+                        startActivity(new Intent(SignInActivity.this, MainActivity.class));
                         finish();
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        super.onError(e);
                         // SignIn Event Fail
+                        menuItemSignIn.setEnabled(true);
+                        mProgressDialog.dismiss();
                         FlightAnalytics.onEvent(new FlightEvent(FlightEvent.EVENT_SIGN_IN)
                                 .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
                                 .putSuccess(false)
                         );
-                        Toast.makeText(SignInActivity.this, R.string.ff_signin_failed, Toast.LENGTH_SHORT).show();
-                        menuItemSignIn.setEnabled(false);
-                    }
-
-                    @Override
-                    public void onNext(User user) {
+                        // Toast.makeText(SignInActivity.this, R.string.ff_signin_failed, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

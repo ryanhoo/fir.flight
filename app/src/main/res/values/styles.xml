@@ -46,6 +46,7 @@
         <item name="colorPrimary">#449fe0</item>
         <item name="colorPrimaryDark">#449fe0</item>
         <item name="colorAccent">@color/ff.white</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
     <style name="FFDivider">
