@@ -51,6 +51,7 @@ public class MainActivity extends BaseActivity {
         MainTabAdapter adapter = new MainTabAdapter(getSupportFragmentManager(), tabTitles, fragments);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(adapter.getCount() - 1);
+        viewPager.setPageMargin(getResources().getDimensionPixelSize(R.dimen.ff_padding_large));
 
         tabLayout.setupWithViewPager(viewPager);
     }
