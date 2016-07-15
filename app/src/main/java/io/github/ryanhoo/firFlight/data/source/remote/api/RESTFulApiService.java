@@ -41,20 +41,24 @@ public interface RESTFulApiService {
     @GET("/apps/latest/{appId}?requireApiToken=true")
     Observable<AppInstallInfo> appInstallInfo(@Path("appId") String appId);
 
-    // Messages
+    // Messages(no longer available)
 
+    @Deprecated
     @GET("/notifications?type=sys")
     Observable<MultiPageResponse<Message>> systemMessages();
 
+    @Deprecated
     @GET("/notifications")
-    Observable<MultiPageResponse<Message>> notifications(@Query("type") String type, @Query("page") int page);
+    Observable<MultiPageResponse<Message>> messages(@Query("type") String type, @Query("page") int page);
 
+    @Deprecated
     @POST("/notifications/{notificationId}")
-    Observable<Message> markNotificationAsRead(
+    Observable<Message> markMessageAsRead(
             @Path("notificationId") String notificationId,
             @Query("is_read") boolean isRead
     );
 
+    @Deprecated
     @DELETE("/notifications/{notificationId}")
-    Observable<Message> deleteNotification(@Path("notificationId") String notificationId);
+    Observable<Message> deleteMessage(@Path("notificationId") String notificationId);
 }
