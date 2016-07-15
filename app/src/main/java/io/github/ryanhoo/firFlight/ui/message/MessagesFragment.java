@@ -22,6 +22,7 @@ import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -96,7 +97,7 @@ public class MessagesFragment extends BaseFragment
 
     private void requestSystemMessages() {
         swipeRefreshLayout.setRefreshing(true);
-        MessageRepository.getInstance()
+        Subscription subscription = MessageRepository.getInstance()
                 .systemMessages()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true)
@@ -107,11 +108,18 @@ public class MessagesFragment extends BaseFragment
                     }
 
                     @Override
+                    public void onError(Throwable e) {
+                        // super.onError(e);
+                        onUnsubscribe();
+                    }
+
+                    @Override
                     public void onUnsubscribe() {
                         swipeRefreshLayout.setRefreshing(false);
                         boolean isEmpty = mAdapter.getItemCount() == 0;
                         emptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
                     }
                 });
+        addSubscription(subscription);
     }
 }
