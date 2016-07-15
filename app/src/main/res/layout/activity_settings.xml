@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <include layout="@layout/toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/ff.padding.large"
+            android:paddingBottom="@dimen/ff.padding.large"
+            >
+
+            <TextView
+                style="@style/FFTextAppearance.Settings.Section"
+                android:text="@string/ff.settings.section.cache"
+                />
+
+            <View style="@style/FFDivider"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_clear_image_cache"
+                style="@style/FFLayout.Settings.Item"
+                >
+
+                <TextView
+                    style="@style/FFTextAppearance.Settings.ItemTitle"
+                    android:text="@string/ff.settings.section.cache.item.clear_image"
+                    />
+
+                <TextView
+                    android:id="@+id/text_view_image_cache"
+                    style="@style/FFTextAppearance.Settings.ItemDescription"
+                    android:maxWidth="60dp"
+                    tools:text="13kb"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/FFDivider"/>
+
+            <TextView
+                style="@style/FFTextAppearance.Settings.Section"
+                android:layout_marginTop="@dimen/ff.margin.normal"
+                android:text="@string/ff.settings.section.updates"
+                />
+
+            <View style="@style/FFDivider"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_check_updates"
+                style="@style/FFLayout.Settings.Item"
+                >
+
+                <TextView
+                    style="@style/FFTextAppearance.Settings.ItemTitle"
+                    android:text="@string/ff.settings.section.updates.item.check"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/FFDivider"/>
+
+            <TextView
+                style="@style/FFTextAppearance.Settings.Section"
+                android:layout_marginTop="@dimen/ff.margin.normal"
+                android:text="@string/ff.settings.section.terms"
+                />
+
+            <View style="@style/FFDivider"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_agreements"
+                style="@style/FFLayout.Settings.Item"
+                >
+
+                <TextView
+                    style="@style/FFTextAppearance.Settings.ItemTitle"
+                    android:text="@string/ff.settings.section.terms.item.agreements"
+                    />
+
+                <TextView
+                    android:id="@+id/text_view_version"
+                    style="@style/FFTextAppearance.Settings.ItemDescription"
+                    android:maxWidth="120dp"
+                    tools:text="1.2.5(16040301)"
+                    />
+            </RelativeLayout>
+
+            <View style="@style/FFDivider"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

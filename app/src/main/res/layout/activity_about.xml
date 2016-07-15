@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     >
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <include layout="@layout/toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -28,11 +36,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ff.padding.large"
-            android:letterSpacing="0.05"
             android:textSize="20sp"
             android:textColor="@color/ff.textColor.title"
             android:text="@string/ff.app.name"
-            tools:targetApi="lollipop"/>
+            fontPath="@string/ff.font.roboto.medium"
+            tools:ignore="MissingPrefix"/>
 
         <TextView
             android:id="@+id/text_view_app_version"
@@ -70,7 +78,8 @@
             android:textSize="@dimen/ff.textSize.text"
             android:textColor="@color/ff.textColor.text"
             android:text="@string/ff.splash.slogan.about"
-            />
+            fontPath="@string/ff.font.roboto.thin"
+            tools:ignore="MissingPrefix"/>
 
         <View style="@style/FFDivider"/>
 
@@ -105,6 +114,7 @@
         android:textSize="10sp"
         android:text="@string/ff.about.button.author"
         android:background="@color/ff.transparent"
-        tools:ignore="SmallSp"/>
+        fontPath="@string/ff.font.roboto.thin"
+        tools:ignore="MissingPrefix,SmallSp"/>
 
 </RelativeLayout>

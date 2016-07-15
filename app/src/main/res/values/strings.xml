@@ -51,11 +51,13 @@
     <string name="ff.profile.button.refresh">Refresh</string>
 
     <!-- About -->
+    <string name="ff.about">About</string>
     <string name="ff.about.button.fir">fir.im</string>
     <string name="ff.about.button.acknowledgements">Acknowledgements</string>
     <string name="ff.about.button.author">© 2016 Ryan Hoo</string>
 
     <!-- Settings -->
+    <string name="ff.settings">Settings</string>
     <string name="ff.settings.section.cache">Cache</string>
     <string name="ff.settings.section.updates">Updates</string>
     <string name="ff.settings.section.terms">Terms</string>

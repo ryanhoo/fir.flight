@@ -11,5 +11,4 @@
     app:popupTheme="@style/FFTheme.Widget.PopupTheme.Light"
     app:titleTextColor="?attr/colorAccent"
     app:titleTextAppearance="@style/FFTextAppearance.ToolbarTitle"
-    app:title="@string/ff.app.name"
     />

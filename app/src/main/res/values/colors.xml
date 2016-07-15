@@ -46,14 +46,14 @@
 
     <color name="ff.textColor.title">#666666</color>
     <color name="ff.textColor.text">#727272</color>
-    <color name="ff.textColor.tips">#6C000000</color>
+    <color name="ff.textColor.tips">#4A4A4A</color>
 
     <color name="ff.textColor.button">#666666</color>
     <color name="ff.textColor.button.pressed">#8A666666</color>
     <color name="ff.textColor.button.disabled">#8A666666</color>
 
-    <color name="ff.textColor.button.primaryTheme">#607D8B</color>
-    <color name="ff.textColor.button.primaryTheme.pressed">#7A607D8B</color>
+    <color name="ff.textColor.button.primaryTheme">#212121</color>
+    <color name="ff.textColor.button.primaryTheme.pressed">#7A212121</color>
 
     <!-- Material Alert Dialog -->
     <color name="ff.alertDialog.colorAccent">#4A90E2</color>
@@ -70,7 +70,6 @@
     <!-- Sign In -->
     <color name="ff.signin.background">@color/ff.theme.blue.colorPrimary</color>
     <color name="ff.signin.gradientColor">#5BB9FA</color>
-
 
 
     <!-- Apps -->

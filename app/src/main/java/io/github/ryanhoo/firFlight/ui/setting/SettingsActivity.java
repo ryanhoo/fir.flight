@@ -4,43 +4,38 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import io.github.ryanhoo.firFlight.R;
-import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
+import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com
  * Date: 4/3/16
  * Time: 5:10 PM
- * Desc: SettingsFragment
+ * Desc: SettingsActivity
  */
-public class SettingsFragment extends BaseFragment {
+public class SettingsActivity extends BaseActivity {
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     @Bind(R.id.text_view_image_cache)
     TextView textViewImageCache;
     @Bind(R.id.text_view_version)
     TextView textViewVersion;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_settings, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
-
-
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_settings);
+        ButterKnife.bind(this);
+        supportActionBar(toolbar);
     }
 
     @OnClick({R.id.layout_clear_image_cache, R.id.layout_check_updates, R.id.layout_agreements})
@@ -63,14 +58,14 @@ public class SettingsFragment extends BaseFragment {
             @Override
             protected Void doInBackground(Void... params) {
                 // Must NOT call this on UI thread
-                Glide.get(getActivity()).clearDiskCache();
+                Glide.get(SettingsActivity.this).clearDiskCache();
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 // Must call this on UI thread
-                Glide.get(getActivity()).clearMemory();
+                Glide.get(SettingsActivity.this).clearMemory();
                 showSnake(Snackbar.make(textViewImageCache,
                         R.string.ff_settings_message_cache_cleared, Snackbar.LENGTH_LONG));
             }

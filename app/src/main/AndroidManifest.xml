@@ -37,6 +37,7 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
+            android:launchMode="singleTask"
             android:theme="@style/FFTheme.Main"
             android:screenOrientation="portrait"
             />
@@ -50,6 +51,17 @@
             android:launchMode="singleTask"
             android:theme="@style/FFTheme.SignIn"
             android:windowSoftInputMode="adjustResize|stateAlwaysVisible"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.setting.SettingsActivity"
+            android:label="@string/ff.settings"
+            android:screenOrientation="portrait"
+            />
+
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:label="@string/ff.about"
             android:screenOrientation="portrait"
             />
 

@@ -1,6 +1,7 @@
 package io.github.ryanhoo.firFlight.ui.profile;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,8 +21,10 @@ import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.data.model.Token;
 import io.github.ryanhoo.firFlight.data.model.User;
+import io.github.ryanhoo.firFlight.ui.about.AboutActivity;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightDialog;
+import io.github.ryanhoo.firFlight.ui.setting.SettingsActivity;
 
 /**
  * Created with Android Studio.
@@ -92,16 +95,24 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
-
+                onOpenSettings();
                 break;
             case R.id.menu_item_about:
-
+                onOpenAbout();
                 break;
             case R.id.menu_item_sign_out:
                 onSignOut();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onOpenSettings() {
+        startActivity(new Intent(getActivity(), SettingsActivity.class));
+    }
+
+    private void onOpenAbout() {
+        startActivity(new Intent(getActivity(), AboutActivity.class));
     }
 
     private void onSignOut() {
