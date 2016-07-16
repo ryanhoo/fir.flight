@@ -22,6 +22,8 @@
     <color name="ff.theme.white.colorAccent">#212121</color>
     <color name="ff.theme.white.textColorPrimary">#212121</color>
     <color name="ff.theme.white.textColorSecondary">#7F7F7F</color>
+    <color name="ff.theme.white.characterView.textColor">#CCCCCC</color>
+    <color name="ff.theme.white.characterView.BackgroundColor">#EEEEEE</color>
 
     <color name="ff.theme.black.colorPrimary">#374046</color>
     <color name="ff.theme.black.colorPrimaryDark">#374046</color>

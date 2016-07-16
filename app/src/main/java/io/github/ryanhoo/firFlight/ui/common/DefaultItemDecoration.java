@@ -9,7 +9,7 @@ import android.view.View;
 
 /**
  * Created with Android Studio.
- * User: ryan@whitedew.me
+ * User: ryan.hoo.j@gmail.com
  * Date: 7/11/16
  * Time: 11:52 AM
  * Desc: DefaultItemDecoration
