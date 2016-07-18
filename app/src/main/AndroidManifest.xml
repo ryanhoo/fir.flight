@@ -20,7 +20,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/ff.app.name"
         android:supportsRtl="false"
-        android:theme="@style/AppTheme"
+        android:theme="@style/FFTheme"
         android:name=".FlightApplication">
         <activity
             android:name=".ui.SplashScreenActivity"
@@ -62,6 +62,11 @@
         <activity
             android:name=".ui.about.AboutActivity"
             android:label="@string/ff.about"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.about.AcknowledgementsActivity"
+            android:label="@string/ff.acknowledgements"
             android:screenOrientation="portrait"
             />
 

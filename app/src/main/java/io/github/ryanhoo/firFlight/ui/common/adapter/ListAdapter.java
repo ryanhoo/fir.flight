@@ -93,6 +93,10 @@ public abstract class ListAdapter<T, V extends IAdapterView> extends RecyclerVie
             mData.clear();
     }
 
+    public OnItemClickListener getItemClickListener() {
+        return mItemClickListener;
+    }
+
     public int getLastItemClickPosition() {
         return mLastItemClickPosition;
     }

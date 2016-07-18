@@ -10,6 +10,7 @@
     <string name="ff.cancel">Cancel</string>
     <string name="ff.confirm">Confirm</string>
     <string name="ff.dismiss">Dismiss</string>
+    <string name="ff.close">Close</string>
 
     <!-- Sign In -->
     <string name="ff.signin.failed">Sign in failed</string>
@@ -52,8 +53,9 @@
 
     <!-- About -->
     <string name="ff.about">About</string>
+    <string name="ff.acknowledgements">Acknowledgements</string>
     <string name="ff.about.button.fir">fir.im</string>
-    <string name="ff.about.button.acknowledgements">Acknowledgements</string>
+    <string name="ff.about.button.acknowledgements">@string/ff.acknowledgements</string>
     <string name="ff.about.button.author">© 2016 Ryan Hoo</string>
 
     <!-- Settings -->

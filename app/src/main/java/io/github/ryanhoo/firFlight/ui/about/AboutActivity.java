@@ -1,6 +1,7 @@
 package io.github.ryanhoo.firFlight.ui.about;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -66,7 +67,8 @@ public class AboutActivity extends BaseActivity {
                 WebViewHelper.openUrl(this, URL_FIR_IM);
                 break;
             case R.id.button_acknowledgements:
-                WebViewHelper.openUrl(this, URL_ACKNOWLEDGEMENTS);
+                // WebViewHelper.openUrl(this, URL_ACKNOWLEDGEMENTS);
+                startActivity(new Intent(this, AcknowledgementsActivity.class));
                 break;
             case R.id.button_author:
                 WebViewHelper.openUrl(this, URL_AUTHOR);
