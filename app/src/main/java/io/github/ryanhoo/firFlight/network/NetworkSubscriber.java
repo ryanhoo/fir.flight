@@ -3,6 +3,8 @@ package io.github.ryanhoo.firFlight.network;
 import android.content.Context;
 import android.util.Log;
 import io.github.ryanhoo.firFlight.R;
+import io.github.ryanhoo.firFlight.RxBus;
+import io.github.ryanhoo.firFlight.event.SignOutEvent;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -27,6 +29,7 @@ import java.net.SocketTimeoutException;
 public class NetworkSubscriber<T> extends Subscriber<T> {
 
     private static final String TAG = "NetworkSubscriber";
+    public static final int HTTP_CODE_UNAUTHORIZED = 401;
 
     private WeakReference<Context> mWeakContext;
 
@@ -54,7 +57,17 @@ public class NetworkSubscriber<T> extends Subscriber<T> {
         String message = e.getMessage();
         if (e instanceof HttpException) {
             HttpException httpException = (HttpException) e;
-            message = httpException.message();
+            // Access Token has expired, time to sign out
+            if (httpException.code() == HTTP_CODE_UNAUTHORIZED) {
+                RxBus.getInstance().post(new SignOutEvent());
+                if (context != null) {
+                    message = context.getString(R.string.ff_network_error_session_expired);
+                } else {
+                    message = httpException.message();
+                }
+            } else {
+                message = httpException.message();
+            }
         } else if (e instanceof SocketTimeoutException) {
             if (context != null) {
                 message = context.getString(R.string.ff_network_error_timeout);

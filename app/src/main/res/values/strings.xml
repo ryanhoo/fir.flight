@@ -86,5 +86,6 @@
     <string name="ff.dialog.sign_out.message">Sign out will clear all your local caches. Do you really want to sign out?</string>
 
     <!-- Errors -->
-    <string name="ff.network.error.timeout">Request Timeout</string>
+    <string name="ff.network.error.timeout">Request timeout</string>
+    <string name="ff.network.error.session_expired">Session expired,\nplease sign in again.</string>
 </resources>
