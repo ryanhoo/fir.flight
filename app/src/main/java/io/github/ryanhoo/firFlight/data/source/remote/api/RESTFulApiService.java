@@ -44,7 +44,7 @@ public interface RESTFulApiService {
     // Messages(no longer available)
 
     @Deprecated
-    @GET("/notifications?type=sys")
+    @GET("/notifications?type=sys&mock=true&mock_data=messages.json&mock_delay=3000")
     Observable<MultiPageResponse<Message>> systemMessages();
 
     @Deprecated

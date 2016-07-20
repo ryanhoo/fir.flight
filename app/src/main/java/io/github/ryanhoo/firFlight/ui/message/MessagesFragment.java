@@ -108,12 +108,6 @@ public class MessagesFragment extends BaseFragment
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        // super.onError(e);
-                        onUnsubscribe();
-                    }
-
-                    @Override
                     public void onUnsubscribe() {
                         swipeRefreshLayout.setRefreshing(false);
                         boolean isEmpty = mAdapter.getItemCount() == 0;
