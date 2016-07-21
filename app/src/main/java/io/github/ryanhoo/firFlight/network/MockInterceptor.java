@@ -44,8 +44,7 @@ public class MockInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        final Request request = chain.request();
-        final HttpUrl url = request.url();
+        final HttpUrl url = chain.request().url();
         boolean mock = false;
         final String queryMock = url.queryParameter(FIELD_MOCK);
         if (!TextUtils.isEmpty(queryMock)) {
@@ -61,41 +60,22 @@ public class MockInterceptor implements Interceptor {
                     Log.e(TAG, "Someone interrupted my sleeping...: ", e);
                 }
             }
-            Response response = chain.proceed(chain.request());
+            // Skip Gzip in case error occurs
+            final Request request = chain.request().newBuilder()
+                    .header("Accept-Encoding", "None")
+                    .build();
+            Response response = chain.proceed(request);
             String mockData = url.queryParameter(FIELD_MOCK_DATA);
             InputStream in = mContext.getAssets().open(MOCK_FILE_PATH + mockData);
-            byte[] bytes = new byte[in.available()];
+            final int available = in.available();
+            byte[] bytes = new byte[available];
             int read = in.read(bytes);
-            Log.d(TAG, "read: " + read + " available: " + in.available());
+            Log.d(TAG, "read: " + read + " available: " + available);
             ResponseBody body = ResponseBody.create(MediaType.parse(MEDIA_TYPE), bytes);
             return response.newBuilder()
                     .code(200)
                     .body(body)
                     .build();
-            /*
-            BufferedReader reader = null;
-            try {
-                reader = new BufferedReader(new InputStreamReader(in));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    stringBuilder.append('\n');
-                }
-                ResponseBody body = ResponseBody.create(MediaType.parse(MEDIA_TYPE), stringBuilder.toString());
-                return response.newBuilder()
-                        .code(200)
-                        .body(body)
-                        .build();
-            } catch (IOException e) {
-                Log.e("xxx", "intercept: ", e);
-                throw e;
-            } finally {
-                if (reader != null) {
-                    reader.close();
-                }
-            }
-            */
         }
         return chain.proceed(chain.request());
     }
