@@ -16,15 +16,11 @@ import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.Message;
 import io.github.ryanhoo.firFlight.data.model.impl.SystemMessageContent;
 import io.github.ryanhoo.firFlight.data.source.MessageRepository;
-import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
-import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
+import io.github.ryanhoo.firFlight.ui.common.adapter.OnItemClickListener;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import java.util.List;
 
@@ -36,7 +32,7 @@ import java.util.List;
  * Desc: MessageListFragment
  */
 public class MessagesFragment extends BaseFragment
-        implements SwipeRefreshLayout.OnRefreshListener, BaseAdapter.OnItemClickListener<Message> {
+        implements MessageContract.View, SwipeRefreshLayout.OnRefreshListener, OnItemClickListener {
 
     @Bind(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -46,6 +42,7 @@ public class MessagesFragment extends BaseFragment
     View emptyView;
 
     MessageAdapter mAdapter;
+    MessageContract.Presenter mPresenter;
 
     @Nullable
     @Override
@@ -70,22 +67,23 @@ public class MessagesFragment extends BaseFragment
                 getResources().getDimensionPixelSize(R.dimen.ff_padding_large)
         ));
 
-        SwipeRefreshHelper.refresh(swipeRefreshLayout, new Runnable() {
-            @Override
-            public void run() {
-                onRefresh();
-            }
-        });
+        new MessagePresenter(MessageRepository.getInstance(), this).subscribe();
+    }
+
+    @Override
+    public void onDestroy() {
+        mPresenter.unsubscribe();
+        super.onDestroy();
     }
 
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(true);
-        requestSystemMessages();
+        mPresenter.loadMessages();
     }
 
     @Override
-    public void onItemClick(Message message, int position) {
+    public void onItemClick(int position) {
+        Message message = mAdapter.getItem(position);
         if (message.getContent() instanceof SystemMessageContent) {
             SystemMessageContent messageContent = (SystemMessageContent) message.getContent();
             final String link = messageContent.getLink();
@@ -95,25 +93,37 @@ public class MessagesFragment extends BaseFragment
         }
     }
 
-    private void requestSystemMessages() {
-        swipeRefreshLayout.setRefreshing(true);
-        Subscription subscription = MessageRepository.getInstance()
-                .systemMessages()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread(), true)
-                .subscribe(new NetworkSubscriber<List<Message>>(getActivity()) {
-                    @Override
-                    public void onNext(List<Message> messages) {
-                        mAdapter.setData(messages);
-                    }
+    // MVP View
 
-                    @Override
-                    public void onUnsubscribe() {
-                        swipeRefreshLayout.setRefreshing(false);
-                        boolean isEmpty = mAdapter.getItemCount() == 0;
-                        emptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-                    }
-                });
-        addSubscription(subscription);
+    @Override
+    public void showMessages(List<Message> messages) {
+        mAdapter.setData(messages);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showOrHideEmptyView() {
+        boolean isEmpty = mAdapter.getItemCount() == 0;
+        emptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showLoadingIndicator() {
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+    }
+
+    @Override
+    public void hideLoadingIndicator() {
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void setPresenter(MessageContract.Presenter presenter) {
+        mPresenter = presenter;
     }
 }
