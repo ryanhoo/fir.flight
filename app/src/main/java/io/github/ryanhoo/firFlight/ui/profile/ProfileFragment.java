@@ -79,6 +79,12 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     }
 
     @Override
+    public void onDestroyView() {
+        mPresenter.unsubscribe();
+        super.onDestroyView();
+    }
+
+    @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = presenter;
     }
