@@ -5,6 +5,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.account.UserSession;
@@ -88,13 +90,16 @@ public class FlightService extends IntentService {
         String content = getString(R.string.ff_notification_app_new_version_message,
                 app.getMasterRelease().getVersion(), app.getMasterRelease().getBuild());
         Log.d(TAG, String.format("%s \t %s", title, content));
-        Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+        Notification.Builder builder = new Notification.Builder(this)
+                .setSmallIcon(R.drawable.ic_nav_logo)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .build();
+                .setAutoCancel(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setColor(Color.parseColor("#42000000"));
+        }
+        Notification notification = builder.build();
         int notificationId = app.getId().hashCode();
         notificationManager.notify(notificationId, notification);
     }
