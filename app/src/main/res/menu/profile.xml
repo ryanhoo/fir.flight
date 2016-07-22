@@ -6,6 +6,7 @@
         android:title="@string/ff.profile.menu.settings"
         android:icon="@drawable/ic_nav_settings"
         app:showAsAction="always"
+        android:visible="false"
         />
     <item
         android:id="@+id/menu_item_about"
