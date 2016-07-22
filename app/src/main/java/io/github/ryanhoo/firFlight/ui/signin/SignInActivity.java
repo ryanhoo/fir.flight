@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -21,11 +22,13 @@ import io.github.ryanhoo.firFlight.account.UserSession;
 import io.github.ryanhoo.firFlight.analytics.FlightAnalytics;
 import io.github.ryanhoo.firFlight.analytics.FlightEvent;
 import io.github.ryanhoo.firFlight.data.model.User;
-import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
 import io.github.ryanhoo.firFlight.ui.base.BaseActivity;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightDialog;
+import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.helper.OnTextChangedListener;
 import io.github.ryanhoo.firFlight.ui.main.MainActivity;
+import retrofit2.adapter.rxjava.HttpException;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -37,6 +40,8 @@ import rx.schedulers.Schedulers;
  * Desc: SignInActivity
  */
 public class SignInActivity extends BaseActivity {
+
+    private static final String TAG = "SignInActivity";
 
     private static final String REG_EMAIL = ".+@.+\\..+";
 
@@ -128,7 +133,7 @@ public class SignInActivity extends BaseActivity {
         UserSession.getInstance().signIn(email, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new NetworkSubscriber<User>(this) {
+                .subscribe(new Subscriber<User>() {
                     @Override
                     public void onStart() {
                         menuItemSignIn.setEnabled(false);
@@ -136,8 +141,12 @@ public class SignInActivity extends BaseActivity {
                     }
 
                     @Override
+                    public void onNext(User user) {
+                        Log.d(TAG, "onNext: " + user);
+                    }
+
+                    @Override
                     public void onCompleted() {
-                        super.onCompleted();
                         // SignIn Event Success
                         menuItemSignIn.setEnabled(true);
                         mProgressDialog.dismiss();
@@ -151,7 +160,6 @@ public class SignInActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        super.onError(e);
                         // SignIn Event Fail
                         menuItemSignIn.setEnabled(true);
                         mProgressDialog.dismiss();
@@ -159,7 +167,16 @@ public class SignInActivity extends BaseActivity {
                                 .putCustomAttribute(FlightEvent.KEY_EMAIL, email)
                                 .putSuccess(false)
                         );
-                        // Toast.makeText(SignInActivity.this, R.string.ff_signin_failed, Toast.LENGTH_SHORT).show();
+                        String errorMessage = e.getMessage();
+                        if (e instanceof HttpException) {
+                            HttpException httpException = (HttpException) e;
+                            if (httpException.code() == 401) {
+                                errorMessage = getString(R.string.ff_network_error_wrong_email_or_password);
+                            }
+                        }
+                        new FlightToast.Builder(SignInActivity.this)
+                                .message(errorMessage)
+                                .show();
                     }
                 });
     }
