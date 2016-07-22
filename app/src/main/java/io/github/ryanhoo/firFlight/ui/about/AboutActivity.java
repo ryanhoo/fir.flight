@@ -30,7 +30,6 @@ public class AboutActivity extends BaseActivity {
     private static final String TAG = "AboutActivity";
 
     private final static String URL_FIR_IM = "http://fir.im";
-    private final static String URL_ACKNOWLEDGEMENTS = "http://github.com/square";
     private final static String URL_AUTHOR = "https://ryanhoo.github.io";
 
     @Bind(R.id.toolbar)

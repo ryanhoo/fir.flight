@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ff.padding.large"
             android:textSize="20sp"
-            android:textColor="@color/ff.textColor.title"
+            android:textColor="?attr/colorAccent"
             android:text="@string/ff.app.name"
             fontPath="@string/ff.font.roboto.medium"
             tools:ignore="MissingPrefix"/>
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ff.padding.normal"
             android:textSize="@dimen/ff.textSize.tips"
-            android:textColor="@color/ff.textColor.tips"
+            android:textColor="#7A4A4A4A"
             tools:text="1.2.0(16032501)"
             />
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ff.padding.small"
             android:textSize="@dimen/ff.textSize.tips"
-            android:textColor="@color/ff.textColor.tips"
+            android:textColor="#7A4A4A4A"
             android:visibility="gone"
             tools:visibility="visible"
             tools:text="WanDouJia"
@@ -70,16 +70,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/ff.margin.large"
             android:layout_marginRight="@dimen/ff.margin.large"
-            android:lineSpacingMultiplier="1.1"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="54dp"
             android:gravity="center"
             android:autoLink="web"
             android:textSize="@dimen/ff.textSize.text"
-            android:textColor="@color/ff.textColor.text"
+            android:textColor="@color/ff.textColor.tips"
             android:text="@string/ff.splash.slogan.about"
-            fontPath="@string/ff.font.roboto.thin"
-            tools:ignore="MissingPrefix"/>
+            />
 
         <View style="@style/FFDivider"/>
 
