@@ -24,6 +24,7 @@ import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.ui.about.AboutActivity;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightDialog;
+import io.github.ryanhoo.firFlight.ui.common.widget.CharacterDrawable;
 import io.github.ryanhoo.firFlight.ui.setting.SettingsActivity;
 
 /**
@@ -149,7 +150,7 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
         Glide.with(getActivity())
                 .load(user.getGravatar())
                 .asBitmap()
-                .placeholder(R.drawable.default_avatar)
+                .placeholder(CharacterDrawable.create(getActivity(), user.getName().charAt(0), true, R.dimen.ff_padding_large))
                 .centerCrop()
                 .into(new BitmapImageViewTarget(imageView) {
                     @Override

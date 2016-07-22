@@ -1,8 +1,10 @@
 package io.github.ryanhoo.firFlight.ui.common.widget;
 
+import android.content.Context;
 import android.graphics.*;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DimenRes;
 import android.support.annotation.Dimension;
 
 /**
@@ -211,5 +213,13 @@ public class CharacterDrawable extends Drawable {
             drawable.setCharacterPadding(mCharacterPadding);
             return drawable;
         }
+    }
+
+    public static CharacterDrawable create(Context context, char character, boolean roundAsCircle, @DimenRes int padding) {
+        return new CharacterDrawable.Builder()
+                .setCharacter(character)
+                .setBackgroundRoundAsCircle(roundAsCircle)
+                .setCharacterPadding(context.getResources().getDimensionPixelSize(padding))
+                .build();
     }
 }

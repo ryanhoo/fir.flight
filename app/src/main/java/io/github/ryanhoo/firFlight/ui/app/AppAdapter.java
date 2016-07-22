@@ -3,6 +3,7 @@ package io.github.ryanhoo.firFlight.ui.app;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
 import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
+import io.github.ryanhoo.firFlight.ui.common.widget.CharacterDrawable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +54,7 @@ public class AppAdapter extends BaseAdapter<App, AppAdapter.ViewHolder> {
 
         Glide.with(mContext)
                 .load(app.getIconUrl())
-                .placeholder(R.color.ff_apps_icon_placeholder)
+                .placeholder(CharacterDrawable.create(mContext, app.getName().charAt(0), false, R.dimen.ff_padding_large))
                 .into(holder.imageView);
         holder.textViewName.setText(app.getName());
         holder.textViewVersion.setText(String.format("%s(%s)",
