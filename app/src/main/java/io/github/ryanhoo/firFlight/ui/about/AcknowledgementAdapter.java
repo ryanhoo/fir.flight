@@ -42,7 +42,7 @@ public class AcknowledgementAdapter extends ListAdapter<Acknowledgement, Acknowl
         if (holder.itemView instanceof AcknowledgementView) {
             AcknowledgementView itemView = (AcknowledgementView) holder.itemView;
             if (getItemClickListener() instanceof AcknowledgementItemClickListener) {
-                itemView.setOnClickListener(new View.OnClickListener() {
+                itemView.textViewLicense.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         AcknowledgementItemClickListener listener =
