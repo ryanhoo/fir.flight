@@ -8,6 +8,20 @@
 
 This project also provides an associated sketch design. It's available on Dribbble.
 
+## To do list
+
+- **Features**
+ - [ ] Auto update
+ - [ ] Search
+ - [ ] Add app by short link
+ - [ ] Scan QRCode
+ - [ ] No sign in to use
+
+- **Code Improvements**
+ - [ ] Dagger 2(Dependency Injection)
+ - [ ] ButterKnife 8.0
+ - [ ] Unit/UI Tests
+
 ## Acknowledgements
 
 Thanks to these projects and libraries:
@@ -27,7 +41,6 @@ Thanks to these projects and libraries:
 **Design**
 
 - [Material icons](https://design.google.com/icons/)
-
 
 ## License
 
