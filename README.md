@@ -1,8 +1,14 @@
 # fir.flight
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ryanhoo/fir.flight#license) [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com) [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ryanhoo/fir.flight#license)
+[![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
 
-**fir.flight** is an android version [Test Flight](https://developer.apple.com/testflight/) by using the testing app distribution service provided by [fir.im](http://fir.im). With it's help, you will be able to manage your apps' installation and updates more easily. Also **fir.flight** frees you from notifying your testers again and again.
+**fir.flight** is an android version [Test Flight](https://developer.apple.com/testflight/) by using the testing app distribution service provided by [fir.im](http://fir.im). With its help, you will be able to manage your apps' installation and updates more easily. Also **fir.flight** frees you from notifying your testers again and again.
+
+**Apk is available on [Google Play Store](https://play.google.com/store/apps/details?id=io.github.ryanhoo.firFlight) and [fir.im](https://fir.im/firflight).**
+
+<a href="https://play.google.com/store/apps/details?id=io.github.ryanhoo.firFlight&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" width="160" /> </a>
 
 ## Design
 
