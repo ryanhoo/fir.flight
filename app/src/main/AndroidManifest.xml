@@ -102,7 +102,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="a044e88fbe26d5bb3256954e3721393d4ef7b89e"/>
+            android:value="7423d26a4287705a28a13f2d6e5a17b7e0045e2c" />
 
         <meta-data
             android:name="FLIGHT_FLAVOR_NAME"
