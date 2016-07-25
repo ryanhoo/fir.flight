@@ -20,13 +20,16 @@ This project also provides an associated sketch design. It's available on Dribbb
  - [ ] Auto update
  - [ ] Search
  - [ ] Add app by short link
- - [ ] Scan QRCode
- - [ ] No sign in to use
+ - [ ] Add app by qrcode
+ - [ ] Try out without sign in
+ - [ ] Permission on Android 6.0(M)
+ - [ ] Accessibility: auto install
 
 - **Code Improvements**
  - [ ] Dagger 2(Dependency Injection)
  - [ ] ButterKnife 8.0
  - [ ] Unit/UI Tests
+ - [ ] Refactor(Model)
 
 ## Acknowledgements
 
