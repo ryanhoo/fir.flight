@@ -25,7 +25,7 @@ public interface RESTFulApiService {
     @GET("/user/api_token")
     Observable<Token> apiToken();
 
-    @PATCH("/user/api_token")
+    @POST("/user/api_token")
     Observable<Token> refreshApiToken();
 
     // User
