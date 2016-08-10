@@ -10,17 +10,23 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-// Custom signing configs
+// Singing configs
 def STORE_FILE, KEY_ALIAS, STORE_PASSWORD, KEY_PASSWORD
-File signingPropertiesFile = file('local/signing.properties')
-if (signingPropertiesFile.exists()) {
-    final Properties signingProperties = new Properties()
-    signingProperties.load(new FileInputStream(signingPropertiesFile))
+// Api key configs
+def BUG_HD_KEY, FABRIC_API_KEY
+// Apply customization or use default
+File localConfig = file('local/config.properties')
+if (localConfig.exists()) {
+    final Properties configProperties = new Properties()
+    configProperties.load(new FileInputStream(localConfig))
 
     STORE_FILE = 'local/keystore.jks'
-    KEY_ALIAS = signingProperties['KEY_ALIAS']
-    STORE_PASSWORD = signingProperties['KEY_STORE_PASSWORD']
-    KEY_PASSWORD = signingProperties['KEY_PASSWORD']
+    KEY_ALIAS = configProperties['KEY_ALIAS']
+    STORE_PASSWORD = configProperties['KEY_STORE_PASSWORD']
+    KEY_PASSWORD = configProperties['KEY_PASSWORD']
+
+    BUG_HD_KEY = configProperties['BUG_HD_KEY']
+    FABRIC_API_KEY = configProperties['FABRIC_API_KEY']
 } else {
     STORE_FILE = 'debug.keystore'
     KEY_ALIAS = 'androiddebugkey'
@@ -97,6 +103,9 @@ android {
         manifestPlaceholders.put('flightFlavorName', flavor.name)
         // Unnecessary, there already has a FLAVOR in BuildConfig
         // flavor.buildConfigField('String', 'FLAVOR_NAME', "\"${flavor.name}\"")
+
+        manifestPlaceholders.put('bugHDKey', "$BUG_HD_KEY")
+        manifestPlaceholders.put('fabricApiKey', "$FABRIC_API_KEY")
     }
 }
 

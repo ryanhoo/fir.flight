@@ -98,11 +98,11 @@
 
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
-            android:value="80257c1022a7c853ec8f1e2537d2b571"/>
+            android:value="${bugHDKey}"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="7423d26a4287705a28a13f2d6e5a17b7e0045e2c" />
+            android:value="${fabricApiKey}" />
 
         <meta-data
             android:name="FLIGHT_FLAVOR_NAME"

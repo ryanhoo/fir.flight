@@ -1,6 +1,5 @@
 package io.github.ryanhoo.firFlight.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
@@ -31,8 +30,6 @@ import io.github.ryanhoo.firFlight.ui.signin.SignInActivity;
  * Desc: SplashScreenActivity
  */
 public class SplashScreenActivity extends BaseActivity {
-
-    private static final int REQUEST_SIGN_IN = 1;
 
     final long ANIMATION_DURATION = 1000;
     final long SIGNED_IN_DELAY = 2500;
@@ -89,14 +86,6 @@ public class SplashScreenActivity extends BaseActivity {
         window.setFormat(PixelFormat.RGBA_8888);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_SIGN_IN) {
-            openMainActivity();
-        }
-    }
-
     private void openMainActivity() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
@@ -104,7 +93,7 @@ public class SplashScreenActivity extends BaseActivity {
     }
 
     private void openSignInActivity() {
-        startActivityForResult(new Intent(SplashScreenActivity.this, SignInActivity.class), REQUEST_SIGN_IN);
+        startActivity(new Intent(SplashScreenActivity.this, SignInActivity.class));
         SplashScreenActivity.this.overridePendingTransition(R.anim.slide_in_from_bottom, android.R.anim.fade_out);
         finish();
     }
