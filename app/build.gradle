@@ -10,8 +10,23 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-final Properties signingProperties = new Properties()
-signingProperties.load(new FileInputStream(file('local/signing.properties')))
+// Custom signing configs
+def STORE_FILE, KEY_ALIAS, STORE_PASSWORD, KEY_PASSWORD
+File signingPropertiesFile = file('local/signing.properties')
+if (signingPropertiesFile.exists()) {
+    final Properties signingProperties = new Properties()
+    signingProperties.load(new FileInputStream(signingPropertiesFile))
+
+    STORE_FILE = 'local/keystore.jks'
+    KEY_ALIAS = signingProperties['KEY_ALIAS']
+    STORE_PASSWORD = signingProperties['KEY_STORE_PASSWORD']
+    KEY_PASSWORD = signingProperties['KEY_PASSWORD']
+} else {
+    STORE_FILE = 'debug.keystore'
+    KEY_ALIAS = 'androiddebugkey'
+    STORE_PASSWORD = 'android'
+    KEY_PASSWORD = 'android'
+}
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -31,10 +46,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("local/keystore.jks")
-            keyAlias signingProperties['KEY_ALIAS']
-            storePassword signingProperties['KEY_STORE_PASSWORD']
-            keyPassword signingProperties['KEY_PASSWORD']
+            storeFile file("$STORE_FILE")
+            keyAlias "$KEY_ALIAS"
+            storePassword "$STORE_PASSWORD"
+            keyPassword "$KEY_PASSWORD"
         }
     }
 
@@ -84,6 +99,7 @@ android {
         // flavor.buildConfigField('String', 'FLAVOR_NAME', "\"${flavor.name}\"")
     }
 }
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
