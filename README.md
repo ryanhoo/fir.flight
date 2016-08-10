@@ -1,5 +1,6 @@
 # fir.flight
 
+[![Travis](https://travis-ci.org/ryanhoo/fir.flight.svg)](https://travis-ci.org/ryanhoo/fir.flight)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ryanhoo/fir.flight#license)
 [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
