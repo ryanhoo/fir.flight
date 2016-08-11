@@ -25,6 +25,10 @@ public class FlightAnalytics {
 
     private static final String TAG = "FlightAnalytics";
 
+    public static boolean isEnabled() {
+        return BuildConfig.FABRIC_ENABLED;
+    }
+
     /**
      * <pre>
      * Support
@@ -38,6 +42,8 @@ public class FlightAnalytics {
      * </pre>
      */
     public static void init(Application application) {
+        if (!isEnabled()) return;
+
         Context appContext = application.getApplicationContext();
         // Fabric: Crashlytics, Answers
         final Fabric fabric = new Fabric.Builder(appContext)
@@ -63,10 +69,14 @@ public class FlightAnalytics {
     }
 
     private static void configFlavor() {
+        if (!isEnabled()) return;
+
         Crashlytics.setString(KEY_FLAVOR, BuildConfig.FLAVOR);
     }
 
     public static void configUserSession(UserSession userSession) {
+        if (!isEnabled()) return;
+
         // TODO tokens are sensitive information, better get permission from users
         // Default shouldn't post tokens on server, but users can choose to open it in Settings
         if (userSession.isSignedIn()) {
@@ -90,6 +100,8 @@ public class FlightAnalytics {
     }
 
     public static void onEvent(FlightEvent event) {
+        if (!isEnabled()) return;
+
         Answers.getInstance().logCustom(event);
     }
 }
