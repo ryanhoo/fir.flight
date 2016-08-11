@@ -94,8 +94,8 @@ android {
             applicationId 'io.github.ryanhoo.firFlight.dev'
         }
 
-        fir
-        GooglePlay
+        // fir
+        // GooglePlay
         // WanDouJia
         // YingYongBao
     }
