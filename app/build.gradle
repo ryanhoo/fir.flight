@@ -13,11 +13,13 @@ apply plugin: 'io.fabric'
 // Singing configs
 def STORE_FILE, KEY_ALIAS, STORE_PASSWORD, KEY_PASSWORD
 // Api key configs
-def BUG_HD_KEY, FABRIC_API_KEY
+def FABRIC_API_KEY, FABRIC_API_SECRET
 // Apply customization or use default
 File localConfig = file('local/config.properties')
+Properties fabricProperties = new Properties()
+fabricProperties.load(new FileInputStream(file('fabric.properties')))
 if (localConfig.exists()) {
-    final Properties configProperties = new Properties()
+    Properties configProperties = new Properties()
     configProperties.load(new FileInputStream(localConfig))
 
     STORE_FILE = 'local/keystore.jks'
@@ -25,13 +27,19 @@ if (localConfig.exists()) {
     STORE_PASSWORD = configProperties['KEY_STORE_PASSWORD']
     KEY_PASSWORD = configProperties['KEY_PASSWORD']
 
-    BUG_HD_KEY = configProperties['BUG_HD_KEY']
     FABRIC_API_KEY = configProperties['FABRIC_API_KEY']
+    FABRIC_API_SECRET = configProperties['FABRIC_SECRET_KEY']
+
+    // Override fabric properties
+    fabricProperties.setProperty('apiKey', "$FABRIC_API_KEY")
+    fabricProperties.setProperty('apiSecret', "$FABRIC_API_SECRET")
 } else {
     STORE_FILE = 'debug.keystore'
     KEY_ALIAS = 'androiddebugkey'
     STORE_PASSWORD = 'android'
     KEY_PASSWORD = 'android'
+
+    FABRIC_API_KEY = fabricProperties['apiKey']
 }
 
 repositories {
@@ -104,8 +112,8 @@ android {
         // Unnecessary, there already has a FLAVOR in BuildConfig
         // flavor.buildConfigField('String', 'FLAVOR_NAME', "\"${flavor.name}\"")
 
-        manifestPlaceholders.put('bugHDKey', "$BUG_HD_KEY")
         manifestPlaceholders.put('fabricApiKey', "$FABRIC_API_KEY")
+        manifestPlaceholders.put('fabricApiSecret', "$FABRIC_API_SECRET")
     }
 }
 
@@ -135,8 +143,6 @@ dependencies {
     compile libs.retrofit2RxJavaAdapter
 
     compile libs.sqlbrite
-
-    compile libs.bughd
 
     compile(libs.crashlytics) { transitive = true; }
     compile(libs.answers) { transitive = true; }

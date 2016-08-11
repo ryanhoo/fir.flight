@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
-import im.fir.sdk.FIR;
 import io.fabric.sdk.android.Fabric;
 import io.github.ryanhoo.firFlight.BuildConfig;
 import io.github.ryanhoo.firFlight.account.UserSession;
@@ -47,9 +46,6 @@ public class FlightAnalytics {
                 .build();
         Fabric.with(fabric);
 
-        // BugHD
-        FIR.init(appContext);
-
         configFlavor();
         configUserSession(UserSession.getInstance());
 
@@ -67,7 +63,6 @@ public class FlightAnalytics {
     }
 
     private static void configFlavor() {
-        FIR.addCustomizeValue(KEY_FLAVOR, BuildConfig.FLAVOR);
         Crashlytics.setString(KEY_FLAVOR, BuildConfig.FLAVOR);
     }
 
@@ -88,9 +83,6 @@ public class FlightAnalytics {
                 Crashlytics.setString(KEY_ID, user.getId());
                 Crashlytics.setString(KEY_NAME, user.getName());
                 Crashlytics.setString(KEY_EMAIL, user.getEmail());
-                FIR.addCustomizeValue(KEY_ID, user.getId());
-                FIR.addCustomizeValue(KEY_NAME, user.getName());
-                FIR.addCustomizeValue(KEY_EMAIL, user.getEmail());
             }
         } else {
             Log.e(TAG, "Config UserSession failed, session is null");

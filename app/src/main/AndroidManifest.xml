@@ -97,12 +97,11 @@
             android:value="GlideModule"/>
 
         <meta-data
-            android:name="BUG_HD_SDK_GENERAL_KEY"
-            android:value="${bugHDKey}"/>
-
-        <meta-data
             android:name="io.fabric.ApiKey"
             android:value="${fabricApiKey}" />
+        <meta-data
+            android:name="io.fabric.ApiSecret"
+            android:value="${fabricApiSecret}" />
 
         <meta-data
             android:name="FLIGHT_FLAVOR_NAME"
