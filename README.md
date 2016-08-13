@@ -13,7 +13,12 @@
 
 ## Design
 
-This project also provides an associated sketch design. It's available on Dribbble.
+This project also provides an associated sketch design. It's available on Dropbox.
+
+- [fir.flight.sketch](https://www.dropbox.com/s/8340stkzcxrvdss/fir.flight.sketch?dl=0)
+- The missing [Roboto Fonts](https://www.dropbox.com/sh/5xl7m7scwoalnwa/AAAkNXH-Jb062jj9ZfaTVIsTa?dl=0)
+
+<img src="materials/Artboard-Overview-v2.0.png" alt="Sketch Artboard Overview" width="300" />
 
 ## To do list
 
