@@ -1,11 +1,11 @@
 # fir.flight
 
-[![Travis](https://travis-ci.org/ryanhoo/fir.flight.svg)](https://travis-ci.org/ryanhoo/fir.flight)
+<img src="materials/firflight-demo.gif" width="220" align="right" style="margin:24px;">
+
+[![Travis](https://travis-ci.org/ryanhoo/fir.flight.svg?branch=develop)](https://travis-ci.org/ryanhoo/fir.flight)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ryanhoo/fir.flight#license)
 [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
-
-<img src="materials/firflight-demo.gif" width="300" align="right" style="margin:16px;">
 
 **fir.flight** is an android version [Test Flight](https://developer.apple.com/testflight/) by using the testing app distribution service provided by [fir.im](http://fir.im). With its help, you will be able to manage your apps' installation and updates more easily. Also **fir.flight** frees you from notifying your testers again and again.
 
