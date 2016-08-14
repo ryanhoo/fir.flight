@@ -1,6 +1,6 @@
 # fir.flight
 
-<img src="materials/firflight-demo.gif" width="220" align="right" style="margin:24px;background-color:transparent !important;">
+<img src="materials/firflight-demo.gif" align="right" width="220" hspace="60" vspace="20" alt="fir.flight demo gif">
 
 [![Travis](https://travis-ci.org/ryanhoo/fir.flight.svg?branch=develop)](https://travis-ci.org/ryanhoo/fir.flight)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ryanhoo/fir.flight#license)
