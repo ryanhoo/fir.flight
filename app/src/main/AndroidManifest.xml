@@ -96,13 +96,9 @@
             android:name="io.github.ryanhoo.firFlight.GlideConfiguration"
             android:value="GlideModule"/>
 
-        <meta-data
-            android:name="BUG_HD_SDK_GENERAL_KEY"
-            android:value="80257c1022a7c853ec8f1e2537d2b571"/>
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="7423d26a4287705a28a13f2d6e5a17b7e0045e2c" />
+        <!--<meta-data-->
+            <!--android:name="io.fabric.ApiKey"-->
+            <!--android:value="${fabricApiKey}" />-->
 
         <meta-data
             android:name="FLIGHT_FLAVOR_NAME"

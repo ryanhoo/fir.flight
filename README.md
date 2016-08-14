@@ -1,8 +1,11 @@
 # fir.flight
 
+[![Travis](https://travis-ci.org/ryanhoo/fir.flight.svg)](https://travis-ci.org/ryanhoo/fir.flight)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ryanhoo/fir.flight#license)
 [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
+
+<img src="materials/firflight-demo.gif" width="300" align="right" style="margin:16px;">
 
 **fir.flight** is an android version [Test Flight](https://developer.apple.com/testflight/) by using the testing app distribution service provided by [fir.im](http://fir.im). With its help, you will be able to manage your apps' installation and updates more easily. Also **fir.flight** frees you from notifying your testers again and again.
 
@@ -12,7 +15,12 @@
 
 ## Design
 
-This project also provides an associated sketch design. It's available on Dribbble.
+This project also provides an associated sketch design. It's available on Dropbox.
+
+- [fir.flight.sketch](https://www.dropbox.com/s/8340stkzcxrvdss/fir.flight.sketch?dl=0)
+- The missing [Roboto Fonts](https://www.dropbox.com/sh/5xl7m7scwoalnwa/AAAkNXH-Jb062jj9ZfaTVIsTa?dl=0)
+
+<img src="materials/Artboard-Overview-v2.0.png" alt="Sketch Artboard Overview" width="300" />
 
 ## To do list
 

@@ -10,8 +10,30 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
-final Properties signingProperties = new Properties()
-signingProperties.load(new FileInputStream(file('local/signing.properties')))
+// Singing configs
+def STORE_FILE, KEY_ALIAS, STORE_PASSWORD, KEY_PASSWORD
+// Apply customization or use default
+File localConfig = file('local/config.properties')
+if (localConfig.exists()) {
+    Properties configProperties = new Properties()
+    configProperties.load(new FileInputStream(localConfig))
+
+    STORE_FILE = 'local/keystore.jks'
+    KEY_ALIAS = configProperties['KEY_ALIAS']
+    STORE_PASSWORD = configProperties['KEY_STORE_PASSWORD']
+    KEY_PASSWORD = configProperties['KEY_PASSWORD']
+} else {
+    STORE_FILE = 'debug.keystore'
+    KEY_ALIAS = 'androiddebugkey'
+    STORE_PASSWORD = 'android'
+    KEY_PASSWORD = 'android'
+}
+
+// Only enable fabric kits when fabric.properties if configured properly
+boolean FABRIC_ENABLED = false
+if (file('fabric.properties').exists()) {
+    FABRIC_ENABLED = true
+}
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -31,15 +53,16 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("local/keystore.jks")
-            keyAlias signingProperties['KEY_ALIAS']
-            storePassword signingProperties['KEY_STORE_PASSWORD']
-            keyPassword signingProperties['KEY_PASSWORD']
+            storeFile file("$STORE_FILE")
+            keyAlias "$KEY_ALIAS"
+            storePassword "$STORE_PASSWORD"
+            keyPassword "$KEY_PASSWORD"
         }
     }
 
     lintOptions {
         disable 'InvalidPackage'
+        abortOnError false
     }
 
     packagingOptions {
@@ -72,8 +95,8 @@ android {
             applicationId 'io.github.ryanhoo.firFlight.dev'
         }
 
-        fir
-        GooglePlay
+        // fir
+        // GooglePlay
         // WanDouJia
         // YingYongBao
     }
@@ -82,8 +105,13 @@ android {
         manifestPlaceholders.put('flightFlavorName', flavor.name)
         // Unnecessary, there already has a FLAVOR in BuildConfig
         // flavor.buildConfigField('String', 'FLAVOR_NAME', "\"${flavor.name}\"")
+
+        // Fabric
+        ext.enableCrashlytics = FABRIC_ENABLED
+        flavor.buildConfigField("boolean", "FABRIC_ENABLED", "$FABRIC_ENABLED")
     }
 }
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -111,8 +139,6 @@ dependencies {
 
     compile libs.sqlbrite
 
-    compile libs.bughd
-
     compile(libs.crashlytics) { transitive = true; }
     compile(libs.answers) { transitive = true; }
 
@@ -122,4 +148,3 @@ dependencies {
 
     compile libs.calligraphy
 }
-

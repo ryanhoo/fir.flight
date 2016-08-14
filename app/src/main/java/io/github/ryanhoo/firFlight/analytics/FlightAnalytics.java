@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
-import im.fir.sdk.FIR;
 import io.fabric.sdk.android.Fabric;
 import io.github.ryanhoo.firFlight.BuildConfig;
 import io.github.ryanhoo.firFlight.account.UserSession;
@@ -26,6 +25,10 @@ public class FlightAnalytics {
 
     private static final String TAG = "FlightAnalytics";
 
+    public static boolean isEnabled() {
+        return BuildConfig.FABRIC_ENABLED;
+    }
+
     /**
      * <pre>
      * Support
@@ -39,6 +42,8 @@ public class FlightAnalytics {
      * </pre>
      */
     public static void init(Application application) {
+        if (!isEnabled()) return;
+
         Context appContext = application.getApplicationContext();
         // Fabric: Crashlytics, Answers
         final Fabric fabric = new Fabric.Builder(appContext)
@@ -46,9 +51,6 @@ public class FlightAnalytics {
                 .debuggable(BuildConfig.DEBUG)
                 .build();
         Fabric.with(fabric);
-
-        // BugHD
-        FIR.init(appContext);
 
         configFlavor();
         configUserSession(UserSession.getInstance());
@@ -67,11 +69,14 @@ public class FlightAnalytics {
     }
 
     private static void configFlavor() {
-        FIR.addCustomizeValue(KEY_FLAVOR, BuildConfig.FLAVOR);
+        if (!isEnabled()) return;
+
         Crashlytics.setString(KEY_FLAVOR, BuildConfig.FLAVOR);
     }
 
     public static void configUserSession(UserSession userSession) {
+        if (!isEnabled()) return;
+
         // TODO tokens are sensitive information, better get permission from users
         // Default shouldn't post tokens on server, but users can choose to open it in Settings
         if (userSession.isSignedIn()) {
@@ -88,9 +93,6 @@ public class FlightAnalytics {
                 Crashlytics.setString(KEY_ID, user.getId());
                 Crashlytics.setString(KEY_NAME, user.getName());
                 Crashlytics.setString(KEY_EMAIL, user.getEmail());
-                FIR.addCustomizeValue(KEY_ID, user.getId());
-                FIR.addCustomizeValue(KEY_NAME, user.getName());
-                FIR.addCustomizeValue(KEY_EMAIL, user.getEmail());
             }
         } else {
             Log.e(TAG, "Config UserSession failed, session is null");
@@ -98,6 +100,8 @@ public class FlightAnalytics {
     }
 
     public static void onEvent(FlightEvent event) {
+        if (!isEnabled()) return;
+
         Answers.getInstance().logCustom(event);
     }
 }
