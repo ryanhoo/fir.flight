@@ -2,24 +2,14 @@ package io.github.ryanhoo.firFlight.ui.app;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import com.bumptech.glide.Glide;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
-import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
-import io.github.ryanhoo.firFlight.ui.base.BaseAdapter;
-import io.github.ryanhoo.firFlight.ui.common.widget.CharacterDrawable;
+import io.github.ryanhoo.firFlight.ui.common.adapter.ListAdapter;
+import io.github.ryanhoo.firFlight.ui.common.adapter.OnItemClickListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,125 +18,97 @@ import java.util.Map;
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com
- * Date: 3/17/16
- * Time: 2:11 AM
- * Desc: AppAdapter
+ * Date: 8/21/16
+ * Time: 10:48 PM
+ * Desc: AppAdapterV2
  */
-public class AppAdapter extends BaseAdapter<App, AppAdapter.ViewHolder> {
+/* package */ class AppAdapter extends ListAdapter<App, AppItemView> {
 
-    private Map<String, AsyncDownloadTask> mTasks;
+    private Map<String, AppDownloadTask> mTasks;
+    private AppItemClickListener mItemClickListener;
 
-    public AppAdapter(Context context, List<App> apps) {
-        super(context, apps);
+    /* package */ AppAdapter(Context context, List<App> data) {
+        super(context, data);
         mTasks = new HashMap<>();
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_app, parent, false));
+    protected AppItemView createView(Context context) {
+        return new AppItemView(context);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final RecyclerView.ViewHolder holder = super.onCreateViewHolder(parent, viewType);
+        if (holder.itemView instanceof AppItemView && mItemClickListener != null) {
+            final AppItemView itemView = (AppItemView) holder.itemView;
+            itemView.buttonAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mItemClickListener.onButtonClick(itemView, holder.getAdapterPosition());
+                }
+            });
+        }
+        return holder;
     }
 
     @Override
     @SuppressLint("DefaultLocale")
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        App app = getItem(position);
-        holder.appInfo = new AppInfo(mContext, app);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        if (holder.itemView instanceof AppItemView) {
+            App app = getItem(position);
+            AppItemView itemView = (AppItemView) holder.itemView;
 
-        Glide.with(mContext)
-                .load(app.getIconUrl())
-                .placeholder(CharacterDrawable.create(mContext, app.getName().charAt(0), false, R.dimen.ff_padding_large))
-                .into(holder.imageView);
-        holder.textViewName.setText(app.getName());
-        holder.textViewVersion.setText(String.format("%s(%s)",
-                app.getMasterRelease().getVersion(),
-                app.getMasterRelease().getBuild()
-        ));
-        holder.textViewBundleId.setText(app.getBundleId());
-
-        // Hide old version when app is not installed or already up-to-date
-        holder.textViewLocalVersion.setVisibility(
-                (holder.appInfo.isUpToDate || !holder.appInfo.isInstalled) ? View.GONE : View.VISIBLE);
-        if (holder.appInfo.isInstalled && !holder.appInfo.isUpToDate) {
-            holder.textViewLocalVersion.setText(String.format("%s(%s)",
-                    holder.appInfo.localVersionName, holder.appInfo.localVersionCode));
-        }
-
-        if (mTasks.containsKey(app.getId())) {
-            AsyncDownloadTask task = mTasks.get(app.getId());
-            holder.buttonAction.setText(String.format("%d%%", (int) (task.getProgress() * 100)));
-            holder.buttonAction.setEnabled(false);
-        } else {
-            holder.buttonAction.setEnabled(true);
-            holder.buttonAction.setText(!holder.appInfo.isInstalled
-                    ? R.string.ff_apps_install
-                    : holder.appInfo.isUpToDate ? R.string.ff_apps_open : R.string.ff_apps_update
-            );
-        }
-    }
-
-    @SuppressLint("DefaultLocale")
-    public void onButtonProgress(@NonNull ViewHolder holder) {
-        App app = holder.appInfo.app;
-        if (mTasks.containsKey(app.getId())) {
-            AsyncDownloadTask task = mTasks.get(app.getId());
-            holder.buttonAction.setText(String.format("%d%%", (int) (task.getProgress() * 100)));
-        }
-    }
-
-    public void addTask(String appId, AsyncDownloadTask task) {
-        mTasks.put(appId, task);
-    }
-
-    public void removeTask(String appId) {
-        mTasks.remove(appId);
-    }
-
-    public Map<String, AsyncDownloadTask> getTasks() {
-        return mTasks;
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        @Bind(R.id.image_view_icon)
-        ImageView imageView;
-        @Bind(R.id.text_view_name)
-        TextView textViewName;
-        @Bind(R.id.text_view_local_version)
-        TextView textViewLocalVersion;
-        @Bind(R.id.text_view_version)
-        TextView textViewVersion;
-        @Bind(R.id.text_view_bundle_id)
-        TextView textViewBundleId;
-        @Bind(R.id.button_action)
-        Button buttonAction;
-
-        AppInfo appInfo;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-            textViewLocalVersion.setPaintFlags(textViewLocalVersion.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            itemView.setOnClickListener(this);
-            buttonAction.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            if (view instanceof Button) {
-                if (getOnItemClickListener() instanceof AppItemClickListener) {
-                    ((AppItemClickListener) getOnItemClickListener()).onButtonClick(this, appInfo, position);
-                }
+            if (mTasks.containsKey(app.getId())) {
+                AppDownloadTask.DownloadInfo downloadInfo = mTasks.get(app.getId()).getDownloadInfo();
+                // Has downloading task, show progress
+                itemView.buttonAction.setText(String.format("%d%%", (int) (downloadInfo.progress * 100)));
+                itemView.buttonAction.setEnabled(false);
             } else {
-                onItemClick(getItem(position), position);
+                itemView.buttonAction.setEnabled(true);
+                itemView.buttonAction.setText(!itemView.appInfo.isInstalled
+                        ? R.string.ff_apps_install
+                        : itemView.appInfo.isUpToDate ? R.string.ff_apps_open : R.string.ff_apps_update
+                );
             }
         }
     }
 
-    interface AppItemClickListener extends OnItemClickListener<App> {
-        @Override
-        void onItemClick(App app, int position);
+    @Override
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        super.setOnItemClickListener(listener);
+        if (listener instanceof AppItemClickListener) {
+            mItemClickListener = (AppItemClickListener) listener;
+        }
+    }
 
-        void onButtonClick(ViewHolder viewHolder, AppInfo appInfo, int position);
+    @SuppressLint("DefaultLocale")
+    /* package */ void onButtonProgress(@NonNull AppItemView appItemView) {
+        App app = appItemView.appInfo.app;
+        if (mTasks.containsKey(app.getId())) {
+            AppDownloadTask.DownloadInfo downloadInfo = mTasks.get(app.getId()).getDownloadInfo();
+            appItemView.buttonAction.setText(String.format("%d%%", (int) (downloadInfo.progress * 100)));
+        }
+    }
+
+    /* package */ void addTask(String appId, AppDownloadTask task) {
+        mTasks.put(appId, task);
+    }
+
+    /* package */ void removeTask(String appId) {
+        mTasks.remove(appId);
+    }
+
+    /* package */ Map<String, AppDownloadTask> getTasks() {
+        return mTasks;
+    }
+
+    interface AppItemClickListener extends OnItemClickListener {
+
+        @Override
+        void onItemClick(int position);
+
+        void onButtonClick(AppItemView itemView, int position);
     }
 }

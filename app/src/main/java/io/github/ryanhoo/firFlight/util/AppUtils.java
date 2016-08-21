@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import io.github.ryanhoo.firFlight.data.model.App;
 import io.github.ryanhoo.firFlight.data.model.Release;
+import io.github.ryanhoo.firFlight.network.ServerConfig;
 
 /**
  * Created with Android Studio.
@@ -65,5 +66,9 @@ public class AppUtils {
             Log.e(TAG, "getFlavorName failed: ", e);
         }
         return flavorName;
+    }
+
+    public static String getAppUrlByShort(String shortUrl) {
+        return String.format("%s/%s", ServerConfig.FIR_HOST, shortUrl);
     }
 }
