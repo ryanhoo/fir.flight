@@ -1,7 +1,6 @@
 package io.github.ryanhoo.firFlight.ui.profile;
 
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +23,7 @@ import io.github.ryanhoo.firFlight.data.model.User;
 import io.github.ryanhoo.firFlight.ui.about.AboutActivity;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.alert.FlightDialog;
+import io.github.ryanhoo.firFlight.ui.common.alert.FlightToast;
 import io.github.ryanhoo.firFlight.ui.common.widget.CharacterDrawable;
 import io.github.ryanhoo.firFlight.ui.setting.SettingsActivity;
 
@@ -88,6 +88,20 @@ public class ProfileFragment extends BaseFragment implements ProfileContract.Vie
     @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    // OnClick Events
+
+    @OnClick(R.id.text_view_api_token)
+    public void onApiTokenClick(TextView textView) {
+        final CharSequence token = textView.getText();
+
+        ClipboardManager manager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        manager.setPrimaryClip(ClipData.newPlainText("Api Token", token));
+
+        new FlightToast.Builder(getActivity())
+                .message(getString(R.string.ff_profile_copy_token, token))
+                .show();
     }
 
     // Menu
