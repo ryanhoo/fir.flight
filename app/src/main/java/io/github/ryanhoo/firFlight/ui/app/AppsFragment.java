@@ -1,14 +1,11 @@
 package io.github.ryanhoo.firFlight.ui.app;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,28 +15,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.ryanhoo.firFlight.R;
 import io.github.ryanhoo.firFlight.data.model.App;
-import io.github.ryanhoo.firFlight.data.model.AppInstallInfo;
 import io.github.ryanhoo.firFlight.data.source.AppRepository;
-import io.github.ryanhoo.firFlight.network.NetworkSubscriber;
-import io.github.ryanhoo.firFlight.network.download.AsyncDownloadTask;
-import io.github.ryanhoo.firFlight.network.download.DownloadListener;
 import io.github.ryanhoo.firFlight.ui.base.BaseFragment;
 import io.github.ryanhoo.firFlight.ui.common.DefaultItemDecoration;
 import io.github.ryanhoo.firFlight.ui.helper.SwipeRefreshHelper;
+import io.github.ryanhoo.firFlight.util.AppUtils;
 import io.github.ryanhoo.firFlight.util.IntentUtils;
 import io.github.ryanhoo.firFlight.webview.WebViewHelper;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with Android Studio.
@@ -49,7 +37,7 @@ import java.util.Map;
  * Desc: AppListFragment
  */
 public class AppsFragment extends BaseFragment
-        implements SwipeRefreshLayout.OnRefreshListener, AppAdapter.AppItemClickListener {
+        implements AppContract.View, SwipeRefreshLayout.OnRefreshListener, AppAdapter.AppItemClickListener {
 
     private static final String TAG = "AppListFragment";
 
@@ -62,6 +50,8 @@ public class AppsFragment extends BaseFragment
     View emptyView;
 
     AppAdapter mAdapter;
+
+    AppContract.Presenter mPresenter;
 
     @Nullable
     @Override
@@ -87,12 +77,7 @@ public class AppsFragment extends BaseFragment
                 getContext().getResources().getDimensionPixelSize(R.dimen.ff_padding_large)
         ));
 
-        SwipeRefreshHelper.refresh(swipeRefreshLayout, new Runnable() {
-            @Override
-            public void run() {
-                onRefresh();
-            }
-        });
+        new AppPresenter(AppRepository.getInstance(), this).subscribe();
 
         // Listen for app install/update/remove broadcasts
         registerBroadcast();
@@ -102,119 +87,82 @@ public class AppsFragment extends BaseFragment
     public void onDestroy() {
         // Done with listening app install/update/remove broadcasts
         unregisterBroadcast();
-        // Cancel install/update downloading tasks
-        Map<String, AsyncDownloadTask> taskMap = mAdapter.getTasks();
-        if (taskMap != null && !taskMap.isEmpty()) {
-            for (Map.Entry<String, AsyncDownloadTask> entry : taskMap.entrySet()) {
-                entry.getValue().cancel(true);
-            }
-        }
         super.onDestroy();
     }
 
+    // MVP View
+
+    @Override
+    public void onAppsLoaded(List<App> apps) {
+        mAdapter.setData(apps);
+    }
+
+    @Override
+    public void onLoadAppStarted() {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void onLoadAppCompleted() {
+        swipeRefreshLayout.setRefreshing(false);
+        boolean isEmpty = mAdapter.getItemCount() == 0;
+        emptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void addTask(String appId, AppDownloadTask task) {
+        mAdapter.addTask(appId, task);
+    }
+
+    @Override
+    public void removeTask(String appId) {
+        mAdapter.removeTask(appId);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateAppInfo(String appId, int position) {
+        updateItemView(appId, position);
+    }
+
+    @Override
+    public void installApk(Uri apkUri) {
+        IntentUtils.install(getActivity(), apkUri);
+    }
+
+    @Override
+    public void setPresenter(AppContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
+    // SwipeRefreshListener
+
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(true);
-        requestApps();
+        mPresenter.loadApps();
+    }
+
+    // AppItemClickListener
+
+    @Override
+    public void onItemClick(int position) {
+        App app = mAdapter.getItem(position);
+        WebViewHelper.openUrl(getActivity(), app.getName(), AppUtils.getAppUrlByShort(app.getShortUrl()));
     }
 
     @Override
-    public void onItemClick(final App app, int position) {
-        WebViewHelper.openUrl(getActivity(), app.getName(), app.getAppUrl());
-    }
-
-    @Override
-    public void onButtonClick(AppAdapter.ViewHolder viewHolder, AppInfo appInfo, int position) {
+    public void onButtonClick(final AppItemView itemView, final int position) {
+        final AppInfo appInfo = itemView.appInfo;
         if (appInfo != null) {
             if (appInfo.isUpToDate) {
                 startActivity(appInfo.launchIntent);
             } else {
-                requestInstallUrl(viewHolder, appInfo.app, position);
+                mPresenter.requestInstallUrl(itemView, position);
             }
         }
     }
 
-    private void requestApps() {
-        Subscription subscription = AppRepository.getInstance()
-                .apps()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread(), true)
-                .subscribe(new NetworkSubscriber<List<App>>(getActivity()) {
-                    @Override
-                    public void onNext(List<App> apps) {
-                        mAdapter.setData(apps);
-                    }
-
-                    @Override
-                    public void onUnsubscribe() {
-                        swipeRefreshLayout.setRefreshing(false);
-                        boolean isEmpty = mAdapter.getItemCount() == 0;
-                        emptyView.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-                    }
-                });
-        addSubscription(subscription);
-    }
-
     // Update app
-
-    private void requestInstallUrl(final AppAdapter.ViewHolder holder, final App app, final int position) {
-        holder.buttonAction.setEnabled(false);
-        AppRepository.getInstance().appInstallInfo(app.getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<AppInstallInfo>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        holder.buttonAction.setEnabled(true);
-                    }
-
-                    @Override
-                    public void onNext(AppInstallInfo appInstallInfo) {
-                        downloadApp(app.getId(), appInstallInfo.getInstallUrl(), position);
-                    }
-                });
-    }
-
-    private void downloadApp(final String appId, final String installUrl, final int position) {
-        AsyncDownloadTask downloadTask = new AsyncDownloadTask()
-                .setUrl(installUrl)
-                .setFileDir(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS))
-                .setListener(new DownloadListener() {
-                    @Override
-                    public void onStart() {
-                        Log.d(TAG, "onStart: ");
-                    }
-
-                    @SuppressLint("DefaultLocale")
-                    @Override
-                    public void onProgress(int current, int total, float progress) {
-                        // Log.d(TAG, String.format("onProgress: [%d, %d, %.2f]", current, total, progress));
-                        updateItemView(appId, position);
-                    }
-
-                    @Override
-                    public void onFinish(Uri uri) {
-                        Log.d(TAG, "onFinish: ");
-                        IntentUtils.install(getActivity(), uri);
-                        mAdapter.removeTask(appId);
-                        mAdapter.notifyItemChanged(position);
-                    }
-
-                    @Override
-                    public void onFail() {
-                        Log.e(TAG, "onFail: ");
-                        mAdapter.removeTask(appId);
-                        mAdapter.notifyItemChanged(position);
-                    }
-                });
-        mAdapter.addTask(appId, downloadTask);
-        downloadTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
 
     private void updateItemView(final String appId, final int position) {
         // Only update view holder if it's visible on the screen
@@ -226,15 +174,13 @@ public class AppsFragment extends BaseFragment
         // Get the view holder by position
         View itemView = layoutManager.getChildAt(position - firstVisibleItem);
 
-        if (itemView == null) return;
+        if (itemView instanceof AppItemView) {
+            AppItemView appView = (AppItemView) itemView;
+            if (appView.appInfo == null) return;
+            if (appView.appInfo.app == null || !appId.equals(appView.appInfo.app.getId())) return;
 
-        AppAdapter.ViewHolder viewHolder
-                = (AppAdapter.ViewHolder) recyclerView.getChildViewHolder(itemView);
-
-        if (viewHolder == null || viewHolder.appInfo == null) return;
-        if (viewHolder.appInfo.app == null || !appId.equals(viewHolder.appInfo.app.getId())) return;
-
-        mAdapter.onButtonProgress(viewHolder);
+            mAdapter.onButtonProgress(appView);
+        }
     }
 
     // Broadcasts

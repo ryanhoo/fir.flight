@@ -1,6 +1,5 @@
 package io.github.ryanhoo.firFlight.account;
 
-import android.content.Context;
 import android.text.TextUtils;
 import io.github.ryanhoo.firFlight.FlightApplication;
 import io.github.ryanhoo.firFlight.RxBus;
@@ -27,9 +26,8 @@ import rx.functions.Func1;
  */
 public class UserSession {
 
-    private static UserSession sInstance;
-
-    private static Context sContext;
+    // Double-checked-locking https://en.wikipedia.org/wiki/Double-checked_locking#Usage_in_Java
+    private static volatile UserSession sInstance;
 
     private Token mToken;
     private User mUser;
@@ -38,7 +36,6 @@ public class UserSession {
     private UserRepository mUserRepository;
 
     private UserSession() {
-        sContext = FlightApplication.getInstance();
         mTokenRepository = TokenRepository.getInstance();
         mUserRepository = UserRepository.getInstance();
 
@@ -124,7 +121,7 @@ public class UserSession {
         // Broadcast sign out event
         RxBus.getInstance().post(new SignOutEvent());
         // Clear Database
-        DbUtils.clearDataBase(sContext);
+        DbUtils.clearDataBase(FlightApplication.getInstance());
 
         mToken = null;
         mUser = null;
@@ -139,7 +136,7 @@ public class UserSession {
     // Requests
 
     public Observable<User> user(boolean forceUpdate) {
-        return mUserRepository.user(forceUpdate && NetworkUtils.isNetworkAvailable(sContext))
+        return mUserRepository.user(forceUpdate && NetworkUtils.isNetworkAvailable(FlightApplication.getInstance()))
                 .doOnNext(new Action1<User>() {
                     @Override
                     public void call(User user) {
@@ -166,14 +163,14 @@ public class UserSession {
 
     // Session Store & Restore
 
-    /* package */ void storeSession() {
+    private void storeSession() {
         mTokenRepository.storeToken(mToken);
         // mUserRepository.storeUser(); // Already handled by UserRepository
 
         configAnalytics();
     }
 
-    /* package */ void restoreSession() {
+    private void restoreSession() {
         mToken = mTokenRepository.restoreToken();
         if (isSignedIn()) {
             mUser = mUserRepository.restoreUser();

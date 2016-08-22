@@ -19,6 +19,7 @@ import java.util.Map;
  * Time: 5:36 PM
  * Desc: AsyncDownloadTask
  */
+@Deprecated
 public class AsyncDownloadTask extends AsyncTask<Void, Integer, Uri> {
 
     private static final String TAG = "AsyncDownloadTask";

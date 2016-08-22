@@ -3,7 +3,6 @@ package io.github.ryanhoo.firFlight.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
-import io.github.ryanhoo.firFlight.network.ServerConfig;
 
 import java.util.Date;
 
@@ -78,14 +77,6 @@ public class App implements Parcelable {
 
     @SerializedName("master_release")
     private Release masterRelease;
-
-    // TODO No util methods in model layer
-    // Util Methods
-
-    @Deprecated
-    public String getAppUrl() {
-        return String.format("%s/%s", ServerConfig.FIR_HOST, shortUrl);
-    }
 
     // Getter & Setter
 
