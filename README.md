@@ -13,6 +13,18 @@
 
 <a href="https://play.google.com/store/apps/details?id=io.github.ryanhoo.firFlight&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" width="160" /> </a>
 
+## Architecture
+
+This project takes the MVP pattern from Google's [TODO-MVP](https://github.com/googlesamples/android-architecture/tree/todo-mvp/). But the implementation might be a little different from the original version.
+
+### Google's TODO-MVP
+
+<img src="materials/google-mvp.png" alt="TODO MVP" width="500" />
+
+### Project Implementation
+
+<img src="materials/mvp-architecture.png" alt="mvp architecture" width="500" />
+
 ## Design
 
 This project also provides an associated sketch design. It's available on Dropbox.
