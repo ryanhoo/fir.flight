@@ -13,6 +13,13 @@
 
 <a href="https://play.google.com/store/apps/details?id=io.github.ryanhoo.firFlight&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Get it on Google Play" width="160" /> </a>
 
+Also, fir.flight can be a wonderful project for beginners. It follows the software development procedure strictly. Here you will be able to learn
+
+- how software is being created from scratch.
+- how to use open APIs to build an app.
+- how to use popular techniques to boost app development(RxJava, Retrofit, MVP pattern, etc...).
+- there are more...
+
 ## Architecture
 
 This project takes the MVP pattern from Google's [TODO-MVP](https://github.com/googlesamples/android-architecture/tree/todo-mvp/). But the implementation might be a little different from the original version.
