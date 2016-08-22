@@ -51,6 +51,8 @@
 
     <string name="ff.profile.button.refresh">Refresh</string>
 
+    <string name="ff.profile.copy_token">Copied token to clipboard\n%s</string>
+
     <!-- About -->
     <string name="ff.about">About</string>
     <string name="ff.acknowledgements">Acknowledgements</string>

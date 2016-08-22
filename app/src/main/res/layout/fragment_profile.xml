@@ -97,6 +97,7 @@
             android:textColor="@color/ff.white"
             android:textSize="13sp"
             android:background="@drawable/bg_profile_api_token"
+            android:textIsSelectable="true"
             fontPath="@string/ff.font.roboto.monospace.regular"
             tools:text="ad1b8e4b9ft6103cd11ef9j3dfd1c4kb"
             tools:ignore="MissingPrefix"/>

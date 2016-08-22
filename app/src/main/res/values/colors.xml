@@ -18,7 +18,7 @@
     <!-- Theme Colors -->
     <color name="ff.theme.white.statusBar">#FFFFFF</color>
     <color name="ff.theme.white.colorPrimary">#FFFFFF</color>
-    <color name="ff.theme.white.colorPrimaryDark">#FFFFFF</color>
+    <color name="ff.theme.white.colorPrimaryDark">#C1C1C1</color>
     <color name="ff.theme.white.colorAccent">#212121</color>
     <color name="ff.theme.white.textColorPrimary">#212121</color>
     <color name="ff.theme.white.textColorSecondary">#7F7F7F</color>
