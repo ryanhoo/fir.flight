@@ -17,12 +17,6 @@
 
 This project takes the MVP pattern from Google's [TODO-MVP](https://github.com/googlesamples/android-architecture/tree/todo-mvp/). But the implementation might be a little different from the original version.
 
-### Google's TODO-MVP
-
-<img src="materials/google-mvp.png" alt="TODO MVP" width="500" />
-
-### Project Implementation
-
 <img src="materials/mvp-architecture.png" alt="mvp architecture" width="500" />
 
 ## Design
