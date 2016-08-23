@@ -40,6 +40,9 @@ import java.util.Date;
 */
 public class App implements Parcelable {
 
+    public static final String TYPE_ANDROID = "android";
+    public static final String TYPE_IOS = "ios";
+
     public App() {
         // Empty Constructor
     }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56"
+    >
+
+    <group
+        android:translateX="-304.000000"
+        android:translateY="-476.000000">
+        <group
+            android:translateY="144.000000">
+            <group
+                android:translateY="331.000000">
+                <path
+                    android:name="Rectangle"
+                    android:fillColor="#E5E5E5"
+                    android:pathData="M 304 1 L 360 1 L 360 57 Z"/>
+            </group>
+        </group>
+    </group>
+</vector>

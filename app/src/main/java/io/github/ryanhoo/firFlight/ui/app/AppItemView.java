@@ -38,6 +38,8 @@ public class AppItemView extends RelativeLayout implements IAdapterView<App> {
     TextView textViewBundleId;
     @Bind(R.id.button_action)
     Button buttonAction;
+    @Bind(R.id.layout_ios_badge)
+    View layoutIOSBadge;
 
     AppInfo appInfo;
 
@@ -73,5 +75,8 @@ public class AppItemView extends RelativeLayout implements IAdapterView<App> {
             textViewLocalVersion.setText(String.format("%s(%s)",
                     appInfo.localVersionName, appInfo.localVersionCode));
         }
+        boolean isAndroidApp = App.TYPE_ANDROID.equals(app.getType());
+        buttonAction.setVisibility(isAndroidApp ? View.VISIBLE : View.GONE);
+        layoutIOSBadge.setVisibility(isAndroidApp ? View.GONE : View.VISIBLE);
     }
 }
