@@ -95,6 +95,7 @@ public class AppsFragment extends BaseFragment
     @Override
     public void onAppsLoaded(List<App> apps) {
         mAdapter.setData(apps);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
