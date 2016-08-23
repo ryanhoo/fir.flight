@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/ff.padding.large"
+    android:paddingLeft="@dimen/ff.padding.large"
+    android:paddingStart="@dimen/ff.padding.large"
     android:background="?attr/selectableItemBackground"
-    >
+    tools:ignore="RtlSymmetry">
 
     <ImageView
         android:id="@+id/image_view_icon"
         android:layout_width="@dimen/ff.app.icon.size"
         android:layout_height="@dimen/ff.app.icon.size"
+        android:layout_marginTop="@dimen/ff.padding.large"
+        android:layout_marginBottom="@dimen/ff.padding.large"
         android:layout_marginRight="@dimen/ff.margin.normal"
         android:layout_marginEnd="@dimen/ff.margin.normal"
         tools:src="@mipmap/ic_launcher"
@@ -19,6 +22,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:layout_marginTop="@dimen/ff.padding.large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/image_view_icon"
@@ -70,15 +74,43 @@
             />
     </LinearLayout>
 
+    <FrameLayout
+        android:id="@+id/layout_ios_badge"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_app_item_badge"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_ios"
+            android:layout_margin="@dimen/ff.padding.normal"
+            />
+    </FrameLayout>
+
+
     <Button
         android:id="@+id/button_action"
         style="@style/FFButton"
         android:layout_width="60dp"
         android:layout_marginLeft="@dimen/ff.padding.small"
+        android:layout_marginRight="@dimen/ff.padding.large"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         tools:text="@string/ff.apps.install"
-        tools:ignore="RtlHardcoded"/>
+        tools:ignore="RtlHardcoded"
+        />
 
 </RelativeLayout>

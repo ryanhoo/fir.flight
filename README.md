@@ -16,13 +16,13 @@
 Also, fir.flight can be a wonderful project for beginners. It follows the software development procedure strictly. Here you will be able to learn
 
 - how software is being created from scratch.
-- how to use open APIs to build an app.
+- how to use open APIs to build your own app.
 - how to use popular techniques to boost app development(RxJava, Retrofit, MVP pattern, etc...).
-- there are more...
+- much more...
 
 ## Architecture
 
-This project takes the MVP pattern from Google's [TODO-MVP](https://github.com/googlesamples/android-architecture/tree/todo-mvp/). But the implementation might be a little different from the original version.
+This project takes the MVP pattern from Google's [TODO-MVP](https://github.com/googlesamples/android-architecture/tree/todo-mvp/). But the implementation might be a little bit different from the original version.
 
 <img src="materials/mvp-architecture.png" alt="mvp architecture" width="500" />
 
@@ -33,7 +33,7 @@ This project also provides an associated sketch design. It's available on Dropbo
 - [fir.flight.sketch](https://www.dropbox.com/s/8340stkzcxrvdss/fir.flight.sketch?dl=0)
 - The missing [Roboto Fonts](https://www.dropbox.com/sh/5xl7m7scwoalnwa/AAAkNXH-Jb062jj9ZfaTVIsTa?dl=0)
 
-<img src="materials/Artboard-Overview-v2.0.png" alt="Sketch Artboard Overview" width="300" />
+<img src="materials/Artboard-Overview-v2.0.png" alt="Sketch Artboard Overview" width="500" />
 
 ## To do list
 
