@@ -24,7 +24,6 @@ import java.util.concurrent.TimeUnit;
  * Time: 10:23 PM
  * Desc: AppPresenter
  */
-
 /* package */ class AppPresenter implements AppContract.Presenter {
 
     private static File DOWNLOAD_DIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
