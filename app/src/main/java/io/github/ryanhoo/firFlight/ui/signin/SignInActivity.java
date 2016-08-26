@@ -158,6 +158,8 @@ public class SignInActivity extends BaseActivity implements SignInContract.View 
     @Override
     public void onSignInCompleted() {
         menuItemSignIn.setEnabled(true);
+        editTextEmail.clearFocus();
+        editTextPassword.clearFocus();
         mProgressDialog.dismiss();
 
         startActivity(new Intent(SignInActivity.this, MainActivity.class));
