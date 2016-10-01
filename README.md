@@ -6,6 +6,7 @@
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ryanhoo/fir.flight#license)
 [![platform](https://img.shields.io/badge/platform-Android-yellow.svg)](https://www.android.com)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
+[![gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/fir-flight/Lobby)
 
 **fir.flight** is an android version [Test Flight](https://developer.apple.com/testflight/) by using the testing app distribution service provided by [fir.im](http://fir.im). With its help, you will be able to manage your apps' installation and updates more easily. Also **fir.flight** frees you from notifying your testers again and again.
 
