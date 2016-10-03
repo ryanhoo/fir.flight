@@ -39,7 +39,8 @@
             android:textSize="20sp"
             android:textColor="?attr/colorAccent"
             android:text="@string/ff.app.name"
-            fontPath="@string/ff.font.roboto.medium"
+            android:textStyle="bold"
+            fontPath="@string/ff.font.roboto.monospace.regular"
             tools:ignore="MissingPrefix"/>
 
         <TextView
