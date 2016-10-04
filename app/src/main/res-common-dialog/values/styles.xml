@@ -6,10 +6,12 @@
     </style>
 
     <style name="Common.Dialog">
+        <item name="android:windowFrame">@null</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowBackground">@null</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
